@@ -1,8 +1,93 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "BikeOrbit";
 }
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/Home/CategoriesSection.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/HeroSection.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/HeroVideo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/VideoSection.css" asp-append-version="true" />
+}
+@section PageScripts {
+    <script src="~/js/Home.js" asp-append-version="true"></script>
+}
+<div class="home-page">
+    <div class="hero">
+        <div class="hero-video-container">
+            <div class="hero-video">
+                <div style="width: 100%; height: 100%;">
+                    <video disablePictureInPicture src="~/videos/home_page_video.mp4" preload="auto" muted autoplay="" loop="" style="width: 100%; height: 100%;"></video>
+                </div>
+            </div>
+            <div class="hero-text">
+                <h1>Ride Beyond Limits</h1>
+                <h2>Where the Journey Begins with the Perfect Ride</h2>
+            </div>
+            <button class="shop-now-btn">Explore</button>
+        </div>
+        <div class="hero-heading-container">
+            <h1 class="hero-title">The Best Choice</h1>
+            <h2 class="hero-subtitle">Explore the Trending Bike Collection that Redefines Adventure</h2>
+        </div>
+        <div class="video-container">
+            <div class="video-card">
+                <div style="width: 100%; height: 119.9%;">
+                    <video disablePictureInPicture src="~/videos/home_page_video_card_1.mp4" preload="auto" muted autoplay="" loop="" style="width: 100%; height: 100%;">
+                    </video>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+                </div>
+                <h3>Bike One Name</h3>
+                <span class="notch"></span>
+            </div>
+            <div class="video-card">
+                <div style="width: 100%; height: 119.9%;">
+                    <video disablePictureInPicture src="~/videos/home_page_video_card_2.mp4" preload="auto" muted autoplay="" loop="" style="width: 100%; height: 100%;">
+                    </video>
+
+                </div>
+                <h3>Bike Two Name</h3>
+                <span class="notch"></span>
+            </div>
+            <div class="video-card">
+                <div style="width: 100%; height: 119.9%;">
+                    <video disablePictureInPicture src="~/videos/home_page_video_card_3.mp4" preload="auto" muted autoplay="" loop="" style="width: 100%; height: 100%;">
+                    </video>
+
+                </div>
+                <h3>Bike Three Name</h3>
+                <span class="notch"></span>
+            </div>
+            <div class="video-card">
+                <div style="width: 100%; height: 119.9%;">
+                    <video disablePictureInPicture src="~/videos/home_page_video_card_4.mp4" preload="auto" muted autoplay="" loop="" style="width: 100%; height: 100%;">
+                    </video>
+
+                </div>
+                <h3>Bike Four Name</h3>
+                <span class="notch"></span>
+            </div>
+        </div>
+        <div>
+            <h1 class="categories-heading">What is Your Type?</h1>
+            <div class="categories-container">
+                <a class="category-card">
+                    <h3>BMX</h3>
+                    <div class="img-cont">
+                        <img src="/images/home/category_bmx.jpg" alt="category">
+                    </div>
+                </a>
+                <a class="category-card">
+                    <h3>Mountain</h3>
+                    <div class="img-cont">
+                        <img src="/images/home/category_mountain.jpg" alt="category">
+                    </div>
+                </a>
+                <a class="category-card">
+                    <h3>Road</h3>
+                    <div class="img-cont">
+                        <img src="/images/home/category_road.jpg" alt="category">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,15 @@
+.page-container {
+    min-height: 1000px;
+}
+
+
+@media (min-width: 768px) {
+    .page-container {
+      display: flex;
+    }
+  
+    .products-container {
+      flex-grow: 1;
+    }
+  }
+  
