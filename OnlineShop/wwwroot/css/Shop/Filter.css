@@ -10,7 +10,7 @@
   
   /* -------add-product-button---------- */
 
-  .add-product-btn {
+  .add-product {
     display: inline;
     color: white;
     background-color: var(--primary-color);
@@ -21,14 +21,14 @@
     padding: .8rem 2.3rem .8rem 2.3rem;
     font-weight: 600;
   }
-  .add-product-btn:hover {
+  .add-product:hover {
     color: white;
     background-color: black;
     border: 1px solid black;
     cursor: pointer;
   }
 
-  .add-product-btn-container {
+  .add-product-container {
     margin: 0 auto;
     display: flex;
     width: 162px;

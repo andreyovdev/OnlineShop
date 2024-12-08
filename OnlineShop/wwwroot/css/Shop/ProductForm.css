@@ -1,0 +1,112 @@
+.product-form-container {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  margin-top: 100px;
+}
+
+.product-form-container .product-input-container {
+  inset: 0;
+  background-color: rgb(255, 255, 255);
+  margin: auto;
+  width: 290px;
+  height: 580px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 23px 0px rgb(222, 222, 222);
+
+  position: relative;         
+  height: auto;              
+  box-sizing: border-box;    
+  overflow: hidden;           
+  transition: all 0.3s ease;
+}
+
+.product-input-container h1 {
+  margin-top: 25px;
+  color: rgb(33, 33, 33);
+  margin-bottom: 25px;
+}
+
+.product-form-container .product-input-container input,
+.product-form-container .product-input-container button{
+    padding: 8px 16px;
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.product-form-container .product-input-container textarea {
+  padding: 8px 16px;
+  display: block;
+  width: 90%;
+  margin: 12px auto;
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+}
+
+.product-form-container .submit {
+
+    font-size: 16px;
+    color: white;
+    background-color: var(--primary-color);
+    font-weight: 600;
+    display: inline;
+}
+
+.product-form-container .submit:hover {
+  cursor: pointer;
+  background-color: black;
+}
+.product-form-container .btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  padding-bottom: 24px;
+}
+
+    .product-form-container .btn-container a {
+        border: none;
+        padding: 8px 16px;
+        background-color: var(--secondary-background-color);
+        border-radius: 5px;
+    }
+
+.product-form-container .btn-container a:hover {
+  cursor: pointer;
+  background-color: var(--secondary-background-color-onhover);
+}
+
+.product-form-container .btn-container a:last-child {
+  flex-grow: 1;
+  margin-left: 0;
+  font-size:14px;
+  line-height:15px;
+}
+
+.category-item {
+    display: inline-flex;
+    margin-left: 10px;
+    user-select: none;
+}
+
+.category-item label {
+  margin-top: 7px;
+  margin-left: 3px;
+}
+
+.warning {
+  color: rgb(221, 63, 63);
+}
+
+@media (min-width: 768px) {
+  .product-form-container .product-input-container{
+    width: 390px;
+  }
+
+}

@@ -1,22 +1,20 @@
-﻿namespace OnlineShop.Domain.Entities
+﻿
+namespace OnlineShop.Application.ViewModels.Shop
 {
     using System.ComponentModel.DataAnnotations;
     
-    using Enums;
-    using Validation;
-    using static Validation.EntityValidationConstants.Product;
+    using Domain.Enums;
 
-    public class Product
+    using static Domain.Validation.EntityValidationConstants.Product;
+
+    public class AddNewProductViewModel
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; } = null!;
 
         [Required]
-        [ValidCategory]
+        [StringLength(CategoryMaxLength, MinimumLength = CategoryMinLength)]
         public Category Category { get; set; }
 
         [Required]
@@ -29,7 +27,5 @@
 
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿namespace OnlineShop.Infrastructure.Data.Repository
+﻿namespace OnlineShop.Infrastructure.Data.Repository.Interfaces
 {
     using System.Linq.Expressions;
-    
+
     public interface IRepository<TType> where TType : class
     {
         IEnumerable<TType> GetAll();

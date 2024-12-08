@@ -1,11 +1,13 @@
 ﻿namespace OnlineShop.Infrastructure.Data.Repository
 {
     using System.Linq.Expressions;
-    
+
     using Microsoft.EntityFrameworkCore;
-    
-    public class BaseRepository<TType> : IRepository<TType> where TType : class, 
-        IDisposable
+
+    using OnlineShop.Infrastructure.Data.Repository.Interfaces;
+
+    public class BaseRepository<TType> : IRepository<TType> 
+        where TType : class
     {
         private readonly ApplicationDbContext dbContext;
         private readonly DbSet<TType> dbSet;
@@ -83,26 +85,6 @@
             Expression<Func<TType, bool>> predicate)
         {
             return await this.dbSet.FirstOrDefaultAsync(predicate);
-        }
-
-        private bool _disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    dbContext.Dispose();
-                }
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

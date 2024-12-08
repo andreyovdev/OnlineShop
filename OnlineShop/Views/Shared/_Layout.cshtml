@@ -1,14 +1,20 @@
-﻿
+﻿@{
+	var hideLayoutParts = ViewData["HideLayoutParts"] as bool? ?? false;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"]</title>
 	
 	<link rel="stylesheet" href="~/css/App.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/Header.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/Footer.css" asp-append-version="true" />
+
+	@if (!hideLayoutParts)
+	{
+		<link rel="stylesheet" href="~/css/Header.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/css/Footer.css" asp-append-version="true" />
+	}
 
 	@await RenderSectionAsync("PageStyles", required: false)
 </head>
@@ -16,11 +22,20 @@
 	<div id="root">
 		<div class="App">
 
-			@await Html.PartialAsync("_HeaderPartial.cshtml")
-			@RenderBody()
-			@await Html.PartialAsync("_FooterPartial.cshtml")
+			@if (!hideLayoutParts)
+			{
+				@await Html.PartialAsync("_HeaderPartial.cshtml");
 
-			<script src="~/js/Header.js" asp-append-version="true"></script>
+				<script src="~/js/Header.js" asp-append-version="true"></script>
+			}
+
+			@RenderBody()
+
+			@if (!hideLayoutParts)
+			{
+				@await Html.PartialAsync("_FooterPartial.cshtml");
+			}
+
 			@await RenderSectionAsync("PageScripts", required: false)
 		</div>
 	</div>

@@ -1,4 +1,6 @@
-﻿@section PageStyles {
+﻿
+
+@section PageStyles {
 	<link rel="stylesheet" href="~/css/Shop/Filter.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListing.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListingSection.css" asp-append-version="true" />
@@ -10,8 +12,8 @@
 <div class="page-container">
     <div>
         <div class="filter-container filter-container-mobile-closed">
-            <div class="add-product-btn-container">
-                <button asp-controller="Shop" asp-action="AddProduct" class="add-product-btn">Add Product</button>
+            <div class="add-product-container">
+                <a asp-action="AddNewProduct" type="submit" class="add-product">Add Product</a>
             </div>
             <div class="filter-header filter-header-mobile-closed">
                 <span class="close-tab">

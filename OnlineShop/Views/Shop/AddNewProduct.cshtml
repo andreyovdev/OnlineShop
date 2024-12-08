@@ -1,0 +1,53 @@
+﻿@using OnlineShop.Application.ViewModels.Shop
+@model AddNewProductViewModel
+
+@section PageStyles{
+    <link rel="stylesheet" href="~/css/Shop/ProductForm.css" asp-append-version="true" />
+}
+
+@section PageScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<div class="product-form-container">
+    <div class="product-input-container">
+        <h1>Add New Product</h1>
+        <form asp-action="Create" method="post" class="input-containter">
+
+            <div class="category-container">
+                <div class="category-item">
+                    <input asp-for="Category" id="bmx" type="radio" name="Category" value="BMX">
+                    <label asp-for="Category" for="bmx">BMX</label>
+                </div>
+
+                <div class="category-item">
+                    <input asp-for="Category" id="mountain" type="radio" name="Category" value="Mountain">
+                    <label asp-for="Category" for="mountain">Mountain</label>
+                </div>
+
+                <div class="category-item">
+                    <input asp-for="Category" id="road" type="radio" name="Category" value="Road">
+                    <label asp-for="Category" for="road">Road</label>
+                </div>
+            </div>
+
+            <span asp-validation-for="Name" class="warning"></span>
+            <input asp-for="Name" placeholder="Enter Name" spellcheck="false">
+
+            <span asp-validation-for="Quantity" class="warning"></span>
+            <input asp-for="Quantity" placeholder="Enter Quantity" spellcheck="false">
+
+            <span asp-validation-for="ImgUrl" class="warning"></span>
+            <input asp-for="ImgUrl" placeholder="Enter Image URL" spellcheck="false">
+
+            <span asp-validation-for="Description" class="warning"></span>
+            <textarea asp-for="Description" rows="4" placeholder="Enter Product Description" spellcheck="false"></textarea>
+
+            <button class="submit" type="submit">Add</button>
+        </form>
+        <div class="btn-container">
+            <a asp-action="Index">Cancel</a>
+        </div>
+    </div>
+</div>
+
