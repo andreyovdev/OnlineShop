@@ -33,4 +33,8 @@
     <ProjectReference Include="..\OnlineShop.Domain\OnlineShop.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Validation\" />
+  </ItemGroup>
+
 </Project>

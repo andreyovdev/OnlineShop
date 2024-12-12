@@ -12,8 +12,9 @@
 <div class="product-form-container">
     <div class="product-input-container">
         <h1>Add New Product</h1>
-        <form asp-action="Create" method="post" class="input-containter">
+        <form asp-action="AddNewProduct" method="post" class="input-containter">
 
+            <span asp-validation-for="Category" class="warning"></span>
             <div class="category-container">
                 <div class="category-item">
                     <input asp-for="Category" id="bmx" type="radio" name="Category" value="BMX">
@@ -35,7 +36,7 @@
             <input asp-for="Name" placeholder="Enter Name" spellcheck="false">
 
             <span asp-validation-for="Quantity" class="warning"></span>
-            <input asp-for="Quantity" placeholder="Enter Quantity" spellcheck="false">
+            <input asp-for="Quantity" onkeydown="return event.keyCode !== 69" placeholder="Enter Quantity" spellcheck="false">
 
             <span asp-validation-for="ImgUrl" class="warning"></span>
             <input asp-for="ImgUrl" placeholder="Enter Image URL" spellcheck="false">

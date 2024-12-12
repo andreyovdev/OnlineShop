@@ -1,12 +1,11 @@
-﻿
-namespace OnlineShop.Infrastructure.Data
+﻿namespace OnlineShop.Infrastructure.Data
 {
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     using Domain.Entities;
-    
-    public class ApplicationDbContext : IdentityDbContext
+    using Configuration;
+
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -14,5 +13,12 @@ namespace OnlineShop.Infrastructure.Data
         }
 
         public DbSet<Product> Products { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
+        }
     }
 }

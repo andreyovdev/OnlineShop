@@ -32,12 +32,19 @@
         [HttpPost]
         public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
+            ViewData["HideLayoutParts"] = true;
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            await this.productService.AddNewProductAsync(model);
+            bool result = await this.productService.AddNewProductAsync(model);
+
+            if (result == false)
+            {
+                return this.View(model);
+            }
 
             return this.RedirectToAction(nameof(Index));
         }

@@ -1,10 +1,15 @@
+using System.Reflection;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+using OnlineShop.Application.Mapping;
 using OnlineShop.Application.Services;
+using OnlineShop.Application.ViewModels.Shop;
 using OnlineShop.Domain.Entities;
 using OnlineShop.Infrastructure.Data;
 using OnlineShop.Infrastructure.Extensions;
-using System.Reflection;
+using OnlineShop.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +27,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.RegisterRepositories(Assembly.GetAssembly(typeof(Product)));
 builder.Services.RegisterUserDefinedServices(Assembly.GetAssembly(typeof(ProductService)));
 
+
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(AddNewProductViewModel).Assembly);
 
 if (app.Environment.IsDevelopment())
 {

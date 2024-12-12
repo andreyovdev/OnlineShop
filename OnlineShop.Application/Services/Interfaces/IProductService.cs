@@ -5,6 +5,6 @@ namespace OnlineShop.Application.Services.Interfaces
 
     public interface IProductService
     {
-        Task AddNewProductAsync(AddNewProductViewModel model);
+        Task<bool> AddNewProductAsync(AddNewProductViewModel model);
     }
 }

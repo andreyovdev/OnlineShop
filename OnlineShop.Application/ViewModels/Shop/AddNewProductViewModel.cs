@@ -1,31 +1,40 @@
-﻿
-namespace OnlineShop.Application.ViewModels.Shop
+﻿namespace OnlineShop.Application.ViewModels.Shop
 {
     using System.ComponentModel.DataAnnotations;
-    
-    using Domain.Enums;
 
-    using static Domain.Validation.EntityValidationConstants.Product;
+    using AutoMapper;
 
-    public class AddNewProductViewModel
+    using Domain.Entities;
+    using Mapping;
+
+    using static Validation.ViewModelValidationMessages;
+    using static Domain.Common.EntityValidationConstants.Product;
+
+    public class AddNewProductViewModel :IMapTo<Product>, IHaveCustomMappings
     {
-        [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
+        [Required(ErrorMessage = RequiredMessage)]
+        [Length(1, NameMaxLength, ErrorMessage = InvalidStringLengthMessage)]
         public string Name { get; set; } = null!;
 
-        [Required]
-        [StringLength(CategoryMaxLength, MinimumLength = CategoryMinLength)]
-        public Category Category { get; set; }
+        [Required(ErrorMessage = RequiredMessage)]
+        public string Category { get; set; } = null!;
 
-        [Required]
-        [Url]
+        [Required(ErrorMessage = RequiredMessage)]
+        [RegularExpression(ValidUrlPattern, ErrorMessage = InvalidUrlMessage)]
         public string ImgUrl { get; set; } = null!;
 
-        [Required]
-        [StringLength(DescriptionMaxLength)]
+        [Required(ErrorMessage = RequiredMessage)]
+        [Length(0, DescriptionMaxLength, ErrorMessage = InvalidStringLengthMessage)]
         public string Description { get; set; } = null!;
 
-        [Range(0, int.MaxValue)]
+        [Required(ErrorMessage = RequiredMessage)]
+        [Range(0, int.MaxValue, ErrorMessage = InvalidNumberMessage)]
         public int Quantity { get; set; }
+
+        public void CreateMappings(IProfileExpression profile)
+        {
+            profile.CreateMap<AddNewProductViewModel, Product>()
+           .ForMember(d => d.Category, x => x.Ignore());
+        }
     }
 }
