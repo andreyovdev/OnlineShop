@@ -24,6 +24,10 @@
         public string ImgUrl { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
+        [Range(0, int.MaxValue, ErrorMessage = InvalidNumberMessage)]
+        public decimal Price { get; set; }
+
+        [Required(ErrorMessage = RequiredMessage)]
         [Length(0, DescriptionMaxLength, ErrorMessage = InvalidStringLengthMessage)]
         public string Description { get; set; } = null!;
 

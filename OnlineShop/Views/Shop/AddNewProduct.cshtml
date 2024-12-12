@@ -35,6 +35,9 @@
             <span asp-validation-for="Name" class="warning"></span>
             <input asp-for="Name" placeholder="Enter Name" spellcheck="false">
 
+            <span asp-validation-for="Price" class="warning"></span>
+            <input asp-for="Price" onkeydown="return event.keyCode !== 69" placeholder="Enter Price" spellcheck="false">
+
             <span asp-validation-for="Quantity" class="warning"></span>
             <input asp-for="Quantity" onkeydown="return event.keyCode !== 69" placeholder="Enter Quantity" spellcheck="false">
 

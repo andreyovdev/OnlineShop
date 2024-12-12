@@ -29,6 +29,10 @@
                 .IsRequired()
                 .HasComment("URL of the product image");
 
+            builder.Property(p => p.Price)
+                .HasDefaultValue(0)
+                .HasComment("Price of the product");
+
             builder.Property(p => p.Description)
                 .IsRequired()
                 .HasMaxLength(DescriptionMaxLength)
