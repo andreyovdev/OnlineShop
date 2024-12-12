@@ -5,6 +5,7 @@ namespace OnlineShop.Application.Services.Interfaces
 
     public interface IProductService
     {
+        Task<IEnumerable<AllProductsViewModel>> GetAllProductsAsync();
         Task<bool> AddNewProductAsync(AddNewProductViewModel model);
     }
 }

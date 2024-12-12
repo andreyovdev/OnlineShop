@@ -14,10 +14,13 @@
             this.productService = productService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
+            IEnumerable<AllProductsViewModel> allProduct =
+             await this.productService.GetAllProductsAsync();
 
-			return View();
+            return View(allProduct);
         }
 
         //authorize as admin
@@ -43,10 +46,10 @@
 
             if (result == false)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
