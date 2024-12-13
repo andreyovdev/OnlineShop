@@ -7,6 +7,8 @@
 
     public class AllProductsViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
+        public string Id { get; set; } = null!;
+
         public string Name { get; set; } = null!;
 
         public decimal Price { get; set; } 
@@ -14,8 +16,6 @@
         public string Category { get; set; } = null!;
 
         public string ImgUrl { get; set; } = null!;
-
-        public bool InStock { get; set; } = false;
 
         public void CreateMappings(IProfileExpression profile)
         {

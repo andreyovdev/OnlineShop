@@ -30,13 +30,13 @@ nav {
   color: white;
 }
 
-a:active {
+nav a:active {
   outline: none;
   border: none;
 }
-a:focus {
-  outline: none;
-  border: none;
+nav a:focus {
+    outline: none;
+    border: none;
 }
 .hamburger-icon {
   align-self: center;

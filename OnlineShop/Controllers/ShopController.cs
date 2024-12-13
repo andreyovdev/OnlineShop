@@ -32,6 +32,7 @@
 			return View();
         }
 
+        //authorize as admin
         [HttpPost]
         public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
@@ -42,14 +43,63 @@
                 return View(model);
             }
 
-            bool result = await this.productService.AddNewProductAsync(model);
+            await this.productService.AddNewProductAsync(model);
 
-            if (result == false)
+            return RedirectToAction(nameof(Index));
+        }
+
+        //authorize as admin
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(string id)
+        {
+            ViewData["HideLayoutParts"] = true;
+
+            Guid productGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref productGuid);
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            EditProductViewModel formModel = await productService
+                .GetEditProductByIdAsync(productGuid);
+
+            return View(formModel);
+        }
+
+        //authorize as admin
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(EditProductViewModel model)
+        {
+            ViewData["HideLayoutParts"] = true;
+
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            await productService.EditProductAsync(model);
+
             return RedirectToAction(nameof(Index));
+        }
+
+        //move
+        private bool IsGuidValid(string? id, ref Guid productId)
+        {
+            //Invalid parameter in URL
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return false;
+            }
+
+            //Invalid id in url
+            bool isGuidValid = Guid.TryParse(id, out productId);
+            if (!isGuidValid)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

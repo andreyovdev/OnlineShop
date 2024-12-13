@@ -118,7 +118,7 @@
                 </div>
                 <div class="product-card-buttons">
                     <button class="cart-btn">Add To Cart</button>
-                    <button class="edit-btn">Edit</button>
+                    <a asp-action="EditProduct" asp-route-id="@product.Id" class="edit-btn">Edit</a>
                 </div>
             </div>
         }

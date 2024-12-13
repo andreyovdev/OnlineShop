@@ -65,17 +65,18 @@
 }
 .product-form-container .btn-container {
   display: flex;
+  flex-direction:column;
   justify-content: space-between;
   padding: 0 20px;
-  padding-bottom: 24px;
 }
 
-    .product-form-container .btn-container a {
-        border: none;
-        padding: 8px 16px;
-        background-color: var(--secondary-background-color);
-        border-radius: 5px;
-    }
+.product-form-container .btn-container a {
+    border: none;
+    padding: 8px 16px;
+    background-color: var(--secondary-background-color);
+    border-radius: 5px;
+    margin-bottom: 16px;
+}
 
 .product-form-container .btn-container a:hover {
   cursor: pointer;
@@ -87,6 +88,16 @@
   margin-left: 0;
   font-size:14px;
   line-height:15px;
+}
+
+.product-form-container .btn-container .delete-btn {
+    background-color: rgb(139, 0, 0);
+    font-weight: 600;
+    color: white;
+}
+
+.product-form-container .btn-container .delete-btn:hover {
+    background-color: rgb(110, 0, 0);
 }
 
 .category-item {

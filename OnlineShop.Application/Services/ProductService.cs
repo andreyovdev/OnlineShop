@@ -20,6 +20,11 @@
 			this.productRepository = productRepository;
 		}
 
+        private static TEnum ConvertToEnum<TEnum>(string value) where TEnum : struct
+        {
+            return Enum.TryParse(value, true, out TEnum result) ? result : default;
+        }
+
         public async Task<IEnumerable<AllProductsViewModel>> GetAllProductsAsync()
         {
             return await this.productRepository
@@ -28,21 +33,34 @@
                .ToArrayAsync();
         }
 
-        public async Task<bool> AddNewProductAsync(AddNewProductViewModel model)
+        public async Task AddNewProductAsync(AddNewProductViewModel model)
         {
             Product product = new Product();
             AutoMapperConfig.MapperInstance.Map(model, product);
+
             product.Category = ConvertToEnum<Category>(model.Category);
             
-            this.productRepository.Add(product);
-            await this.productRepository.SaveAsync();
-
-            return true;
+            productRepository.Add(product);
+            await productRepository.SaveAsync();
         }
 
-        private static TEnum ConvertToEnum<TEnum>(string value) where TEnum : struct
+        public async Task<EditProductViewModel> GetEditProductByIdAsync(Guid productId)
         {
-            return Enum.TryParse(value, true, out TEnum result) ? result : default;
+            EditProductViewModel? model = await productRepository
+               .GetAllAttached()
+               .To<EditProductViewModel>()
+               .FirstOrDefaultAsync(p => p.Id.ToLower() == productId.ToString().ToLower());
+
+            return model;
+        }
+
+        public async Task EditProductAsync(EditProductViewModel model)
+        {
+            Product product = new Product();
+            AutoMapperConfig.MapperInstance.Map(model, product);
+
+            productRepository.Update(product);
+            await productRepository.SaveAsync();
         }
     }
 }

@@ -57,4 +57,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+app.ApplyMigrations(); //Custom extension method to update db on application start
+
 app.Run();
