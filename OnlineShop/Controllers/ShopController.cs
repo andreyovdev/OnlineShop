@@ -83,6 +83,38 @@
             return RedirectToAction(nameof(Index));
         }
 
+        //authorize as admin
+        [HttpGet]
+        public async Task<IActionResult> RemoveProduct(string id)
+        {
+            ViewData["HideLayoutParts"] = true;
+
+            Guid productGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref productGuid);
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            RemoveProductViewModel formModel = await productService
+                .GetRemoveProductByIdAsync(productGuid);
+
+            return View(formModel);
+        }
+        
+        //authorize as admin
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
+        {
+            Guid productGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref productGuid);
+
+            await productService.RemoveProductAsync(productGuid);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         //move
         private bool IsGuidValid(string? id, ref Guid productId)
         {

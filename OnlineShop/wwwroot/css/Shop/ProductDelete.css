@@ -1,0 +1,78 @@
+.product-form-container {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  margin-top: 100px;
+}
+
+.product-form-container .product-inner-container {
+  inset: 0;
+  background-color: rgb(255, 255, 255);
+  margin: auto;
+  width: 290px;
+  height: 580px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 23px 0px rgb(222, 222, 222);
+  padding-top: 26px;
+  padding-bottom: 12px;
+  position: relative;         
+  height: auto;              
+  box-sizing: border-box;    
+  overflow: hidden;           
+  transition: all 0.3s ease;
+}
+
+.product-form-container .product-inner-container input,
+.product-form-container .product-inner-container a{
+    padding: 8px 16px;
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 5px;
+    font-size: 16px;
+}
+.product-form-container .product-inner-container .buttons {
+  padding-top: 14px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.product-form-container .submit {
+
+    font-size: 16px;
+    color: white;
+    background-color: rgb(139, 0, 0);
+    font-weight: 600;
+    display: inline;
+}
+.product-form-container .btn {
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-form-container .btn:hover {
+  background-color: black;
+  color: white;
+}
+
+.product-form-container .submit:hover {
+  cursor: pointer;
+  background-color: black;
+}
+
+.product-form-container .message {
+  font-weight: 600;
+}
+
+.product-form-container .message span {
+  color: rgb(221, 63, 63);
+}
+
+@media (min-width: 768px) {
+  .product-form-container .product-inner-container{
+    width: 590px;
+  }
+
+}

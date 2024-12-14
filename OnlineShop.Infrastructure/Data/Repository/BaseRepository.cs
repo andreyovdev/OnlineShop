@@ -33,17 +33,17 @@
             return this.dbSet.ToListAsync();
         }
 
-        public TType GetById(int id)
+        public TType GetById(Guid id)
         {
             return this.dbSet.Find(id);
         }
 
-        public async Task<TType> GetByIdAsync(int id)
+        public async Task<TType> GetByIdAsync(Guid id)
         {
             return await this.dbSet.FindAsync(id);
         }
 
-        public bool Remove(int id)
+        public bool Remove(Guid id)
         {
             var product = this.dbSet.Find(id);
             if (product is { })

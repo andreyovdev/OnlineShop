@@ -62,5 +62,27 @@
             productRepository.Update(product);
             await productRepository.SaveAsync();
         }
+
+        public async Task<RemoveProductViewModel> GetRemoveProductByIdAsync(Guid productId)
+        {
+            RemoveProductViewModel? model = await productRepository
+              .GetAllAttached()
+              .To<RemoveProductViewModel>()
+              .FirstOrDefaultAsync(p => p.Id.ToLower() == productId.ToString().ToLower());
+
+            return model;
+        }
+
+        public async Task RemoveProductAsync(Guid productId)
+        {
+            Product product = await productRepository.GetByIdAsync(productId);
+
+            product.IsDeleted = true;
+
+            productRepository.Update(product);
+            await productRepository.SaveAsync();
+        }
+
+       
     }
 }

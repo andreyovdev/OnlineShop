@@ -47,10 +47,10 @@
             <span asp-validation-for="Description" class="warning"></span>
             <textarea asp-for="Description" rows="4" placeholder="Enter Product Description" spellcheck="false"></textarea>
 
-            <button class="submit" type="submit">Edit</button>
+            <button class="submit" type="submit">Save</button>
         </form>
         <div class="btn-container">
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="delete-btn">Delete</a>
+            <a asp-action="RemoveProduct" asp-route-id="@Model.Id" class="delete-btn">Remove</a>
             <a asp-action="Index">Cancel</a>
         </div>
     </div>

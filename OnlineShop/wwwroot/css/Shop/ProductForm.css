@@ -1,5 +1,5 @@
 .product-form-container {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 6;
   margin-top: 100px;
@@ -70,17 +70,18 @@
   padding: 0 20px;
 }
 
-.product-form-container .btn-container a {
-    border: none;
-    padding: 8px 16px;
-    background-color: var(--secondary-background-color);
-    border-radius: 5px;
-    margin-bottom: 16px;
-}
+    .product-form-container .btn-container a {
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        margin-bottom: 16px;
+        border: 1px solid rgb(226, 226, 226);
+    }
 
 .product-form-container .btn-container a:hover {
   cursor: pointer;
-  background-color: var(--secondary-background-color-onhover);
+  background-color: black;
+  color:white;
 }
 
 .product-form-container .btn-container a:last-child {
@@ -97,7 +98,7 @@
 }
 
 .product-form-container .btn-container .delete-btn:hover {
-    background-color: rgb(110, 0, 0);
+    background-color: black;
 }
 
 .category-item {

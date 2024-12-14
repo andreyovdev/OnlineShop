@@ -7,9 +7,9 @@
         IEnumerable<TType> GetAll();
         IQueryable<TType> GetAllAttached();
         Task<List<TType>> GetAllAsync();
-        TType GetById(int id);
-        Task<TType> GetByIdAsync(int id);
-        bool Remove(int id);
+        TType GetById(Guid id);
+        Task<TType> GetByIdAsync(Guid id);
+        bool Remove(Guid id);
         void Add(in TType sender);
         void Update(in TType sender);
         int Save();

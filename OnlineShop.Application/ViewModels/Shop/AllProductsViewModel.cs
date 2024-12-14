@@ -11,11 +11,15 @@
 
         public string Name { get; set; } = null!;
 
-        public decimal Price { get; set; } 
+        public decimal Price { get; set; }
+
+        public int Quantity { get; set; }
 
         public string Category { get; set; } = null!;
 
         public string ImgUrl { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
 
         public void CreateMappings(IProfileExpression profile)
         {

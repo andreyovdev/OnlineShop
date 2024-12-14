@@ -65,18 +65,19 @@
     border-radius: 5rem;
     padding: 0.4rem 1.3rem 0.4rem 1.3rem;
   }
-  
-  .reset-btn:hover {
+
+.reset-btn:hover {
     color: white;
-    background-color: rgb(42, 42, 42);
-    border: 1px solid rgb(42, 42, 42);
+    background-color: black;
+    border: 1px solid black;
     cursor: pointer;
-  }
+}
   
   .reset-btn-hide {
     display: none;
   }
-  
+
+
   .filter-header-mobile-closed {
     display: flex;
     align-items: center;
@@ -288,7 +289,7 @@
     }
     .reset-btn-hide:hover {
       color: white;
-      background-color: rgb(42, 42, 42);
+      background-color: black;
       border: 1px solid black;
       cursor: pointer;
     }

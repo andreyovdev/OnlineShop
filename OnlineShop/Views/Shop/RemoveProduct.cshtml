@@ -1,0 +1,22 @@
+﻿@using OnlineShop.Application.ViewModels.Shop
+@model RemoveProductViewModel
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/Shop/ProductDelete.css" asp-append-version="true" />
+}
+
+@section PageScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<div class="product-form-container">
+    <div class="product-inner-container">
+        <form asp-action="RemoveProduct" method="post"  class="inner-containter">
+            <span class="message">Are you sure you want to remove <span>@Model.Name</span> from products?</span>
+            <div class="buttons">
+                <input class="submit" type="submit" value="Remove">
+                <a asp-action="EditProduct" asp-route-id="@Model.Id" class="btn">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
