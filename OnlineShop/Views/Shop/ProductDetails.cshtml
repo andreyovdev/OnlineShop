@@ -1,0 +1,40 @@
+﻿@using OnlineShop.Application.ViewModels.Shop
+@model ProductDetailsViewModel
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/css/ProductDetails/ProductDescription.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ProductDetails/ProductDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ProductDetails/ProductImage.css" asp-append-version="true" />
+}
+
+<div class="products-page-container">
+    <div class="product-details-image">
+        <img src="@Model.ImgUrl">
+    </div>
+    <div class="product-details-description">
+        <h1 class="product-name">@Model.Name</h1>
+        <div class="product-price-container">
+            <span class="price">$@Model.Price</span>
+        </div>
+        <p class="size-container">
+            <span>Category:</span>
+            @Model.Category
+        </p>
+        <p class="description-container">
+            <span>Description:</span>
+            @Model.Description
+        </p>
+        <div class="tags">
+            @if (Model.Quantity == 0)
+            {
+                <span class="out-of-stock">Out of stock</span>
+            }
+        </div>
+        <div class="product-card-buttons-container">
+            <button class="add-to-cart-btn">Add to cart</button>
+            <a asp-action="EditProduct" asp-route-id="@Model.Id" class="action-btn">Edit</a>
+            <a asp-action="Index" class="action-btn">Back</a>
+        </div>
+    </div>
+    <div style="position: fixed; z-index: 9999; inset: 6rem 16px 16px; pointer-events: none;"></div>
+</div>

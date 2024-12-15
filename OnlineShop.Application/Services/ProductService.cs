@@ -83,6 +83,12 @@
             await productRepository.SaveAsync();
         }
 
-       
+        public async Task<ProductDetailsViewModel> GetProductDetailsAsync(Guid productId)
+        {
+            return await this.productRepository
+            .GetAllAttached()
+            .To<ProductDetailsViewModel>()
+            .FirstOrDefaultAsync(p => p.Id.ToLower() == productId.ToString().ToLower());
+        }
     }
 }

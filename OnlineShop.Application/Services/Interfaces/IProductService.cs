@@ -1,7 +1,5 @@
-﻿
-namespace OnlineShop.Application.Services.Interfaces
+﻿namespace OnlineShop.Application.Services.Interfaces
 {
-    using Domain.Entities;
     using ViewModels.Shop;
 
     public interface IProductService
@@ -12,5 +10,6 @@ namespace OnlineShop.Application.Services.Interfaces
         Task<RemoveProductViewModel> GetRemoveProductByIdAsync(Guid productId);
         Task EditProductAsync(EditProductViewModel model);
         Task RemoveProductAsync(Guid productId);
+        Task<ProductDetailsViewModel> GetProductDetailsAsync(Guid productId);
     }
 }

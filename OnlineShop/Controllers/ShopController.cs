@@ -104,7 +104,6 @@
         
         //authorize as admin
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
         {
             Guid productGuid = Guid.Empty;
@@ -113,6 +112,22 @@
             await productService.RemoveProductAsync(productGuid);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductDetails(string id)
+        {
+            Guid productGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref productGuid);
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            ProductDetailsViewModel product = 
+             await this.productService.GetProductDetailsAsync(productGuid);
+
+            return View(product);
         }
 
         //move
