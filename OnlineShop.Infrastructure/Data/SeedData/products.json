@@ -1,0 +1,83 @@
+[
+    {
+        "Name": "Lux Cloud",
+        "Category": 0,
+        "Price": 199.99,
+        "ImgUrl": "/images/shop/bmx1.png",
+        "Description": " A versatile bike designed for tricks and stunts, featuring a strong frame, low-profile tires, and pegs for grinding, ideal for skateparks and street riding.",
+        "Quantity": 1,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Sky Factor",
+        "Category": 0,
+        "Price": 399.99,
+        "ImgUrl": "/images/shop/bmx2.png",
+        "Description": "Built for speed and agility on tracks, this lightweight bike has a sleek frame, knobby tires, and a responsive gearing system, perfect for competitive BMX racing.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Galaxy Strider",
+        "Category": 0,
+        "Price": 549.99,
+        "ImgUrl": "/images/shop/bmx3.png",
+        "Description": "A durable and comfortable bike with a larger frame and 24-inch wheels, designed for casual rides, offering stability and a smooth ride on various terrains.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Trail Blazer",
+        "Category": 1,
+        "Price": 1299.99,
+        "ImgUrl": "/images/shop/moutain1.png",
+        "Description": "Built for rugged trails and tough terrains, this bike features a durable frame, knobby tires, and full suspension for a smooth ride over rocks, roots, and obstacles.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "RidgeRider XT",
+        "Category": 1,
+        "Price": 3499.99,
+        "ImgUrl": "/images/shop/moutain2.png",
+        "Description": "A versatile bike designed for both climbing and descending, with a strong frame, mid-range suspension, and aggressive tires to handle a variety of mountain terrains.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Summit Hunter",
+        "Category": 1,
+        "Price": 2499.99,
+        "ImgUrl": "/images/shop/moutain3.png",
+        "Description": "Engineered for high-speed descents, this bike has a heavy-duty frame, long-travel suspension, and wide tires, optimized for steep, fast downhill trails.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Cosmic 5000",
+        "Category": 2,
+        "Price": 2249.99,
+        "ImgUrl": "/images/shop/road1.png",
+        "Description": "Built for long journeys, this bike has a sturdy frame, reliable gears, and extra mounting points for carrying gear, making it ideal for touring or bikepacking across varied terrains.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "AeroVibe Elite",
+        "Category": 2,
+        "Price": 999.99,
+        "ImgUrl": "/images/shop/road2.png",
+        "Description": "Designed for long-distance comfort, this bike offers a more relaxed geometry, providing stability and a smoother ride, with wider tires and a focus on durability for extended rides.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Velocis Nova",
+        "Category": 2,
+        "Price": 1899.99,
+        "ImgUrl": "/images/shop/road3.png",
+        "Description": "A lightweight, high-performance bike built for speed and efficiency on paved roads, featuring an aerodynamic frame, thin tires, and a smooth gearing system for competitive cycling.",
+        "Quantity": 10,
+        "IsDeleted": false
+    }
+]

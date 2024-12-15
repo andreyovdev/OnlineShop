@@ -20,7 +20,8 @@
         public string Category { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
-        [RegularExpression(ValidUrlPattern, ErrorMessage = InvalidUrlMessage)]
+        //Add regex validation when images are stored on web
+        //[RegularExpression(ValidUrlPattern, ErrorMessage = InvalidUrlMessage)]
         public string ImgUrl { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
