@@ -1,8 +1,18 @@
 ﻿@using OnlineShop.Application.ViewModels.Shop
 @model IEnumerable<AllProductsViewModel>
+@{
+    Pager pager = new Pager();
+    int pageNum = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNum = pager.CurrentPage;
+    }
+}
 
 @section PageStyles {
-	<link rel="stylesheet" href="~/css/Shop/Filter.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Shop/Filter.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Shop/Pagination.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListing.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListingSection.css" asp-append-version="true" />
 }
@@ -95,40 +105,98 @@
             </div>
         </div>
     </div>
-    <div class="product-card-container">
-        @foreach (AllProductsViewModel product in Model)
-        {
-            if (product.IsDeleted)
-            {
-                continue;
-            }
+    <div class="product-main-container">
+        <div class="pagination-wrapper">
+            <ul class="pagination">
+                @{
+                    int prevPageIndex = pager.CurrentPage - 1;
+                    int nextPageIndex = pager.CurrentPage + 1;
+                    if (pager.CurrentPage == pager.StartPage) prevPageIndex = 1;
+                    if (pager.CurrentPage == pager.EndPage) nextPageIndex = pager.EndPage;
 
-            <div class="product-card">
-                <a asp-action="ProductDetails" asp-route-id="@product.Id">
-                    <div class="product-card-image">
-                        <div class="animated-product-item">
-                            <img src=@product.ImgUrl>
+                    int prevPageNum = pager.CurrentPage - 1;
+                    int nextPageNum = pager.CurrentPage + 1;
+                    if (pager.CurrentPage - 1 < pager.StartPage) prevPageNum = pager.StartPage;
+                    if (pager.CurrentPage + 1 > pager.EndPage) nextPageNum = pager.EndPage;
+                    if (pager.CurrentPage == 1 && pager.TotalPages > 2) nextPageNum++;
+                    if (pager.CurrentPage == pager.EndPage && pager.TotalPages > 2) prevPageNum--;
+
+                    <li>
+                        <a class="first" asp-controller="Shop" asp-action="Index" asp-route-pg="1">
+                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 18l-6-6 6-6M11 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="prev" asp-controller="Shop" asp-action="Index" asp-route-pg="@prevPageIndex">
+                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+
+                    for (int pg = prevPageNum; pg <= nextPageNum; pg++)
+                    {
+                        <li class="@(pg != pager.CurrentPage ? "extra-page-li" : "")">
+                            <a class="@(pg == pager.CurrentPage ? "active" : "")" asp-controller="Shop" asp-action="Index" asp-route-pg="@pg">@pg</a>
+                        </li>
+                    }
+                
+                    <li>
+                        <a class="next" asp-controller="Shop" asp-action="Index" asp-route-pg="@nextPageIndex">
+                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="last" asp-controller="Shop" asp-action="Index" asp-route-pg="@(pager.TotalPages)">
+                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 18l6-6-6-6M13 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="product-card-container">
+            @foreach (AllProductsViewModel product in Model)
+            {
+                if (product.IsDeleted)
+                {
+                    continue;
+                }
+
+                <div class="product-card">
+                    <a asp-action="ProductDetails" asp-route-id="@product.Id">
+                        <div class="product-card-image">
+                            <div class="animated-product-item">
+                                <img src=@product.ImgUrl>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="product-card-details">
+                        <h3>@product.Name</h3>
+                        <div class="price-container">
+                            <p class="price">$@product.Price</p>
+                        </div>
+                        <p>Type: @product.Category</p>
+                        <div class="info">
+                            @if (product.Quantity == 0)
+                            {
+                                <p class="out-of-stock">Out of stock</p>
+                            }
                         </div>
                     </div>
-                </a>
-                <div class="product-card-details">
-                    <h3>@product.Name</h3>
-                    <div class="price-container">
-                        <p class="price">$@product.Price</p>
-                    </div>
-                    <p>Type: @product.Category</p>
-                    <div class="info">
-                        @if(product.Quantity == 0)
-                        {
-                            <p class="out-of-stock">Out of stock</p>
-                        }
+                    <div class="product-card-buttons">
+                        <button class="cart-btn">Add To Cart</button>
+                        <a asp-action="EditProduct" asp-route-id="@product.Id" class="edit-btn">Edit</a>
                     </div>
                 </div>
-                <div class="product-card-buttons">
-                    <button class="cart-btn">Add To Cart</button>
-                    <a asp-action="EditProduct" asp-route-id="@product.Id" class="edit-btn">Edit</a>
-                </div>
-            </div>
-        }
+            }
+        </div>
     </div>
+    
+    
 </div>

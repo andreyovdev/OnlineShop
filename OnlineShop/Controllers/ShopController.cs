@@ -15,12 +15,20 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
             IEnumerable<AllProductsViewModel> allProduct =
              await this.productService.GetAllProductsAsync();
 
-            return View(allProduct);
+            const int pageSize = 10; //1 for testing
+            if (pg < 1) pg = 1;
+            int prodCount = allProduct.Count();
+            var pager = new Pager(prodCount, pg, pageSize);
+            int prodSkip = (pg - 1) * pageSize;
+            var data = allProduct.Skip(prodSkip).Take(pager.PageSize).ToList();
+            ViewBag.Pager = pager;
+
+            return View(data);
         }
 
         //authorize as admin

@@ -30,6 +30,7 @@
             return await this.productRepository
                .GetAllAttached()
                .To<AllProductsViewModel>()
+               .Where(p=>p.IsDeleted == false)
                .ToArrayAsync();
         }
 

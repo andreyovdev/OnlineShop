@@ -1,15 +1,22 @@
+.product-main-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 .product-card-container {
     padding: 1em;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap:20px;
 
     will-change: transform; 
     transition: 2000ms cubic-bezier(0.03, 0.98, 0.52, 0.99); 
     transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
   }
-  
-  .product-card {
+
+.product-card {
     padding: 1em;
     box-shadow: 0px 0px 46px -4px rgb(238, 238, 238);
     margin: 1em 1em 2em 1em;
@@ -19,10 +26,9 @@
     justify-content: space-between;
     display: flex;
     flex-flow: column nowrap;
-
-    will-change: transform; 
-    transition: 2000ms cubic-bezier(0.03, 0.98, 0.52, 0.99); 
-  }
+    will-change: transform;
+    transition: 2000ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
   
   .info {
     display: flex;
@@ -38,18 +44,21 @@
     background-color: rgb(246, 246, 246);
     border-radius: 0.8em;
   }
-  
-  .product-card-image img {
+.animated-product-item {
+    background-color: transparent;
+}
+
+.product-card-image img {
     height: 230px;
     bottom: -2em;
     width: 140%;
     object-fit: cover;
     margin-left: -3em;
-
-    will-change: transform; 
-    transition: 2000ms cubic-bezier(0.03, 0.98, 0.52, 0.99); 
+    background: none;
+    will-change: transform;
+    transition: 2000ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
     transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
-  }
+}
   
   .product-card-details {
     background-color: #ffffff;
