@@ -1,10 +1,10 @@
 ﻿namespace OnlineShop.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
     
     using Application.Services.Interfaces;
     using Application.ViewModels.Shop;
-	using Microsoft.AspNetCore.Authorization;
 
 	public class ShopController : Controller
 	{
@@ -36,8 +36,6 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct()
         {
-			ViewData["HideLayoutParts"] = true;
-
 			return View();
         }
 
@@ -45,7 +43,6 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
-            ViewData["HideLayoutParts"] = true;
 
             if (!ModelState.IsValid)
             {
@@ -61,7 +58,6 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> EditProduct(string id)
         {
-            ViewData["HideLayoutParts"] = true;
 
             Guid productGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref productGuid);
@@ -80,8 +76,6 @@
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(EditProductViewModel model)
         {
-            ViewData["HideLayoutParts"] = true;
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -96,8 +90,6 @@
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id)
         {
-            ViewData["HideLayoutParts"] = true;
-
             Guid productGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref productGuid);
             if (!isIdValid)

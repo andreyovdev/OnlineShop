@@ -1,6 +1,10 @@
 ﻿@using OnlineShop.Application.ViewModels.Shop
 @model EditProductViewModel
 
+@{
+    ViewData["HideLayoutParts"] = true;
+}
+
 @section PageStyles{
     <link rel="stylesheet" href="~/css/Shop/ProductForm.css" asp-append-version="true" />
 }

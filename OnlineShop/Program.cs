@@ -2,7 +2,7 @@ using System.Reflection;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+
 using OnlineShop.Application.Mapping;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.ViewModels.Shop;

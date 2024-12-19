@@ -26,6 +26,7 @@
   margin-top: 25px;
   color: rgb(33, 33, 33);
   margin-bottom: 25px;
+  font-size:1.5em;
 }
 
 .product-form-container .product-input-container input,
@@ -117,6 +118,9 @@
 }
 
 @media (min-width: 768px) {
+    .product-input-container h1 {
+        font-size: 2em;
+    }
   .product-form-container .product-input-container{
     width: 390px;
   }
