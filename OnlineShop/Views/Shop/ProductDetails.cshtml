@@ -32,7 +32,10 @@
         </div>
         <div class="product-card-buttons-container">
             <button class="add-to-cart-btn">Add to cart</button>
-            <a asp-action="EditProduct" asp-route-id="@Model.Id" class="action-btn">Edit</a>
+             @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="EditProduct" asp-route-id="@Model.Id" class="action-btn">Edit</a>
+            }
             <a asp-action="Index" class="action-btn">Back</a>
         </div>
     </div>

@@ -1,23 +1,37 @@
 ﻿namespace OnlineShop.Infrastructure.Data.SeedData
 {
+	using System.Diagnostics;
+	using Microsoft.AspNetCore.Identity;
+
     using Newtonsoft.Json;
 
     using Domain.Entities;
+	using Identity;
 
-    public class DatabaseSeeder : IDatabaseSeeder
+	public class DatabaseSeeder : IDatabaseSeeder
     {
         private readonly ApplicationDbContext _context;
-        private const string jsonsPath = "D:\\OnlineShop\\OnlineShop.Infrastructure\\Data\\SeedData";
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
-        public DatabaseSeeder(ApplicationDbContext context)
+		private const string jsonsPath = "D:\\OnlineShop\\OnlineShop.Infrastructure\\Data\\SeedData";
+
+        public DatabaseSeeder(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {
             _context = context;
-        }
+			_userManager = userManager;
+			_roleManager = roleManager;
+		}
 
         public async Task SeedAsync()
         {
             await SeedProductsAsync();
-        }
+
+            await SeedUsersAsync();
+            await SeedRolesAsync();
+            await SeedUserRolesAsync();
+
+		}
 
         public async Task SeedProductsAsync()
         {
@@ -34,6 +48,80 @@
                 }
             }
         }
-    }
+
+		public async Task SeedUsersAsync()
+		{
+			if (!_context.Users.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "users.json");
+				var appUsersJson = File.ReadAllText(jsonPath);
+				var appUsers = JsonConvert.DeserializeObject<List<AppUser>>(appUsersJson);
+
+				if (appUsers == null) return;
+
+				foreach (var user in appUsers)
+				{
+					var existingUser = await _userManager.FindByEmailAsync(user.Email);
+					if (existingUser == null)
+					{
+						var newUser = new AppUser
+						{
+							UserName = user.UserName,
+							Email = user.Email,
+						};
+
+						var result = await _userManager.CreateAsync(newUser, "password123");
+					}
+				}
+			}
+		}
+
+		public async Task SeedRolesAsync()
+		{
+			if (!_context.Roles.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "roles.json");
+				var rolesJson = File.ReadAllText(jsonPath);
+				var roles = JsonConvert.DeserializeObject<List<Dictionary<string,string>>>(rolesJson);
+
+				foreach (var role in roles)
+				{
+					string roleName = role["Name"];
+
+					if (!await _roleManager.RoleExistsAsync(roleName))
+					{
+						await _roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
+					}
+				}
+			}
+		}
+
+		public async Task SeedUserRolesAsync()
+		{
+			if (!_context.UserRoles.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "user_roles.json");
+				var userRolesJson = File.ReadAllText(jsonPath);
+				var userRoles = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(userRolesJson);
+
+				foreach (var userRole in userRoles)
+				{
+					string email = userRole["Email"];
+					string role = userRole["Role"];
+
+					var user = await _userManager.FindByEmailAsync(email);
+					if (user == null)
+					{
+						continue;
+					}
+
+					if (!await _userManager.IsInRoleAsync(user, role))
+					{
+						await _userManager.AddToRoleAsync(user, role);
+					}
+				}
+			}
+		}
+	}
 
 }

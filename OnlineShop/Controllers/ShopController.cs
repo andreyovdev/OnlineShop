@@ -4,9 +4,10 @@
     
     using Application.Services.Interfaces;
     using Application.ViewModels.Shop;
-    
-    public class ShopController : Controller
-    {
+	using Microsoft.AspNetCore.Authorization;
+
+	public class ShopController : Controller
+	{
         private readonly IProductService productService;
 
         public ShopController(IProductService productService)
@@ -31,18 +32,18 @@
             return View(data);
         }
 
-        //authorize as admin
         [HttpGet]
-        public async Task<IActionResult> AddNewProduct()
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> AddNewProduct()
         {
 			ViewData["HideLayoutParts"] = true;
 
 			return View();
         }
 
-        //authorize as admin
         [HttpPost]
-        public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
             ViewData["HideLayoutParts"] = true;
 
@@ -56,9 +57,9 @@
             return RedirectToAction(nameof(Index));
         }
 
-        //authorize as admin
         [HttpGet]
-        public async Task<IActionResult> EditProduct(string id)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> EditProduct(string id)
         {
             ViewData["HideLayoutParts"] = true;
 
@@ -75,8 +76,8 @@
             return View(formModel);
         }
 
-        //authorize as admin
-        [HttpPost]
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(EditProductViewModel model)
         {
             ViewData["HideLayoutParts"] = true;
@@ -91,8 +92,8 @@
             return RedirectToAction(nameof(Index));
         }
 
-        //authorize as admin
-        [HttpGet]
+		[HttpGet]
+		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id)
         {
             ViewData["HideLayoutParts"] = true;
@@ -109,9 +110,9 @@
 
             return View(formModel);
         }
-        
-        //authorize as admin
-        [HttpPost]
+
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
         {
             Guid productGuid = Guid.Empty;

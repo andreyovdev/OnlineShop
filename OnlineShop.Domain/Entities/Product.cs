@@ -24,5 +24,8 @@
         public int Quantity { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<UserProduct> ProductUsers { get; set; } =
+            new HashSet<UserProduct>();
     }
 }
