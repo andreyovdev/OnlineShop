@@ -24,9 +24,6 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DatabaseSeeder>();
 
-//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services
     .AddIdentity<AppUser, IdentityRole<Guid>>(options =>
     {

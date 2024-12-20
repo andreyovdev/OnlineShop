@@ -50,6 +50,10 @@
     font-size: 16px;
 }
 
+.auth-form-container .auth-input-container span {
+    display: block;
+}
+
 .auth-form-container .submit {
     font-size: 16px;
     color: white;
@@ -90,39 +94,39 @@
             font-size: 14px;
             line-height: 15px;
         }
+
     .auth-form-container .btn-container .sign-up-btn {
         color: grey;
         border: none;
     }
-    .auth-form-container .btn-container .sign-up-btn:hover {
-        color: black;
-        background-color:white;
-    }
+
+        .auth-form-container .btn-container .sign-up-btn:hover {
+            color: black;
+            background-color: white;
+        }
+
     .auth-form-container .btn-container .delete-btn {
         background-color: rgb(139, 0, 0);
         font-weight: 600;
         color: white;
     }
 
-     .remember-me-item label {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-    }
+.remember-me-item label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
 
-           .remember-me-item p {
-                min-width: 120px;
-                display: inline-block;
-                user-select: none;
-            }
+.remember-me-item p {
+    min-width: 120px;
+    display: inline-block;
+    user-select: none;
+}
 
-        .auth-form-container .btn-container .delete-btn:hover {
-            background-color: black;
-        }
-
-
-
+.auth-form-container .btn-container .delete-btn:hover {
+    background-color: black;
+}
 
 .warning {
     color: rgb(221, 63, 63);

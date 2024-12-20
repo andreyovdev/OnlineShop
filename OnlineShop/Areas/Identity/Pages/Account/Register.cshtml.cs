@@ -13,7 +13,9 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
 
 	using Infrastructure.Identity;
 
-	public class RegisterModel : PageModel
+    using static Application.ViewModels.Validation.ViewModelValidationMessages;
+
+    public class RegisterModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
@@ -57,11 +59,15 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required(ErrorMessage = RequiredMessage)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = RequiredMessage)]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -70,7 +76,7 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = RequiredMessage)]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -80,6 +86,7 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required(ErrorMessage = RequiredMessage)]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -99,13 +106,17 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 				user.Email = Input.Email;
+                user.UserName = Input.Username;
 
-				await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+
+				await _userStore.SetUserNameAsync(user, user.UserName, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, "User");
 
                     var userId = await _userManager.GetUserIdAsync(user);
 

@@ -1,37 +1,42 @@
 ﻿@page
 @model RegisterModel
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["HideLayoutParts"] = true;
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-</div>
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/Auth/AuthForm.css" asp-append-version="true" />
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/PasswordVisibilityToggle.js" asp-append-version="true"></script>
 }
+
+<div class="auth-form-container">
+    <div class="auth-input-container">
+        <h1>Create New Account</h1>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="input-containter">
+
+            <div asp-validation-summary="ModelOnly" class="warning" role="alert"></div>
+            <span asp-validation-for="Input.Username" class="warning"></span>
+            <span asp-validation-for="Input.Email" class="warning"></span>
+            <span asp-validation-for="Input.Password" class="warning"></span>
+            <span asp-validation-for="Input.ConfirmPassword" class="warning"></span>
+
+            <input asp-for="Input.Username" placeholder="Enter Username" spellcheck="false">
+
+            <input asp-for="Input.Email" placeholder="Enter Email" spellcheck="false" autocomplete="username">
+
+            <input asp-for="Input.Password" placeholder="Enter Password" spellcheck="false" autocomplete="current-password">
+
+            <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" spellcheck="false" autocomplete="current-password">
+
+            <button id="registerSubmit" class="submit" type="submit">Register</button>
+        </form>
+        <div class="btn-container">
+            <a asp-action="Index">Cancel</a>
+        </div>
+    </div>
+</div>
