@@ -21,6 +21,8 @@
 
         public bool IsDeleted { get; set; }
 
+        public string SearchProductInput { get; set; } = null!;
+
         public void CreateMappings(IProfileExpression profile)
         {
             profile.CreateMap<Product, AllProductsViewModel > ()

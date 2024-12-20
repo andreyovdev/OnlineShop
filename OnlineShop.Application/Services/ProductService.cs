@@ -34,6 +34,15 @@
                .ToArrayAsync();
         }
 
+        public async Task<IEnumerable<AllProductsViewModel>> SearchProductsAsync(string input)
+        {
+            var allProducts = await this.GetAllProductsAsync();
+
+            return allProducts
+                .Where(p => p.Name.ToLower().Contains(input.ToLower()))
+                .ToArray();
+        }
+    
         public async Task AddNewProductAsync(AddNewProductViewModel model)
         {
             Product product = new Product();
@@ -91,5 +100,7 @@
             .To<ProductDetailsViewModel>()
             .FirstOrDefaultAsync(p => p.Id.ToLower() == productId.ToString().ToLower());
         }
+
+       
     }
 }

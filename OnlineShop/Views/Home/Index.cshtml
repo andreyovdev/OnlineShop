@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "BikeOrbit";
 }
+
 @section PageStyles {
     <link rel="stylesheet" href="~/css/Home/CategoriesSection.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/HeroSection.css" asp-append-version="true" />
@@ -22,7 +23,7 @@
                 <h1>Ride Beyond Limits</h1>
                 <h2>Where the Journey Begins with the Perfect Ride</h2>
             </div>
-            <button class="shop-now-btn">Explore</button>
+            <a asp-controller="Shop" asp-action="Index" asp-route-pg="1" asp-route-input="@ViewData["SearchProductInput"]" class="shop-now-btn">Explore</a>
         </div>
         <div class="hero-heading-container">
             <h1 class="hero-title">The Best Choice</h1>

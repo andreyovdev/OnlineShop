@@ -16,10 +16,20 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int pg = 1)
+        public async Task<IActionResult> Index(string input, int pg = 1)
         {
-            IEnumerable<AllProductsViewModel> allProduct =
-             await this.productService.GetAllProductsAsync();
+            ViewData["SearchProductInput"] = input;
+
+            IEnumerable<AllProductsViewModel> allProduct;
+
+            if (string.IsNullOrEmpty(input))
+            {
+                allProduct = await this.productService.GetAllProductsAsync();
+            }
+            else
+            {
+                allProduct = await this.productService.SearchProductsAsync(input);
+            }
 
             const int pageSize = 10; //1 for testing
             if (pg < 1) pg = 1;

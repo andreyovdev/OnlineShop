@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Models;
-using System.Diagnostics;
-
 namespace OnlineShop.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class HomeController : Controller
     {
 

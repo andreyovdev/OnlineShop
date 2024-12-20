@@ -125,14 +125,14 @@
                     if (pager.CurrentPage == pager.EndPage && pager.TotalPages > 2) prevPageNum--;
 
                     <li>
-                        <a class="first" asp-controller="Shop" asp-action="Index" asp-route-pg="1">
+                        <a class="first" asp-controller="Shop" asp-action="Index" asp-route-pg="1" asp-route-input="@ViewData["SearchProductInput"]">
                             <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17 18l-6-6 6-6M11 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </a>
                     </li>
                     <li>
-                        <a class="prev" asp-controller="Shop" asp-action="Index" asp-route-pg="@prevPageIndex">
+                        <a class="prev" asp-controller="Shop" asp-action="Index" asp-route-pg="@prevPageIndex" asp-route-input="@ViewData["SearchProductInput"]">
                             <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -142,19 +142,19 @@
                     for (int pg = prevPageNum; pg <= nextPageNum; pg++)
                     {
                         <li class="@(pg != pager.CurrentPage ? "extra-page-li" : "")">
-                            <a class="@(pg == pager.CurrentPage ? "active" : "")" asp-controller="Shop" asp-action="Index" asp-route-pg="@pg">@pg</a>
+                            <a class="@(pg == pager.CurrentPage ? "active" : "")" asp-controller="Shop" asp-action="Index" asp-route-pg="@pg" asp-route-input="@ViewData["searchProductInput"]">@pg</a>
                         </li>
                     }
                 
                     <li>
-                        <a class="next" asp-controller="Shop" asp-action="Index" asp-route-pg="@nextPageIndex">
+                        <a class="next" asp-controller="Shop" asp-action="Index" asp-route-pg="@nextPageIndex" asp-route-input="@ViewData["SearchProductInput"]">
                             <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </a>
                     </li>
                     <li>
-                        <a class="last" asp-controller="Shop" asp-action="Index" asp-route-pg="@(pager.TotalPages)">
+                        <a class="last" asp-controller="Shop" asp-action="Index" asp-route-pg="@(pager.TotalPages)" asp-route-input="@ViewData["SearchProductInput"]">
                             <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 18l6-6-6-6M13 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
