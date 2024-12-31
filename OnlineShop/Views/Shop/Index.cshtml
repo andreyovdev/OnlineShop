@@ -1,208 +1,134 @@
 ﻿@using OnlineShop.Application.ViewModels.Shop
 @model IEnumerable<AllProductsViewModel>
 @{
-    Pager pager = new Pager();
-    int pageNum = 0;
-    if(ViewBag.Pager != null)
-    {
-        pager = ViewBag.Pager;
-        pageNum = pager.CurrentPage;
-    }
+	Pager pager = new Pager();
+	int pageNum = 0;
+	if (ViewBag.Pager != null)
+	{
+		pager = ViewBag.Pager;
+		pageNum = pager.CurrentPage;
+	}
 }
 
+<script>
+	var isUserInRoleAdmin = '@User.IsInRole("Admin")'.toLowerCase() === 'true';
+</script>
+
 @section PageStyles {
-    <link rel="stylesheet" href="~/css/Shop/Filter.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Shop/Pagination.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Shop/Filter.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Shop/Pagination.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListing.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Shop/ProductListingSection.css" asp-append-version="true" />
 }
 @section PageScripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
 	<script src="~/js/Shop.js" asp-append-version="true"></script>
+	<script src="~/js/ShopFilter.js" asp-append-version="true"></script>
 }
 
 <div class="page-container">
-    <div>
-        <div class="filter-container filter-container-mobile-closed">
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="add-product-container">
-                    <a asp-action="AddNewProduct" type="submit" class="add-product">Add Product</a>
-                </div>
-            }
-            <div class="filter-header filter-header-mobile-closed">
-                <span class="close-tab">
-                    <svg class="list-svg" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 6l8 0"></path><path d="M16 6l4 0"></path><path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 12l2 0"></path><path d="M10 12l10 0"></path><path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 18l11 0"></path><path d="M19 18l1 0"></path></svg>
-                    <svg class="cross-svg" style="display:none;" stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" color="rgb(106, 106, 65)" height="25" width="25" xmlns="http://www.w3.org/2000/svg" style="color: rgb(106, 106, 65);">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor">
-                        </path>
-                    </svg>
-                </span>
-                <h2>Filters</h2>
-                <button class="reset-btn-hide">Reset</button>
-            </div>
-            <div class="filter-types-container">
-                <div class="price-container">
-                    <h3>Price</h3>
-                    <div class="price-input-container">
-                        <label class="below-200">
-                            Below $200
-                            <input id="below-200" type="checkbox">
-                        </label>
-                        <label class="201-999">
-                            $201 - $999
-                            <input id="below-200" type="checkbox">
-                        </label>
-                        <label class="below-200">
-                            $1000 - $1999
-                            <input id="1000-1999" type="checkbox">
-                        </label>
-                        <label class="above 2000">
-                            Over $2000
-                            <input id="below-200" type="checkbox">
-                        </label>
-                    </div>
-                </div>
-                <div class="category-container">
-                    <h3>Categories</h3>
-                    <div class="category-input-container">
-                        <label for="category-bmx">
-                            BMX
-                            <input id="category-bmx" type="checkbox">
-                        </label>
-                    </div>
-                    <div class="category-input-container">
-                        <label for="category-mountain">
-                            Mountain
-                            <input id="category-mountain" type="checkbox">
-                        </label>
-                    </div>
-                    <div class="category-input-container">
-                        <label for="category-road">
-                            Road
-                            <input id="category-road" type="checkbox">
-                        </label>
-                    </div>
-                </div>
-                <div class="other-container">
-                    <h3>Other</h3>
-                    <div class="other-input-container">
-                        <label for="in-stock">
-                            In Stock
-                            <input id="in-stock" type="checkbox">
-                        </label>
-                    </div>
-                </div>
-                <div class="sorting-container">
-                    <h3>Sort by price</h3>
-                    <div class="sorting-input-container">
-                        <label for="high-to-low">
-                            Price-high to low
-                            <input name="sort" id="high-to-low" type="radio">
-                        </label>
-                        <label for="low-to-high">
-                            Price-low to high
-                            <input name="sort" id="low-to-high" type="radio">
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-main-container">
-        <div class="pagination-wrapper">
-            <ul class="pagination">
-                @{
-                    int prevPageIndex = pager.CurrentPage - 1;
-                    int nextPageIndex = pager.CurrentPage + 1;
-                    if (pager.CurrentPage == pager.StartPage) prevPageIndex = 1;
-                    if (pager.CurrentPage == pager.EndPage) nextPageIndex = pager.EndPage;
-
-                    int prevPageNum = pager.CurrentPage - 1;
-                    int nextPageNum = pager.CurrentPage + 1;
-                    if (pager.CurrentPage - 1 < pager.StartPage) prevPageNum = pager.StartPage;
-                    if (pager.CurrentPage + 1 > pager.EndPage) nextPageNum = pager.EndPage;
-                    if (pager.CurrentPage == 1 && pager.TotalPages > 2) nextPageNum++;
-                    if (pager.CurrentPage == pager.EndPage && pager.TotalPages > 2) prevPageNum--;
-
-                    <li>
-                        <a class="first" asp-controller="Shop" asp-action="Index" asp-route-pg="1" asp-route-input="@ViewData["SearchProductInput"]">
-                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17 18l-6-6 6-6M11 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="prev" asp-controller="Shop" asp-action="Index" asp-route-pg="@prevPageIndex" asp-route-input="@ViewData["SearchProductInput"]">
-                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </li>
-
-                    for (int pg = prevPageNum; pg <= nextPageNum; pg++)
-                    {
-                        <li class="@(pg != pager.CurrentPage ? "extra-page-li" : "")">
-                            <a class="@(pg == pager.CurrentPage ? "active" : "")" asp-controller="Shop" asp-action="Index" asp-route-pg="@pg" asp-route-input="@ViewData["searchProductInput"]">@pg</a>
-                        </li>
-                    }
-                
-                    <li>
-                        <a class="next" asp-controller="Shop" asp-action="Index" asp-route-pg="@nextPageIndex" asp-route-input="@ViewData["SearchProductInput"]">
-                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="last" asp-controller="Shop" asp-action="Index" asp-route-pg="@(pager.TotalPages)" asp-route-input="@ViewData["SearchProductInput"]">
-                            <svg width="20" height="20" viewBox="0 -5 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 18l6-6-6-6M13 18l6-6-6-6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div class="product-card-container">
-            @foreach (AllProductsViewModel product in Model)
-            {
-                if (product.IsDeleted)
-                {
-                    continue;
-                }
-
-                <div class="product-card">
-                    <a asp-action="ProductDetails" asp-route-id="@product.Id">
-                        <div class="product-card-image">
-                            <div class="animated-product-item">
-                                <img src=@product.ImgUrl>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-card-details">
-                        <h3>@product.Name</h3>
-                        <div class="price-container">
-                            <p class="price">$@product.Price</p>
-                        </div>
-                        <p>Type: @product.Category</p>
-                        <div class="info">
-                            @if (product.Quantity == 0)
-                            {
-                                <p class="out-of-stock">Out of stock</p>
-                            }
-                        </div>
-                    </div>
-                    <div class="product-card-buttons">
-                        <button class="cart-btn">Add To Cart</button>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="EditProduct" asp-route-id="@product.Id" class="edit-btn">Edit</a>
-                        }
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-    
-    
+	<div>
+		<div class="filter-container filter-container-mobile-closed">
+			@if (User.IsInRole("Admin"))
+			{
+				<div class="add-product-container">
+					<a asp-action="AddNewProduct" type="submit" class="add-product">Add Product</a>
+				</div>
+			}
+			<div class="filter-header filter-header-mobile-closed">
+				<span class="close-tab">
+					<svg class="list-svg" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 6l8 0"></path><path d="M16 6l4 0"></path><path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 12l2 0"></path><path d="M10 12l10 0"></path><path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path><path d="M4 18l11 0"></path><path d="M19 18l1 0"></path></svg>
+					<svg class="cross-svg" style="display:none;" stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" color="rgb(106, 106, 65)" height="25" width="25" xmlns="http://www.w3.org/2000/svg" style="color: rgb(106, 106, 65);">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor">
+						</path>
+					</svg>
+				</span>
+				<h2>Filters</h2>
+				<button id="reset-filter-btn" class="reset-btn-hide">Reset</button>
+			</div>
+			<div class="filter-types-container">
+				<div class="price-container">
+					<h3>Price</h3>
+					<div class="price-input-container">
+						<label class="below-200">
+							Below $200
+							<input class="price-filter" id="below-200" type="checkbox" value="below-200">
+						</label>
+						<label class="201-999">
+							$201 - $999
+							<input class="price-filter" id="201-999" type="checkbox" value="201-999">
+						</label>
+						<label class="1000-1999">
+							$1000 - $1999
+							<input class="price-filter" id="1000-1999" type="checkbox" value="1000-1999">
+						</label>
+						<label class="above 2000">
+							Over $2000
+							<input class="price-filter" id="above-2000" type="checkbox" value="above-2000">
+						</label>
+					</div>
+				</div>
+				<div class="category-container">
+					<h3>Categories</h3>
+					<div class="category-input-container">
+						<label for="category-bmx">
+							BMX
+							<input class="category-filter" type="checkbox" value="BMX">
+						</label>
+					</div>
+					<div class="category-input-container">
+						<label for="category-mountain">
+							Mountain
+							<input class="category-filter" type="checkbox" value="Mountain">
+						</label>
+					</div>
+					<div class="category-input-container">
+						<label for="category-road">
+							Road
+							<input class="category-filter" type="checkbox" value="Road">
+						</label>
+					</div>
+				</div>
+				<div class="other-container">
+					<h3>Other</h3>
+					<div class="other-input-container">
+						<label for="in-stock">
+							In Stock
+							<input id="in-stock" type="checkbox">
+						</label>
+					</div>
+				</div>
+				<div class="sorting-container">
+					<h3>Sort by price</h3>
+					<div class="sorting-input-container">
+						<label for="high-to-low">
+							Price-high to low
+							<input class="sort-price-filter" name="sort" id="high-to-low" type="radio" value="high-to-low">
+						</label>
+						<label for="low-to-high">
+							Price-low to high
+							<input class="sort-price-filter" name="sort" id="low-to-high" type="radio" value="low-to-high">
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-main-container">
+			<div class="pagination-wrapper">
+				<ul class="pagination">
+				</ul>
+			</div>
+		<div class="product-card-container">
+				<div class="no-product-message">
+					<h2>No bikes found.</h2>
+					<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
+						<circle cx="35" cy="40" r="5" fill="darkgray" />
+						<circle cx="65" cy="40" r="5" fill="darkgray" />
+						<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
+					</svg>
+				</div>
+		</div>
+	</div>
 </div>

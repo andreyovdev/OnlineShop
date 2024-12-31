@@ -23,12 +23,10 @@
         public string Category { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
-        //Add regex validation when images are stored on web
-        //[RegularExpression(ValidUrlPattern, ErrorMessage = InvalidUrlMessage)]
         public string ImgUrl { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
-        [Range(0, int.MaxValue, ErrorMessage = InvalidNumberMessage)]
+        [Range(0, double.MaxValue, ErrorMessage = InvalidNumberMessage)]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = RequiredMessage)]

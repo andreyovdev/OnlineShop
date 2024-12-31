@@ -5,8 +5,12 @@
     public interface IProductService
     {
         Task<IEnumerable<AllProductsViewModel>> GetAllProductsAsync();
-        Task<IEnumerable<AllProductsViewModel>> SearchProductsAsync(string input);
-        Task AddNewProductAsync(AddNewProductViewModel model);
+		Task<IEnumerable<AllProductsViewModel>> GetAllSearchedProductsAsync(string input);
+		Task<IEnumerable<AllProductsViewModel>> GetAllProductsPagedAsync(int pageIndex, int pageSize);
+		Task<IEnumerable<AllProductsViewModel>> GetAllSearchedProductsPagedAsync(string input, int pageIndex, int pageSize);
+        Task<int> GetAllProductsCountAsync();
+        Task<int> GetAllSearchedProductsCountAsync(string input);
+		Task AddNewProductAsync(AddNewProductViewModel model);
         Task<EditProductViewModel> GetEditProductByIdAsync(Guid productId);
         Task<RemoveProductViewModel> GetRemoveProductByIdAsync(Guid productId);
         Task EditProductAsync(EditProductViewModel model);

@@ -81,30 +81,12 @@
         "IsDeleted": false
     },
     {
-        "Name": "Lux Cloud",
-        "Category": 0,
-        "Price": 199.99,
-        "ImgUrl": "/images/shop/bmx1.png",
-        "Description": " A versatile bike designed for tricks and stunts, featuring a strong frame, low-profile tires, and pegs for grinding, ideal for skateparks and street riding.",
-        "Quantity": 1,
-        "IsDeleted": false
-    },
-    {
-        "Name": "Sky Factor",
-        "Category": 0,
-        "Price": 399.99,
-        "ImgUrl": "/images/shop/bmx2.png",
-        "Description": "Built for speed and agility on tracks, this lightweight bike has a sleek frame, knobby tires, and a responsive gearing system, perfect for competitive BMX racing.",
-        "Quantity": 10,
-        "IsDeleted": false
-    },
-    {
-        "Name": "Galaxy Strider",
-        "Category": 0,
-        "Price": 549.99,
-        "ImgUrl": "/images/shop/bmx3.png",
-        "Description": "A durable and comfortable bike with a larger frame and 24-inch wheels, designed for casual rides, offering stability and a smooth ride on various terrains.",
-        "Quantity": 10,
+        "Name": "aaa",
+        "Category": 2,
+        "Price": 1899.99,
+        "ImgUrl": "/images/shop/road3.png",
+        "Description": "A lightweight, high-performance bike built for speed and efficiency on paved roads, featuring an aerodynamic frame, thin tires, and a smooth gearing system for competitive cycling.",
+        "Quantity": 0,
         "IsDeleted": false
     }
 ]

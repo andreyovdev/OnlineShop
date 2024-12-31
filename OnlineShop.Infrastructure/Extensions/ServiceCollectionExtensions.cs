@@ -1,13 +1,12 @@
 ﻿namespace OnlineShop.Infrastructure.Extensions
 {
     using System.Reflection;
+    using System.Linq;
 
     using Microsoft.Extensions.DependencyInjection;
 
-    using Domain.Entities;
     using Data.Repository;
     using Data.Repository.Interfaces;
-    using System.Linq;
 
     public static class ServiceCollectionExtensions
     {

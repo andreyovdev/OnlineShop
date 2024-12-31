@@ -17,7 +17,7 @@
     <div class="product-input-container">
         <h1>Add New Product</h1>
         <form asp-action="AddNewProduct" method="post" class="input-containter">
-
+            @Html.AntiForgeryToken()
             <span asp-validation-for="Category" class="warning"></span>
             <div class="category-container">
                 <div class="category-item">

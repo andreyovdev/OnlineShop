@@ -4,9 +4,9 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using OnlineShop.Infrastructure.Data.Repository.Interfaces;
+    using Interfaces;
 
-    public class BaseRepository<TType> : IRepository<TType> 
+    public class BaseRepository<TType> : IRepository<TType>
         where TType : class
     {
         private readonly ApplicationDbContext dbContext;
@@ -23,7 +23,7 @@
             return this.dbSet.ToList();
         }
 
-        public IQueryable<TType> GetAllAttached()
+		public IQueryable<TType> GetAllAttached()
         {
             return this.dbSet.AsQueryable();
         }
@@ -33,7 +33,34 @@
             return this.dbSet.ToListAsync();
         }
 
-        public TType GetById(Guid id)
+		public IQueryable<TType> GetAllPagedAttached(int pageIndex, int pageSize)
+		{
+			return this.dbSet.Skip((pageIndex - 1) * pageSize).Take(pageSize).AsQueryable();
+		}
+
+		public IQueryable<TType> GetAllSearchedPagedAttached(Expression<Func<TType, bool>> searchExpression, int pageIndex, int pageSize)
+		{
+			return this.dbSet
+                .Where(searchExpression)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .AsQueryable();
+		}
+
+		public async Task<int> AllCountAsync()
+		{
+			return await this.dbSet.CountAsync();
+		}
+
+
+		public async Task<int> AllSearchedCountAsync(Expression<Func<TType, bool>> searchExpression)
+		{
+			return await this.dbSet
+                .Where(searchExpression)
+                .CountAsync();
+		}
+
+		public TType GetById(Guid id)
         {
             return this.dbSet.Find(id);
         }
@@ -86,5 +113,7 @@
         {
             return await this.dbSet.FirstOrDefaultAsync(predicate);
         }
-    }
+
+		
+	}
 }

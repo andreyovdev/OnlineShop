@@ -6,8 +6,12 @@
     {
         IEnumerable<TType> GetAll();
         IQueryable<TType> GetAllAttached();
-        Task<List<TType>> GetAllAsync();
-        TType GetById(Guid id);
+		Task<List<TType>> GetAllAsync();
+		IQueryable<TType> GetAllPagedAttached(int pageIndex, int pageSize);
+		IQueryable<TType> GetAllSearchedPagedAttached(Expression<Func<TType, bool>> searchExpression, int pageIndex, int pageSize);
+		Task<int> AllCountAsync();
+		Task<int> AllSearchedCountAsync(Expression<Func<TType, bool>> searchExpression);
+		TType GetById(Guid id);
         Task<TType> GetByIdAsync(Guid id);
         bool Remove(Guid id);
         void Add(in TType sender);

@@ -1,8 +1,9 @@
 .products-page-container {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  margin-top: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 20px;
+    min-height: 100vh;
 }
 
 @media (min-width: 768px) {
@@ -13,5 +14,6 @@
     flex-flow: row nowrap;
     align-items: flex-start;
     justify-content: space-evenly;
+    min-height:90vh;
   }
 }

@@ -1,6 +1,5 @@
 using System.Reflection;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using OnlineShop.Application.Mapping;
@@ -10,7 +9,6 @@ using OnlineShop.Domain.Entities;
 using OnlineShop.Infrastructure.Data;
 using OnlineShop.Infrastructure.Data.SeedData;
 using OnlineShop.Infrastructure.Extensions;
-using OnlineShop.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,15 +22,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DatabaseSeeder>();
 
-builder.Services
-    .AddIdentity<AppUser, IdentityRole<Guid>>(options =>
-    {
-        ConfigureIdentity(builder, options);
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddRoles<IdentityRole<Guid>>()
-    .AddSignInManager<SignInManager<AppUser>>()
-	.AddRoleManager<RoleManager<IdentityRole<Guid>>>();
+builder.Services.AddConfiguredIdentity(builder.Configuration);
 
 builder.Services.ConfigureApplicationCookie(cfg =>
 {
@@ -42,7 +32,11 @@ builder.Services.ConfigureApplicationCookie(cfg =>
 builder.Services.AddControllersWithViews();
 builder.Services.RegisterRepositories(Assembly.GetAssembly(typeof(Product)));
 builder.Services.RegisterUserDefinedServices(Assembly.GetAssembly(typeof(ProductService)));
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+    	options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -89,19 +83,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-
-static void ConfigureIdentity(WebApplicationBuilder builder, IdentityOptions options)
-{
-    options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:Password:RequireDigits");
-    options.Password.RequireLowercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
-    options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
-    options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumerical");
-    options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
-    options.Password.RequiredUniqueChars = builder.Configuration.GetValue<int>("Identity:Password:RequiredUniqueCharacters");
-
-    options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
-    options.SignIn.RequireConfirmedEmail = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedEmail");
-    options.SignIn.RequireConfirmedPhoneNumber = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedPhoneNumber");
-
-    options.User.RequireUniqueEmail = builder.Configuration.GetValue<bool>("Identity:User:RequireUniqueEmail");
-}

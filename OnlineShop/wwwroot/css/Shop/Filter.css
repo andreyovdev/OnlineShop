@@ -326,13 +326,15 @@
       flex-flow: column nowrap;
       margin-top: 1em;
     }
-  
-    .filter-types-container > * {
-      margin-bottom: 0.8rem;
-      border: 1px solid rgb(219, 219, 219);
-      padding: 20px 15px 15px 20px;
-      border-radius: 10px;
-    }
+
+        .filter-types-container > * {
+            margin-bottom: 0.8rem;
+            /*border: 1px solid rgb(219, 219, 219);*/
+
+            padding: 20px 15px 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgb(230, 230, 230);
+        }
   
     .filter-types-container > * h3 {
       margin-bottom: 1rem;
