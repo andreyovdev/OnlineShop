@@ -2,172 +2,56 @@
 {
     using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.IdentityModel.Tokens;
     
     using Application.Services.Interfaces;
     using Application.ViewModels.Shop;
-	using Microsoft.IdentityModel.Tokens;
 
 	public class ShopController : Controller
     {
-        private readonly IProductService productService;
-        private const int pageSize = 10; //10 default
+        private const int pageSize = 10; //Products displayed per page. 10 is default
+
+		private readonly IProductService productService;
 
         public ShopController(IProductService productService)
         {
             this.productService = productService;
         }
 
-        //OPTIONAL Index (gets all products from database)
-        //     [HttpGet]
-        //     public async Task<IActionResult> Index(string input, int pg = 1)
-        //     {
-        //         ViewData["SearchProductInput"] = input;
-
-        //         IEnumerable<AllProductsViewModel> allProduct;
-
-        //         if (string.IsNullOrEmpty(input))
-        //         {
-        //             allProduct = await this.productService.GetAllProductsAsync();
-        //         }
-        //         else
-        //         {
-        //             allProduct = await this.productService.GetAllSearchedProductsAsync(input);
-        //         }
-
-        //if (pg < 1) pg = 1;
-        //         int prodCount = allProduct.Count();
-        //         var pager = new Pager(prodCount, pg, pageSize);
-        //         int prodSkip = (pg - 1) * pageSize;
-        //         var data = allProduct.Skip(prodSkip).Take(pager.PageSize).ToList();
-        //         ViewBag.Pager = pager;
-
-        //         return View(data);
-        //     }
-
-        //Gets pageSize amount products from database
         [HttpGet]
-        public async Task<IActionResult> Index(string input, int pg = 1)
+        public async Task<IActionResult> Index()
         {
-            ViewData["SearchProductInput"] = input;
-
-            if (pg < 1) pg = 1;
-
-            IEnumerable<AllProductsViewModel> products;
-            int prodCount = 0;
-
-            if (string.IsNullOrEmpty(input))
-            {
-                products = await this.productService.GetAllProductsPagedAsync(pg, pageSize);
-                prodCount = await this.productService.GetAllProductsCountAsync();
-            }
-            else
-            {
-                products = await this.productService.GetAllSearchedProductsPagedAsync(input, pg, pageSize);
-                prodCount = await this.productService.GetAllSearchedProductsCountAsync(input);
-            }
-
-            var pager = new Pager(prodCount, pg, pageSize);
-            int prodSkip = (pg - 1) * pageSize;
-            ViewBag.Pager = pager;
-
-            return View(products);
+            return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AllProductsFiltered([FromBody] FilterOptionsViewModel filters)
-        {
-			//var products = await this.productService.GetAllProductsFilteredAsync(filters, pg, pageSize);
-			//var totalProducts = await this.productService.GetFilteredProductCountAsync(filters);
-			
-            // Extract currentPage and Categories from the request
+		[HttpPost]
+		public async Task<IActionResult> AllProductsFiltered([FromBody] FilterOptionsViewModel filters)
+		{
 			int currentPage = filters.CurrentPage;
-            string searchInput = filters.SearchInput;
-			List<string> categories = filters.Categories;
-			List<string> priceRanges = filters.PriceRanges;
-			bool inStock = filters.InStock;
-			string sortByPrice = filters.SortByPrice;
+			int chunkIndex = (currentPage-1) * pageSize; 
+			int chunkSize = pageSize;   
 
-			// Define page size (you can adjust this as needed)
-			 // Adjust based on how many products you want to display per page
-			int skip = (currentPage - 1) * pageSize;
+			int skip = chunkIndex * chunkSize;
 
-			// Get all products from the product service (without filtering or pagination for now)
-			var allProducts = await productService.GetAllProductsAsync();
+			var filteredProducts = await this.productService.GetProductsChunkFilteredAsync(filters, chunkIndex, chunkSize);
 
-            if(!searchInput.IsNullOrEmpty())
-            {
-                allProducts = allProducts.Where(p=>p.Name.Contains(searchInput)).ToList();
-            }
+			int totalFilteredProducts = await this.productService.GetAllFilteredProductCountAsync(filters);
 
-			if (priceRanges != null && priceRanges.Any())
-			{
-				var priceRangeFilters = new List<Func<AllProductsViewModel, bool>>();
+			int totalPages = (int)Math.Ceiling((double)totalFilteredProducts / chunkSize);
 
-				// Add filters based on selected price ranges
-				if (priceRanges.Contains("below-200"))
-				{
-					priceRangeFilters.Add(p => p.Price < 200);
-				}
-				if (priceRanges.Contains("201-999"))
-				{
-					priceRangeFilters.Add(p => p.Price >= 201 && p.Price <= 999);
-				}
-				if (priceRanges.Contains("1000-1999"))
-				{
-					priceRangeFilters.Add(p => p.Price >= 1000 && p.Price <= 1999);
-				}
-				if (priceRanges.Contains("above-2000"))
-				{
-					priceRangeFilters.Add(p => p.Price > 2000);
-				}
-
-				allProducts = allProducts.Where(p => priceRangeFilters.Any(filter => filter(p))).ToList();
-			}
-
-			if (categories != null && categories.Any())
-			{
-				allProducts = allProducts.Where(p => categories.Contains(p.Category)).ToList();
-			}
-
-            if (inStock)
-            {
-                allProducts = allProducts.Where(p => p.Quantity > 0).ToList();
-            }
-
-            if (!sortByPrice.IsNullOrEmpty())
-            { 
-                if(sortByPrice == "high-to-low")
-                {
-                    allProducts = allProducts.OrderByDescending(p => p.Price).ToList();
-                } 
-                else if (sortByPrice == "low-to-high")
-                {
-					allProducts = allProducts.OrderBy(p => p.Price).ToList();
-				}
-			}
-
-				// Apply pagination (skip and take)
-				var products = allProducts.Skip(skip).Take(pageSize).ToList();
-
-			// Get the total count of products based on the filters (without pagination)
-			int totalProducts = allProducts.Count();
-
-			// Calculate total pages
-			int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
-
-			// Construct the response object
 			var response = new
 			{
-				products = products,
+				products = filteredProducts,
 				totalPages = totalPages,
-				currentPage = currentPage // Ensure currentPage is returned in the response
+				currentPage = currentPage
 			};
 
-			// Return the response as JSON
 			return Json(response);
 		}
 
-        [HttpGet]
+
+
+		[HttpGet]
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct()
         {
@@ -178,7 +62,6 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(model);

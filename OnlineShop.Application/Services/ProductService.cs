@@ -11,9 +11,10 @@
 	using ViewModels.Shop;
 	using Infrastructure.Data.Repository.Interfaces;
 	using System.Linq.Expressions;
+    using Filters;
 
 
-    public class ProductService : BaseService, IProductService
+	public class ProductService : BaseService, IProductService
     {
 		private IRepository<Product> productRepository;
 
@@ -36,35 +37,16 @@
                .ToArrayAsync();
         }
 
-		public async Task<IEnumerable<AllProductsViewModel>> GetAllSearchedProductsAsync(string input)
+        public async Task<IEnumerable<AllProductsViewModel>> GetProductsChunkFilteredAsync(FilterOptionsViewModel filter, int chunkIndex, int chuckSize)
         {
-			var allProducts = await this.GetAllProductsAsync();
-
-			return allProducts
-				.Where(p => p.Name.ToLower().Contains(input.ToLower()))
-				.ToArray();
-		}
-
-		public async Task<IEnumerable<AllProductsViewModel>> GetAllProductsPagedAsync(int pageIndex, int pageSize)
-		{
-			return await this.productRepository
-			 .GetAllPagedAttached(pageIndex, pageSize)
-			 .To<AllProductsViewModel>()
-			 .Where(p => p.IsDeleted == false)
-			 .ToArrayAsync();
-		}
-
-		public async Task<IEnumerable<AllProductsViewModel>> GetAllSearchedProductsPagedAsync(string input, int pageIndex, int pageSize)
-		{
-			var searchExpression = string.IsNullOrEmpty(input)
-				? (Expression<Func<Product, bool>>)(e => true)
-				: e => e.Name.Contains(input);
+			var filterPredicate = ProductFilter.CreateFilterPredicate(filter);
+			var orderBy = ProductSorter.CreateSorter(filter);
 
 			return await this.productRepository
-			 .GetAllSearchedPagedAttached(searchExpression, pageIndex, pageSize)
-			 .To<AllProductsViewModel>()
-			 .Where(p => p.IsDeleted == false)
-			 .ToArrayAsync();
+			   .GetFilteredChunkAsync(filterPredicate, orderBy, chunkIndex, chuckSize)
+			   .To<AllProductsViewModel>()
+			   .Where(p => p.IsDeleted == false)
+			   .ToArrayAsync();
 		}
 
 		public async Task<int> GetAllProductsCountAsync()
@@ -72,27 +54,13 @@
             return await this.productRepository.AllCountAsync();
         }
 
-		public async Task<int> GetAllSearchedProductsCountAsync(string input)
+
+		public async Task<int> GetAllFilteredProductCountAsync(FilterOptionsViewModel filter)
 		{
-			var searchExpression = string.IsNullOrEmpty(input)
-				? (Expression<Func<Product, bool>>)(e => true)
-				: e => e.Name.Contains(input);
+			var filterPredicate = ProductFilter.CreateFilterPredicate(filter);
 
-			return await this.productRepository.AllSearchedCountAsync(searchExpression);
+			return await this.productRepository.AllFilteredCountAsync(filterPredicate);
 		}
-
-		//      public async Task<IEnumerable<AllProductsViewModel>> GetAllProductsFilteredAsync(FilterOptionsViewModel filter)
-		//      {
-		//          return await products
-		//              .Where(p => filter.Categories.Any(c=>c == p.Category))
-		//              .to();
-
-		//	// Apply category filter
-		//	if (filters.Categories?.Any() == true)
-		//	{
-		//		products = products.Where(p => filters.Categories.Contains(p.Category)).ToList();
-		//	}
-		//}
 
 		public async Task AddNewProductAsync(AddNewProductViewModel model)
         {
@@ -152,6 +120,5 @@
             .FirstOrDefaultAsync(p => p.Id.ToLower() == productId.ToString().ToLower());
         }
 
-       
-    }
+	}
 }

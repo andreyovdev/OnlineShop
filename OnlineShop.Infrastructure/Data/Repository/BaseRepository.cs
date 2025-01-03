@@ -33,18 +33,29 @@
             return this.dbSet.ToListAsync();
         }
 
-		public IQueryable<TType> GetAllPagedAttached(int pageIndex, int pageSize)
+		public IQueryable<TType> GetFilteredChunkAsync(
+            Expression<Func<TType, bool>> predicate, 
+            List<(Expression<Func<TType, object>> orderBy, bool isDescending)> orderByList, 
+            int skip, 
+            int take)
 		{
-			return this.dbSet.Skip((pageIndex - 1) * pageSize).Take(pageSize).AsQueryable();
-		}
+			int totalEntities = this.dbSet.Count(predicate);
 
-		public IQueryable<TType> GetAllSearchedPagedAttached(Expression<Func<TType, bool>> searchExpression, int pageIndex, int pageSize)
-		{
-			return this.dbSet
-                .Where(searchExpression)
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
-                .AsQueryable();
+			take = Math.Max(0, Math.Min(take, totalEntities - skip));
+
+			var query = this.dbSet.Where(predicate);
+
+			foreach (var orderByItem in orderByList)
+			{
+				query = orderByItem.isDescending
+					? query.OrderByDescending(orderByItem.orderBy)
+					: query.OrderBy(orderByItem.orderBy);
+			}
+
+			return query
+				.Skip(skip)
+				.Take(take)
+				.AsQueryable();
 		}
 
 		public async Task<int> AllCountAsync()
@@ -52,12 +63,11 @@
 			return await this.dbSet.CountAsync();
 		}
 
-
-		public async Task<int> AllSearchedCountAsync(Expression<Func<TType, bool>> searchExpression)
+		public async Task<int> AllFilteredCountAsync(Expression<Func<TType, bool>> predicate)
 		{
 			return await this.dbSet
-                .Where(searchExpression)
-                .CountAsync();
+					.Where(predicate)
+					.CountAsync();
 		}
 
 		public TType GetById(Guid id)

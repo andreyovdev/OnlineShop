@@ -7,10 +7,9 @@
         IEnumerable<TType> GetAll();
         IQueryable<TType> GetAllAttached();
 		Task<List<TType>> GetAllAsync();
-		IQueryable<TType> GetAllPagedAttached(int pageIndex, int pageSize);
-		IQueryable<TType> GetAllSearchedPagedAttached(Expression<Func<TType, bool>> searchExpression, int pageIndex, int pageSize);
+		IQueryable<TType> GetFilteredChunkAsync(Expression<Func<TType, bool>> predicate, List<(Expression<Func<TType, object>> orderBy, bool isDescending)> orderByList, int chunkIndex, int chunkSize);
 		Task<int> AllCountAsync();
-		Task<int> AllSearchedCountAsync(Expression<Func<TType, bool>> searchExpression);
+		Task<int> AllFilteredCountAsync(Expression<Func<TType, bool>> predicate);
 		TType GetById(Guid id);
         Task<TType> GetByIdAsync(Guid id);
         bool Remove(Guid id);

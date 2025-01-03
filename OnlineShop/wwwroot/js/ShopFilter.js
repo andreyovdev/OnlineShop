@@ -4,12 +4,13 @@ $(document).ready(function () {
     const $noProductMessage = $('.no-product-message');
     const $paginationList = $paginationWrapper.find('.pagination');
     const $filterTypesContainer = $('.filter-types-container');
-    const $searchInput = $('.nav-input-search input[name="input"]');
+    const $searchInput = $('input[name="input"]');
     const $priceFilters = $('.price-filter');
     const $categoryFilters = $('.category-filter');
     const $inStockCheckbox = $('#in-stock');
     const $sortPriceFilter = $('.sort-price-filter');
     const $resetFilterBtn = $('#reset-filter-btn');
+    const $searchBtn = $('.nav-input-search button[type="submit"]');
 
     let currentPage = 1;
 
@@ -209,7 +210,7 @@ $(document).ready(function () {
         }
     }
 
-    $filterTypesContainer.add($searchInput).on('change click', 'input', function () {
+    function searchProducts() {
         const filters = getFilters();
 
         const queryString = buildQueryString(filters);
@@ -217,7 +218,16 @@ $(document).ready(function () {
 
         currentPage = 1;
         fetchProducts(filters, currentPage);
-    });
+    }
+
+    const isShopPage = window.location.pathname.includes('/Shop');
+    if (isShopPage) {
+        $searchInput.on('input', searchProducts);
+    } else {
+        $searchBtn.on('click keydown', searchProducts);
+    }
+
+    $filterTypesContainer.on('change', searchProducts);
 
     $paginationWrapper.on('click', 'a', function (event) {
         event.preventDefault();
@@ -234,11 +244,11 @@ $(document).ready(function () {
     $resetFilterBtn.on('click', function (event) {
         event.preventDefault();
 
-        $searchInput.val(''); 
-        $priceFilters.prop('checked', false); 
-        $categoryFilters.prop('checked', false); 
-        $inStockCheckbox.prop('checked', false); 
-        $sortPriceFilter.prop('checked', false); 
+        $searchInput.val('');
+        $priceFilters.prop('checked', false);
+        $categoryFilters.prop('checked', false);
+        $inStockCheckbox.prop('checked', false);
+        $sortPriceFilter.prop('checked', false);
 
         const defaultFilters = {
             SearchInput: '',
@@ -252,9 +262,7 @@ $(document).ready(function () {
         const queryString = buildQueryString(defaultFilters);
         window.history.pushState(null, null, `/Shop?${queryString}`);
 
-        currentPage = 1; 
+        currentPage = 1;
         fetchProducts(defaultFilters, currentPage);
     });
 });
-
-

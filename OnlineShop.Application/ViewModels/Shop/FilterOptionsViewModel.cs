@@ -1,10 +1,10 @@
 ﻿namespace OnlineShop.Application.ViewModels.Shop
 {
-    public class FilterOptionsViewModel
-    {
-        public int CurrentPage { get; set; }
+	public class FilterOptionsViewModel
+	{
+		public int CurrentPage { get; set; }
 
-        public string SearchInput { get; set; }
+		public string SearchInput { get; set; }
 
 		public List<string> PriceRanges { get; set; } = new List<string>();
 

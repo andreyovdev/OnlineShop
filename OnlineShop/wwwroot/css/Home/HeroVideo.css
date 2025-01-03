@@ -63,7 +63,7 @@
 
 @media (min-width: 768px) {
   .hero-video-container {
-    height: 810px;
+    height: 100vh;
   }
   .hero-text h1 {
     font-size: 6em;

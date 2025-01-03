@@ -118,6 +118,7 @@
 }
 
 .cart-btn {
+    z-index: 1;
     padding: 10px 0 10px 0;
     font-weight: 800;
     margin: 0px auto;
