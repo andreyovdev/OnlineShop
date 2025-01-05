@@ -10,7 +10,6 @@
     using Domain.Enums;
 	using ViewModels.Shop;
 	using Infrastructure.Data.Repository.Interfaces;
-	using System.Linq.Expressions;
     using Filters;
 
 

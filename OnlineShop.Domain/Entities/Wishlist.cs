@@ -1,10 +1,10 @@
 ﻿namespace OnlineShop.Domain.Entities
 {
-    public class UserProduct
+    public class Wishlist
     {
-        public Guid UserId { get; set; }
+        public Guid UserProfileId { get; set; }
 
-        public virtual UserProfile User { get; set; } = null!;
+        public virtual UserProfile UserProfile { get; set; } = null!;
 
         public Guid ProductId { get; set; }
 

@@ -6,16 +6,19 @@
     
     using Application.Services.Interfaces;
     using Application.ViewModels.Shop;
+    using static NuGet.Packaging.PackagingConstants;
 
 	public class ShopController : Controller
     {
         private const int pageSize = 10; //Products displayed per page. 10 is default
 
 		private readonly IProductService productService;
+		private readonly IUserProfileService userProfileService;
 
-        public ShopController(IProductService productService)
+		public ShopController(IProductService productService, IUserProfileService userProfileService)
         {
             this.productService = productService;
+            this.userProfileService = userProfileService;
         }
 
         [HttpGet]
@@ -49,9 +52,25 @@
 			return Json(response);
 		}
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddToWishlist([FromBody] string id)
+        {
+            //await this.userProfileService.AddProductToWishlist(id);
 
+            return Ok();
+        }
 
-		[HttpGet]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddToCart([FromBody] string id)
+        {
+            //await this.userService.AddProductToCart(id);
+
+            return Ok();
+        }
+
+        [HttpGet]
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct()
         {

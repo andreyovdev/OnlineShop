@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 	using Identity;
+	using Domain.Entities;
 
 	public class UserConfiguration : IEntityTypeConfiguration<AppUser>
     {
@@ -15,6 +16,7 @@
 
             builder
                 .HasKey(p => p.Id);
-        }
+
+		}
     }
 }

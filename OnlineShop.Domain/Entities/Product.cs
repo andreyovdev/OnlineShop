@@ -25,7 +25,13 @@
 
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<UserProduct> ProductUsers { get; set; } =
-            new HashSet<UserProduct>();
-    }
+        public virtual ICollection<Wishlist> WishlistedByUsers { get; set; } =
+            new List<Wishlist>();
+
+		public virtual ICollection<Cart> InCartByUsers { get; set; } =
+			new List<Cart>();
+
+		public virtual ICollection<Purchase> PurchasedByUsers { get; set; } =
+			new List<Purchase>();
+	}
 }

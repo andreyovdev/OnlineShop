@@ -4,6 +4,8 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Domain.Entities;
+	using Identity;
+
     using static Domain.Common.EntityValidationConstants.UserProfile;
 
     public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
@@ -20,12 +22,38 @@
             builder.Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(NameMaxLength)
-                .HasComment("Name of the user");
+                .HasComment("Name of the user profile");
 
-            builder
-                .HasMany(p => p.UserProducts)
-                .WithOne(up => up.User)
-                .HasForeignKey(up => up.UserId);
-        }
+			builder
+				.HasOne<AppUser>()
+				.WithOne()  
+				.HasForeignKey<UserProfile>(up => up.AppUserId); 
+
+
+
+			builder
+				.HasMany(up => up.Wishlist)
+				.WithOne(w => w.UserProfile)
+				.HasForeignKey(w => w.UserProfileId);  
+
+			builder
+				.HasMany(up => up.Cart)
+				.WithOne(c => c.UserProfile)
+				.HasForeignKey(c => c.UserProfileId); 
+
+			builder
+				.HasMany(up => up.Purchases)
+				.WithOne(p => p.UserProfile)
+				.HasForeignKey(p => p.UserProfileId); 
+
+			builder
+				.Property(up => up.AppUserId)
+				.IsRequired()
+				.HasComment("Foreign key to AppUser");
+
+			builder
+				.HasIndex(up => up.AppUserId)
+				.IsUnique(); 
+		}
     }
 }

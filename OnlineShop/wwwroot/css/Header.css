@@ -120,20 +120,20 @@ input:focus {
   align-items: center;
 }
 
-.nav-input-search input {
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-}
+    .nav-input-search input {
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        font-weight: 400;
+        line-height: 14px;
+    }
 
-.nav-input-search button {
-  border: none;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  margin-top: 0.1em;
-  padding-bottom: 5px;
-  cursor: pointer;
+.nav-input-search a {
+    border: none;
+    background-color: white;
+    padding: 0.1rem .6rem;
+    border-radius: 15px;
+    cursor: pointer;
 }
 .cart-count {
   font-size: .7rem;

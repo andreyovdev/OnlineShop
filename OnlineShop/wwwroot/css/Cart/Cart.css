@@ -16,14 +16,25 @@
     background-color: var(--primary-color);
     padding: 0.5rem 2rem;
   }
-  .no-items-container {
+.no-items-container {
     text-align: center;
-  }
-  
-  .no-items-container button {
-    cursor: pointer;
-    background-color: black;
-  }
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 200px;
+}
+
+.no-items-container *{
+    padding: 20px;
+}
+
+    .no-items-container a {
+        cursor: pointer;
+        background-color: black;
+        
+    }
   
   @media (min-width: 768px) {
     .cart-container {

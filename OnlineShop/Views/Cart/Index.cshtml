@@ -1,0 +1,83 @@
+﻿@* @using OnlineShop.Application.ViewModels.Shop
+@model IEnumerable<AllProductsCartViewModel>
+ @{
+    Pager pager = new Pager();
+    int pageNum = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNum = pager.CurrentPage;
+    }
+}
+ *@
+@* <script>
+    var isUserInRoleAdmin = '@User.IsInRole("Admin")'.toLowerCase() === 'true';
+</script> *@
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/css/Cart/Cart.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Cart/CartAmountSummary.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Cart/CartListing.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Cart/Coupons.css" asp-append-version="true" />
+	@* <link rel="stylesheet" href="~/css/Checkout/Checkout.css" asp-append-version="true" /> *@
+}
+@section PageScripts {
+	<script src="~/js/Cart.js" asp-append-version="true"></script>
+}
+
+@* <div class="no-items-container">
+	<h2 class="page-heading">Cart is empty</h2>
+	<a asp-controller="Shop" asp-action="Index" class="explore-btn">Explore</a>
+</div>  *@
+
+<div>
+	<div class="cart-container">
+		<div class="cart-products-container">
+			
+				<div class="cart-product-card">
+					<div>
+						<img class="cart-img" src="">
+					</div>
+					<div class="product-description">
+						<h3>product.Name</h3>
+						<p>Price: $product.Price</p>
+						<p>Category: product.Category</p>
+					</div>
+					<div class="button-section">
+						<div class="count-btn-container">
+							<button class="counter-btn">-</button>
+							<span>1</span>
+							<button class="counter-btn">+</button>
+						</div>
+					</div>
+					<div class="secondary-btn-section">
+						<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="25" width="25" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>
+					</div>
+				</div>
+			
+		</div>
+		<div>
+			<div class="cart-price-container">
+				<h1>Summary</h1>
+				<div class="subtotal-container">
+					<span>Sub-total: </span>
+					<span>$100</span>
+				</div>
+				<div class="shipping-container">
+					<span>Delivery: </span>
+					<span>Free</span>
+				</div>
+				<div class="total">
+					<span class="total-container">Total: </span>
+					<span>$100</span>
+				</div>
+				<a href="/checkout">Place Order</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+

@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Domain.Entities;
+
     using static Domain.Common.EntityValidationConstants.Product;
 
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
