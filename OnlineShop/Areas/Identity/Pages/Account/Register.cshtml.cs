@@ -12,27 +12,32 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
 	using Microsoft.AspNetCore.Mvc.RazorPages;
 
 	using Infrastructure.Identity;
+	using Application.Services.Interfaces;
 
-    using static Application.ViewModels.Validation.ViewModelValidationMessages;
+	using static Application.ViewModels.Validation.ViewModelValidationMessages;
 
-    public class RegisterModel : PageModel
+	public class RegisterModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly IUserStore<AppUser> _userStore;
         private readonly ILogger<RegisterModel> _logger;
+		private readonly IUserProfileService _userProfileService;
 
-        public RegisterModel(
+		public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger, 
+            IUserProfileService userProfileService)
         {
             _userManager = userManager;
             _userStore = userStore;
             _signInManager = signInManager;
             _logger = logger;
-        }
+            _userProfileService = userProfileService;
+
+		}
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -116,9 +121,12 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+
                     await _userManager.AddToRoleAsync(user, "User");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    await _userProfileService.CreateUserProfile(user.UserName, Guid.Parse(userId));
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");

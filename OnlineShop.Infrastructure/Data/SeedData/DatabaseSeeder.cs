@@ -3,51 +3,52 @@
 	using System.Diagnostics;
 	using Microsoft.AspNetCore.Identity;
 
-    using Newtonsoft.Json;
+	using Newtonsoft.Json;
 
-    using Domain.Entities;
+	using Domain.Entities;
 	using Identity;
 
 	public class DatabaseSeeder : IDatabaseSeeder
-    {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+	{
+		private readonly ApplicationDbContext _context;
+		private readonly UserManager<AppUser> _userManager;
+		private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
 		private const string jsonsPath = "D:\\OnlineShop\\OnlineShop.Infrastructure\\Data\\SeedData";
 
-        public DatabaseSeeder(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
-        {
-            _context = context;
+		public DatabaseSeeder(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+		{
+			_context = context;
 			_userManager = userManager;
 			_roleManager = roleManager;
 		}
 
-        public async Task SeedAsync()
-        {
-            await SeedProductsAsync();
+		public async Task SeedAsync()
+		{
+			await SeedProductsAsync();
 
-            await SeedUsersAsync();
-            await SeedRolesAsync();
-            await SeedUserRolesAsync();
+			await SeedUsersAsync();
+			await SeedRolesAsync();
+			await SeedUserRolesAsync();
+			await SeedUserProfiles();
 
 		}
 
-        public async Task SeedProductsAsync()
-        {
-            if (!_context.Products.Any())
-            {
-                var jsonPath = Path.Combine(jsonsPath, "products.json");
-                var productsJson = File.ReadAllText(jsonPath);
-                var products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+		public async Task SeedProductsAsync()
+		{
+			if (!_context.Products.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "products.json");
+				var productsJson = File.ReadAllText(jsonPath);
+				var products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
 
-                if (products != null)
-                {
-                    await _context.Products.AddRangeAsync(products);
-                    await _context.SaveChangesAsync();
-                }
-            }
-        }
+				if (products != null)
+				{
+					await _context.Products.AddRangeAsync(products);
+					await _context.SaveChangesAsync();
+				}
+			}
+		}
 
 		public async Task SeedUsersAsync()
 		{
@@ -66,6 +67,7 @@
 					{
 						var newUser = new AppUser
 						{
+							Id = user.Id,
 							UserName = user.UserName,
 							Email = user.Email,
 						};
@@ -82,7 +84,7 @@
 			{
 				var jsonPath = Path.Combine(jsonsPath, "roles.json");
 				var rolesJson = File.ReadAllText(jsonPath);
-				var roles = JsonConvert.DeserializeObject<List<Dictionary<string,string>>>(rolesJson);
+				var roles = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(rolesJson);
 
 				foreach (var role in roles)
 				{
@@ -122,6 +124,39 @@
 				}
 			}
 		}
-	}
 
+		public async Task SeedUserProfiles()
+		{
+			if (!_context.UserProfiles.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "user_profiles.json");
+				var userProfilesJson = await File.ReadAllTextAsync(jsonPath);
+				var userProfiles = JsonConvert.DeserializeObject<List<UserProfile>>(userProfilesJson);
+
+				if (userProfiles == null) return;
+
+				foreach (var userProfile in userProfiles)
+				{
+					var existingProfile = await _context.UserProfiles.FindAsync(userProfile.Id);
+					if (existingProfile == null)
+					{
+						var newUserProfile = new UserProfile
+						{
+							Id = userProfile.Id,
+							Name = userProfile.Name ?? "Unknown User",
+							AppUserId = userProfile.AppUserId,
+							Wishlist = userProfile.Wishlist ?? new List<Wishlist>(),
+							Cart = userProfile.Cart ?? new List<Cart>(),
+							Purchases = userProfile.Purchases ?? new List<Purchase>()
+						};
+
+						_context.UserProfiles.Add(newUserProfile);
+					}
+				}
+
+				await _context.SaveChangesAsync();
+			}
+		}
+
+	}
 }

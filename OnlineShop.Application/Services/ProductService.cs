@@ -15,7 +15,7 @@
 
 	public class ProductService : BaseService, IProductService
     {
-		private IRepository<Product> productRepository;
+		private readonly IRepository<Product> productRepository;
 
 		public ProductService(IRepository<Product> productRepository)
 		{
@@ -53,7 +53,6 @@
             return await this.productRepository.AllCountAsync();
         }
 
-
 		public async Task<int> GetAllFilteredProductCountAsync(FilterOptionsViewModel filter)
 		{
 			var filterPredicate = ProductFilter.CreateFilterPredicate(filter);
@@ -61,15 +60,22 @@
 			return await this.productRepository.AllFilteredCountAsync(filterPredicate);
 		}
 
-		public async Task AddNewProductAsync(AddNewProductViewModel model)
+		public async Task<bool> AddNewProductAsync(AddNewProductViewModel model)
         {
             Product product = new Product();
             AutoMapperConfig.MapperInstance.Map(model, product);
 
             product.Category = ConvertToEnum<Category>(model.Category);
             
+            if(product == null)
+            {
+                return false;
+            }
+
             productRepository.Add(product);
             await productRepository.SaveAsync();
+
+            return true;
         }
 
         public async Task<EditProductViewModel> GetEditProductByIdAsync(Guid productId)
@@ -82,13 +88,20 @@
             return model;
         }
 
-        public async Task EditProductAsync(EditProductViewModel model)
+        public async Task<bool> EditProductAsync(EditProductViewModel model)
         {
             Product product = new Product();
             AutoMapperConfig.MapperInstance.Map(model, product);
 
+            if(product == null)
+            {
+                return false;
+            }
+
             productRepository.Update(product);
             await productRepository.SaveAsync();
+
+            return true;
         }
 
         public async Task<RemoveProductViewModel> GetRemoveProductByIdAsync(Guid productId)
@@ -101,15 +114,21 @@
             return model;
         }
 
-        public async Task RemoveProductAsync(Guid productId)
+        public async Task<bool> RemoveProductAsync(Guid productId)
         {
             Product product = await productRepository.GetByIdAsync(productId);
+
+            if(product == null)
+            {
+                return false;
+            }
 
             product.IsDeleted = true;
 
             productRepository.Update(product);
             await productRepository.SaveAsync();
-        }
+
+            return true;        }
 
         public async Task<ProductDetailsViewModel> GetProductDetailsAsync(Guid productId)
         {

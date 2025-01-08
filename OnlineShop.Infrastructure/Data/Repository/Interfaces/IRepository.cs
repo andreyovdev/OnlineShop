@@ -12,7 +12,8 @@
 		Task<int> AllFilteredCountAsync(Expression<Func<TType, bool>> predicate);
 		TType GetById(Guid id);
         Task<TType> GetByIdAsync(Guid id);
-        bool Remove(Guid id);
+        bool RemoveById(Guid id);
+        bool RemoveByEntity(TType entity);
         void Add(in TType sender);
         void Update(in TType sender);
         int Save();

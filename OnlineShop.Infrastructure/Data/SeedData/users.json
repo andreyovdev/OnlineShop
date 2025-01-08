@@ -1,9 +1,11 @@
 [
     {
+        "Id": "1C4FDF7C-929C-4DC6-9E76-A659EAE07D5B",
         "UserName": "admin",
         "Email": "admin@mail.com"
     },
     {
+        "Id": "70594104-4DF7-43B4-9981-5C15E845DCB5",
         "UserName": "user",
         "Email": "user@mail.com"
     }

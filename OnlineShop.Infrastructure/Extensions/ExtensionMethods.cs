@@ -42,8 +42,8 @@
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddRoles<IdentityRole<Guid>>()
                  .AddSignInManager<SignInManager<AppUser>>()
-                 .AddRoleManager<RoleManager<IdentityRole<Guid>>>();
-            //TODO: .AddDefaultTokeProviders()
+                 .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
+                 .AddDefaultTokenProviders();
 
             return services;
         }

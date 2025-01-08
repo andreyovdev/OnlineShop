@@ -1,0 +1,20 @@
+[
+    {
+        "Id": "FD8E3CE5-A531-4FBD-AFDC-60B35FFCBB83",
+        "UserName": "admin",
+        "Email": "admin@mail.com",
+        "AppUserId": "1C4FDF7C-929C-4DC6-9E76-A659EAE07D5B",
+        "Wishlist": [],
+        "Cart": [],
+        "Purchases": []
+    },
+    {
+        "Id": "0C0F1CB5-0C72-4BFC-98D4-A7A0CB1A049B",
+        "UserName": "user",
+        "Email": "user@mail.com",
+        "AppUserId": "70594104-4DF7-43B4-9981-5C15E845DCB5",
+        "Wishlist": [],
+        "Cart": [],
+        "Purchases": []
+    }
+]

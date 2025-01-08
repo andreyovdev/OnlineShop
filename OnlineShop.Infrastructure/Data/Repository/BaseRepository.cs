@@ -80,7 +80,7 @@
             return await this.dbSet.FindAsync(id);
         }
 
-        public bool Remove(Guid id)
+        public bool RemoveById(Guid id)
         {
             var product = this.dbSet.Find(id);
             if (product is { })
@@ -92,7 +92,18 @@
             return false;
         }
 
-        public void Add(in TType sender)
+		public bool RemoveByEntity(TType entity)
+		{
+			if (entity != null)
+			{
+				this.dbSet.Remove(entity);
+				return true;
+			}
+
+			return false;
+		}
+
+		public void Add(in TType sender)
         {
             dbContext.Add(sender).State = EntityState.Added;
         }

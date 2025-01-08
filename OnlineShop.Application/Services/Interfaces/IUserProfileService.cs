@@ -2,6 +2,7 @@
 {
 	public interface IUserProfileService
 	{
-		Task AddProductToWishlist(Guid userId, Guid productId);
+		Task<bool> CreateUserProfile(string name, Guid userId);
+		Task<Guid> GetUserProfileId(Guid userId);
 	}
 }

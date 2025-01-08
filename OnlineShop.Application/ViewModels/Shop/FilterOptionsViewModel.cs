@@ -13,5 +13,6 @@
 		public bool InStock { get; set; }
 
 		public string SortByPrice { get; set; }
+
 	}
 }

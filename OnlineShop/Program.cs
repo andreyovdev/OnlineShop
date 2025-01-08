@@ -27,6 +27,20 @@ builder.Services.AddConfiguredIdentity(builder.Configuration);
 builder.Services.ConfigureApplicationCookie(cfg =>
 {
     cfg.LoginPath = "/Identity/Account/Login";
+	cfg.ExpireTimeSpan = TimeSpan.FromDays(14); 
+	cfg.SlidingExpiration = false;
+	cfg.Cookie.HttpOnly = true;
+	cfg.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
+	cfg.Cookie.SameSite = SameSiteMode.Lax; 
+
+});
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30); 
+	options.Cookie.HttpOnly = true; 
+	options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddControllersWithViews();
@@ -40,6 +54,8 @@ builder.Services.AddControllers()
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+app.UseSession();
 
 AutoMapperConfig.RegisterMappings(typeof(AddNewProductViewModel).Assembly);
 

@@ -1,30 +1,31 @@
 ﻿namespace OnlineShop.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
+	using Application.Services.Interfaces;
+	using Application.ViewModels.Shop;
 	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.IdentityModel.Tokens;
-    
-    using Application.Services.Interfaces;
-    using Application.ViewModels.Shop;
-    using static NuGet.Packaging.PackagingConstants;
+	using Microsoft.AspNetCore.Mvc;
+
+	using static Application.Extensions.ControllerExtensions;
 
 	public class ShopController : Controller
     {
         private const int pageSize = 10; //Products displayed per page. 10 is default
 
 		private readonly IProductService productService;
+		private readonly IWishlistService wishlistService;
 		private readonly IUserProfileService userProfileService;
 
-		public ShopController(IProductService productService, IUserProfileService userProfileService)
+		public ShopController(IProductService productService, IWishlistService wishlistService, IUserProfileService userProfileService)
         {
             this.productService = productService;
+            this.wishlistService = wishlistService;
             this.userProfileService = userProfileService;
-        }
+		}
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            return View();
+		[HttpGet]
+		public async Task<IActionResult> Index()
+		{
+			return View();
         }
 
 		[HttpPost]
@@ -53,17 +54,87 @@
 		}
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> AddToWishlist([FromBody] string id)
+		[Authorize]
+		public async Task<IActionResult> AddToWishlist([FromBody] string productId)
         {
-            //await this.userProfileService.AddProductToWishlist(id);
+			Guid productGuid = Guid.NewGuid();
+
+			if (!this.IsGuidValid(productId, ref productGuid))
+            {
+                return View();
+            }
+
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
+
+			bool result = await this.wishlistService.AddProductToWishlist(userProfileGuid, productGuid);
+
+            if (!result)
+            {
+                return View();
+            }
 
             return Ok();
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> AddToCart([FromBody] string id)
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> RemoveFromWishlist([FromBody] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
+
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
+
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
+
+			bool result = await this.wishlistService.RemoveProductFromWishlist(userProfileGuid, productGuid);
+
+			if (!result)
+			{
+				return View();
+			}
+
+			return Ok();
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> IsProductInWishlist([FromQuery] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
+
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
+
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return Ok(false);
+			}
+
+			bool result = await this.wishlistService.IsProductInWishlist(userProfileGuid, productGuid);
+
+			return Ok(result);
+		}
+
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> AddToCart([FromBody] string id)
         {
             //await this.userService.AddProductToCart(id);
 
@@ -86,7 +157,12 @@
                 return View(model);
             }
 
-            await this.productService.AddNewProductAsync(model);
+            bool result = await this.productService.AddNewProductAsync(model);
+
+            if (!result)
+            {
+                return View();
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -97,7 +173,7 @@
         {
 
             Guid productGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref productGuid);
+            bool isIdValid = this.IsGuidValid(id, ref productGuid);
             if (!isIdValid)
             {
                 return RedirectToAction(nameof(Index));
@@ -118,9 +194,14 @@
                 return View(model);
             }
 
-            await productService.EditProductAsync(model);
+            bool result = await productService.EditProductAsync(model);
 
-            return RedirectToAction(nameof(Index));
+			if (!result)
+			{
+				return View();
+			}
+
+			return RedirectToAction(nameof(Index));
         }
 
 		[HttpGet]
@@ -128,7 +209,7 @@
         public async Task<IActionResult> RemoveProduct(string id)
         {
             Guid productGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref productGuid);
+            bool isIdValid = this.IsGuidValid(id, ref productGuid);
             if (!isIdValid)
             {
                 return RedirectToAction(nameof(Index));
@@ -145,18 +226,23 @@
         public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
         {
             Guid productGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref productGuid);
+            bool isIdValid = this.IsGuidValid(id, ref productGuid);
 
-            await productService.RemoveProductAsync(productGuid);
+            bool result = await productService.RemoveProductAsync(productGuid);
 
-            return RedirectToAction(nameof(Index));
+			if (!result)
+			{
+				return View();
+			}
+
+			return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> ProductDetails(string id)
         {
             Guid productGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref productGuid);
+            bool isIdValid = this.IsGuidValid(id, ref productGuid);
             if (!isIdValid)
             {
                 return RedirectToAction(nameof(Index));
@@ -168,22 +254,5 @@
             return View(product);
         }
 
-        private bool IsGuidValid(string? id, ref Guid productId)
-        {
-            //Invalid parameter in URL
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return false;
-            }
-
-            //Invalid id in url
-            bool isGuidValid = Guid.TryParse(id, out productId);
-            if (!isGuidValid)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }
+	}
 }

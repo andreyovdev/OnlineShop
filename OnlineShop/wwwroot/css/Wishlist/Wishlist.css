@@ -3,6 +3,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  min-height:100vh;
 }
 
 .wishlist-products-container .img-container {
@@ -13,6 +14,31 @@
   margin-left: -1.5em;
   margin-bottom: -5px;
 }
+.no-product-message{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: darkgray;
+    text-align: center;
+    padding-top: 200px;
+}
+
+
+
+     .no-product-message svg {
+        padding-top: 20px;
+        width: 100%;
+        background:none;
+    }
+
+    .loading-message {
+        display: none;
+        flex-direction: column;
+        color: darkgray;
+        text-align: center;
+        padding-top:180px;
+    }
 
 .wishlist-card {
   padding: 1em 1em;

@@ -11,6 +11,7 @@
 }
 
 <script>
+	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
 	var isUserInRoleAdmin = '@User.IsInRole("Admin")'.toLowerCase() === 'true';
 </script>
 
@@ -24,7 +25,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
 	<script src="~/js/Shop/ShopAnimations.js" asp-append-version="true"></script>
 	<script src="~/js/Shop/Shop.js" asp-append-version="true"></script>
-	<script src="~/js/Shop/ShopWishlist.js" asp-append-version="true"></script>
 }
 
 <div class="page-container">
