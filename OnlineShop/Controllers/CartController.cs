@@ -6,166 +6,124 @@
     
     using Application.Services.Interfaces;
     using Application.ViewModels.Shop;
+	using OnlineShop.Application.Extensions;
+	using Microsoft.AspNetCore.Cors.Infrastructure;
 
 	public class CartController : Controller
     {
-        private const int pageSize = 5; //Products displayed per page. 5 is default
+		private readonly ICartService cartService;
+		private readonly IUserProfileService userProfileService;
 
-		private readonly IProductService productService;
+		public CartController(ICartService cartService, IUserProfileService userProfileService)
+		{
+			this.cartService = cartService;
+			this.userProfileService = userProfileService;
+		}
 
-        public CartController(IProductService productService)
-        {
-            this.productService = productService;
-        }
-
-        [HttpGet]
-		//[Authorize]
+		[HttpGet]
         public async Task<IActionResult> Index()
         {
             return View();
         }
 
-		//[HttpPost]
-		//public async Task<IActionResult> AllProductsFiltered([FromBody] FilterOptionsViewModel filters)
-		//{
-		//	int currentPage = filters.CurrentPage;
-		//	int chunkIndex = (currentPage-1) * pageSize; 
-		//	int chunkSize = pageSize;   
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> AllProductsInCart()
+		{
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
 
-		//	int skip = chunkIndex * chunkSize;
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
 
-		//	var filteredProducts = await this.productService.GetProductsChunkFilteredAsync(filters, chunkIndex, chunkSize);
+			var prodcutsInCart = await this.cartService.GetProductsInCart(userProfileGuid);
 
-		//	int totalFilteredProducts = await this.productService.GetAllFilteredProductCountAsync(filters);
+			var response = new
+			{
+				products = prodcutsInCart,
+			};
 
-		//	int totalPages = (int)Math.Ceiling((double)totalFilteredProducts / chunkSize);
+			return Json(response);
+		}
 
-		//	var response = new
-		//	{
-		//		products = filteredProducts,
-		//		totalPages = totalPages,
-		//		currentPage = currentPage
-		//	};
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> AddToCart([FromBody] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
 
-		//	return Json(response);
-		//}
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
 
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
 
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
 
-		//[HttpGet]
-		//[Authorize(Roles = "Admin")]
-		//public async Task<IActionResult> AddNewProduct()
-  //      {
-		//	return View();
-  //      }
+			bool result = await this.cartService.AddProductToCart(userProfileGuid, productGuid);
 
-  //      [HttpPost]
-		//[Authorize(Roles = "Admin")]
-		//public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
-  //      {
-  //          if (!ModelState.IsValid)
-  //          {
-  //              return View(model);
-  //          }
+			if (!result)
+			{
+				return View();
+			}
 
-  //          await this.productService.AddNewProductAsync(model);
+			return Ok();
+		}
 
-  //          return RedirectToAction(nameof(Index));
-  //      }
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> RemoveFromCart([FromBody] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
 
-  //      [HttpGet]
-		//[Authorize(Roles = "Admin")]
-		//public async Task<IActionResult> EditProduct(string id)
-  //      {
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
 
-  //          Guid productGuid = Guid.Empty;
-  //          bool isIdValid = IsGuidValid(id, ref productGuid);
-  //          if (!isIdValid)
-  //          {
-  //              return RedirectToAction(nameof(Index));
-  //          }
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
 
-  //          EditProductViewModel formModel = await productService
-  //              .GetEditProductByIdAsync(productGuid);
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
 
-  //          return View(formModel);
-  //      }
+			bool result = await this.cartService.RemoveProductFromCart(userProfileGuid, productGuid);
 
-		//[HttpPost]
-		//[Authorize(Roles = "Admin")]
-  //      public async Task<IActionResult> EditProduct(EditProductViewModel model)
-  //      {
-  //          if (!ModelState.IsValid)
-  //          {
-  //              return View(model);
-  //          }
+			if (!result)
+			{
+				return View();
+			}
 
-  //          await productService.EditProductAsync(model);
+			return Ok();
+		}
 
-  //          return RedirectToAction(nameof(Index));
-  //      }
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> IsProductInCart([FromQuery] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
 
-		//[HttpGet]
-		//[Authorize(Roles = "Admin")]
-  //      public async Task<IActionResult> RemoveProduct(string id)
-  //      {
-  //          Guid productGuid = Guid.Empty;
-  //          bool isIdValid = IsGuidValid(id, ref productGuid);
-  //          if (!isIdValid)
-  //          {
-  //              return RedirectToAction(nameof(Index));
-  //          }
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
 
-  //          RemoveProductViewModel formModel = await productService
-  //              .GetRemoveProductByIdAsync(productGuid);
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
 
-  //          return View(formModel);
-  //      }
+			if (userProfileGuid == Guid.Empty)
+			{
+				return Ok(false);
+			}
 
-		//[HttpPost]
-		//[Authorize(Roles = "Admin")]
-  //      public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
-  //      {
-  //          Guid productGuid = Guid.Empty;
-  //          bool isIdValid = IsGuidValid(id, ref productGuid);
+			bool result = await this.cartService.IsProductInCart(userProfileGuid, productGuid);
 
-  //          await productService.RemoveProductAsync(productGuid);
-
-  //          return RedirectToAction(nameof(Index));
-  //      }
-
-  //      [HttpGet]
-  //      public async Task<IActionResult> ProductDetails(string id)
-  //      {
-  //          Guid productGuid = Guid.Empty;
-  //          bool isIdValid = IsGuidValid(id, ref productGuid);
-  //          if (!isIdValid)
-  //          {
-  //              return RedirectToAction(nameof(Index));
-  //          }
-
-  //          ProductDetailsViewModel product = 
-  //           await this.productService.GetProductDetailsAsync(productGuid);
-
-  //          return View(product);
-  //      }
-
-  //      private bool IsGuidValid(string? id, ref Guid productId)
-  //      {
-  //          //Invalid parameter in URL
-  //          if (string.IsNullOrWhiteSpace(id))
-  //          {
-  //              return false;
-  //          }
-
-  //          //Invalid id in url
-  //          bool isGuidValid = Guid.TryParse(id, out productId);
-  //          if (!isGuidValid)
-  //          {
-  //              return false;
-  //          }
-
-  //          return true;
-  //      }
-    }
+			return Ok(result);
+		}
+	}
 }

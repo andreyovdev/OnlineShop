@@ -1,18 +1,6 @@
-﻿@* @using OnlineShop.Application.ViewModels.Shop
-@model IEnumerable<AllProductsCartViewModel>
- @{
-    Pager pager = new Pager();
-    int pageNum = 0;
-    if (ViewBag.Pager != null)
-    {
-        pager = ViewBag.Pager;
-        pageNum = pager.CurrentPage;
-    }
-}
- *@
-@* <script>
-    var isUserInRoleAdmin = '@User.IsInRole("Admin")'.toLowerCase() === 'true';
-</script> *@
+﻿<script>
+	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
+</script>
 
 @section PageStyles {
 	<link rel="stylesheet" href="~/css/Cart/Cart.css" asp-append-version="true" />
@@ -22,42 +10,29 @@
 	@* <link rel="stylesheet" href="~/css/Checkout/Checkout.css" asp-append-version="true" /> *@
 }
 @section PageScripts {
-	<script src="~/js/Cart.js" asp-append-version="true"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
+	<script src="~/js/Cart/Cart.js" asp-append-version="true"></script>
 }
 
-@* <div class="no-items-container">
-	<h2 class="page-heading">Cart is empty</h2>
-	<a asp-controller="Shop" asp-action="Index" class="explore-btn">Explore</a>
-</div>  *@
-
 <div>
-	<div class="cart-container">
-		<div class="cart-products-container">
-			
-				<div class="cart-product-card">
-					<div>
-						<img class="cart-img" src="">
-					</div>
-					<div class="product-description">
-						<h3>product.Name</h3>
-						<p>Price: $product.Price</p>
-						<p>Category: product.Category</p>
-					</div>
-					<div class="button-section">
-						<div class="count-btn-container">
-							<button class="counter-btn">-</button>
-							<span>1</span>
-							<button class="counter-btn">+</button>
-						</div>
-					</div>
-					<div class="secondary-btn-section">
-						<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="25" width="25" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>
-					</div>
-				</div>
-			
+	<h1 class="page-heading" style="display: none;">Cart</h1>
+	 <div class="cart-container">
+		<div class="loading-message">
+		<h2>Loading...</h2>
+		</div> 
+	<div class="no-product-message" style="display: none;">
+		<h2>Cart is empty.</h2>
+		<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
+			<circle cx="35" cy="40" r="5" fill="darkgray" />
+			<circle cx="65" cy="40" r="5" fill="darkgray" />
+			<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
+		</svg>
+	</div>
+	 <div class="cart-products-container" >
 		</div>
 		<div>
-			<div class="cart-price-container">
+			<div class="cart-price-container" style="display: none;">
 				<h1>Summary</h1>
 				<div class="subtotal-container">
 					<span>Sub-total: </span>
@@ -74,8 +49,7 @@
 				<a href="/checkout">Place Order</a>
 			</div>
 		</div>
-
-	</div>
+	</div> 
 </div>
 
 

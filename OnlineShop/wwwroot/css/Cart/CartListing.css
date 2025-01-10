@@ -52,8 +52,8 @@
     width: 100%;
     justify-content: center;
   }
-  
-  .secondary-btn-section {
+
+.remove-from-cart-btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,16 +61,16 @@
     width: 100%;
     position: absolute;
     top: 20px;
-  }
-  
-  .secondary-btn-section > * {
-    margin: 0px 20px;
-    color: var(--primary-color);
-  }
-  .secondary-btn-section > *:hover{
-    color: black;
-    cursor: pointer;
-  }
+}
+
+    .remove-from-cart-btn  > * {
+        margin: 0px 20px;
+        color: var(--primary-color);
+    }
+        .remove-from-cart-btn > *:hover {
+            color: black;
+            cursor: pointer;
+        }
   
   .counter-btn {
     font-size: 20px;
@@ -93,7 +93,7 @@
   
   @media (min-width: 768px) {
     .cart-products-container {
-      flex-grow: 1;
+        flex-grow: 0;
     }
   }
   

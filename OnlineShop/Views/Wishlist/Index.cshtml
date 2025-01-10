@@ -1,7 +1,4 @@
-﻿@using OnlineShop.Application.ViewModels.Wishlist
-@model IEnumerable<WishlistProductViewModel>
-
-<script>
+﻿<script>
 	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
 </script>
 
@@ -17,7 +14,6 @@
 <div>
 	<h1 class="page-heading" style="display: none;">Wishlist</h1>
 	<div class="wishlist-products-container">
-		<div class="product-card-container">
 			<div class="loading-message">
 				<h2>Loading...</h2>
 			</div>
@@ -30,6 +26,4 @@
 					<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
 				</svg>
 			</div> 
-
-		</div>
 	</div>

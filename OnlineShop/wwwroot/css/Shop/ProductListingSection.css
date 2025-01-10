@@ -138,7 +138,9 @@
     color: white;
     background-color: var(--primary-color);
 }
-
+.cart-btn a{
+    color: white;
+}
     .cart-btn:hover {
         background-color: rgb(0, 0, 0);
         color: rgb(255, 255, 255);

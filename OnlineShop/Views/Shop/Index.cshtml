@@ -1,15 +1,4 @@
-﻿@using OnlineShop.Application.ViewModels.Shop
-@model IEnumerable<AllProductsViewModel>
-@{
-	Pager pager = new Pager();
-	int pageNum = 0;
-	if (ViewBag.Pager != null)
-	{
-		pager = ViewBag.Pager;
-		pageNum = pager.CurrentPage;
-	}
-}
-
+﻿
 <script>
 	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
 	var isUserInRoleAdmin = '@User.IsInRole("Admin")'.toLowerCase() === 'true';

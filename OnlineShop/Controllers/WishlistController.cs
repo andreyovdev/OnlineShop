@@ -46,6 +46,34 @@ namespace OnlineShop.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
+		public async Task<IActionResult> AddToWishlist([FromBody] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
+
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
+
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
+
+			bool result = await this.wishlistService.AddProductToWishlist(userProfileGuid, productGuid);
+
+			if (!result)
+			{
+				return View();
+			}
+
+			return Ok();
+		}
+
+		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> RemoveFromWishlist([FromBody] string productId)
 		{
 			Guid productGuid = Guid.NewGuid();
@@ -70,6 +98,29 @@ namespace OnlineShop.Web.Controllers
 			}
 
 			return Ok();
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> IsProductInWishlist([FromQuery] string productId)
+		{
+			Guid productGuid = Guid.NewGuid();
+
+			if (!this.IsGuidValid(productId, ref productGuid))
+			{
+				return View();
+			}
+
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return Ok(false);
+			}
+
+			bool result = await this.wishlistService.IsProductInWishlist(userProfileGuid, productGuid);
+
+			return Ok(result);
 		}
 	}
 }

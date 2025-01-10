@@ -1,12 +1,21 @@
 ﻿$(document).ready(function () {
-    const $wishlistCardContainer = $('.product-card-container');
+    const $wishlistCardContainer = $('.wishlist-products-container');
     const $loadingMessage = $('.loading-message');
     const $noProductMessage = $('.no-product-message');
     const $pageHeading = $('.page-heading');
 
+    let productsInWishlistCount = 0;
+
     fetchProducts();
 
     function renderWishlistCard(product) {
+
+        let isInCart = false;
+
+        if (isUserAuthenticated) {
+            isInCart = isProductInCart(product.Id);
+        }
+
         return `
             <div class="wishlist-card" data-id="${product.Id}">
                 <div>
@@ -21,13 +30,15 @@
                     <div class="info"></div>
                 </div>
                 <div class="wishlist-btn-container">
-                    <button class="cart-wishlist-btn" onclick="addToCart(${product.Id})">Add to Cart</button>
-                    <button class="remove-from-wishlist-btn" onclick="removeFromWishlist(${product.Id})">Remove from Wishlist</button>
+                    <button class="cart-wishlist-btn">
+                        <a class="cart-add" style="display: ${isInCart ? 'none' : 'inline-block'};">Add To Cart</a>
+                        <a class="cart-added" href="/Cart/" style="display: ${isInCart ? 'inline-block' : 'none'};">View In Cart</a>
+                     </button>
+                    <button class="remove-from-wishlist-btn">Remove from Wishlist</button>
                 </div>
             </div>
         `;
     }
-
 
     function fetchProducts() {
 
@@ -47,7 +58,7 @@
                 $wishlistCardContainer.children().not($noProductMessage).remove();
 
                 $noProductMessage.css('display', 'none');
-                $pageHeading.css('display', 'none');
+                $pageHeading.css('display', 'flex');
                 if (!response.products || response.products.length === 0) {
                     $noProductMessage.css('display', 'flex');
                     $pageHeading.css('display', 'none');
@@ -58,11 +69,29 @@
                     $wishlistCardContainer.append(renderWishlistCard(product));
                 });
                 setupWishlistButtons();
+                productsInWishlistCount = response.products.length;
+
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
             }
         });
+    }
+
+    function isProductInCart(productId) {
+        let isInCart = false;
+        $.ajax({
+            url: `/Cart/IsProductInCart?productId=${productId}`,
+            type: 'GET',
+            async: false,
+            success: function (response) {
+                isInCart = response;
+            },
+            error: function () {
+                isInCart = false;
+            }
+        });
+        return isInCart;
     }
 
     function setupWishlistButtons() {
@@ -76,7 +105,19 @@
                 contentType: 'application/json',
                 data: JSON.stringify(productId),
                 success: function () {
-                    buttonElement.closest('.wishlist-card').remove();
+                    const cardElement = buttonElement.closest(`.wishlist-card`).remove();
+
+                    productsInWishlistCount--;
+
+                   
+
+                    $noProductMessage.css('display', 'none');
+                    $pageHeading.css('display', 'flex');
+                    if (productsInWishlistCount <= 0) {
+                        $noProductMessage.css('display', 'flex');
+                        $pageHeading.css('display', 'none');
+                    }
+
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);
