@@ -10,9 +10,15 @@
 
         public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+        public Guid AppUserId { get; set; }
 
-		public Guid AppUserId { get; set; }
+        public string FullName { get; set; } = null!;
+
+        public string Email { get; set; } = null!;
+
+		public Guid AddressId { get; set; }
+
+		public virtual Address Address { get; set; } = null!;
 
 		public virtual ICollection<Wishlist> Wishlist { get; set; } =
             new List<Wishlist>();

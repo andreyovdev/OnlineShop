@@ -64,7 +64,6 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required(ErrorMessage = RequiredMessage)]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
@@ -96,6 +95,11 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required(ErrorMessage = RequiredMessage)]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
         }
 
 
@@ -109,12 +113,15 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
+                string userName = Input.Username ?? Guid.NewGuid().ToString();
+
                 var user = CreateUser();
 				user.Email = Input.Email;
-                user.UserName = Input.Username;
+                user.UserName = userName;
+                user.FullName = Input.FullName;
 
 
-				await _userStore.SetUserNameAsync(user, user.UserName, CancellationToken.None);
+                //await _userStore.SetUserNameAsync(user, user.UserName, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -126,7 +133,7 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
 
-                    await _userProfileService.CreateUserProfile(user.UserName, Guid.Parse(userId));
+                    await _userProfileService.CreateUserProfile(user.FullName, user.Email, Guid.Parse(userId));
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");

@@ -7,6 +7,7 @@ using OnlineShop.Application.ViewModels.Cart;
 using OnlineShop.Application.ViewModels.Wishlist;
 using OnlineShop.Domain.Entities;
 using OnlineShop.Infrastructure.Data.Repository.Interfaces;
+using System.Diagnostics;
 
 namespace OnlineShop.Application.Services
 {
@@ -43,13 +44,14 @@ namespace OnlineShop.Application.Services
 				return false;
 			}
 
-			if (selectedProduct.Quantity == 0)
+			if (selectedProduct.Quantity <= 0)
 			{
 				return false;
 			}
 
-			var cartItem = new Cart { 
-				UserProfileId = userProfileId, 
+			var cartItem = new Cart
+			{
+				UserProfileId = userProfileId,
 				ProductId = productId,
 				Quantity = 1,
 			};
@@ -100,10 +102,55 @@ namespace OnlineShop.Application.Services
 			var products = await productRepository
 				.GetAllAttached()
 				.Where(p => inCartProductIds.Contains(p.Id))
-				.To<CartProductViewModel>()
+				.Select(p => new CartProductViewModel()
+				{
+					ProductId = p.Id.ToString(),
+					UserProfileId = userProfileId.ToString(),
+					Name = p.Name,
+					Price = p.Price,
+					Category = p.Category.ToString(),
+					ImgUrl = p.ImgUrl,
+					QuantitySelected = cartRepository
+						.GetAllAttached()
+						.FirstOrDefault(w => w.UserProfileId == userProfileId && w.ProductId == p.Id)
+						.Quantity
+				})
 				.ToArrayAsync();
 
 			return products;
+		}
+
+		public async Task<int> UpdateCartProductCount(Guid userProfileId, Guid productId, int quantity)
+		{
+			var cartItems = await cartRepository.GetAllAttached().ToListAsync();
+			var selectedCartItem = cartItems.FirstOrDefault(w => w.UserProfileId == userProfileId && w.ProductId == productId);
+
+			if (selectedCartItem == null)
+			{
+				return -1;
+			}
+
+			var products = await productRepository.GetAllAttached().ToListAsync();
+			var selectedProduct = products.FirstOrDefault(p => p.Id == productId);
+
+			if (selectedProduct == null)
+			{
+				return -1;
+			}
+
+			int selectedQuantity = selectedCartItem.Quantity + quantity;
+
+			if (selectedQuantity > selectedProduct.Quantity || selectedQuantity < 1)
+			{
+				return -1;
+			}
+
+			selectedCartItem.Quantity = selectedQuantity;
+
+				cartRepository.Update(selectedCartItem);
+				await cartRepository.SaveAsync();
+
+			return selectedQuantity;
 		}
 	}
 }

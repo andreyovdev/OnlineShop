@@ -19,15 +19,23 @@
             builder
                 .HasKey(p => p.Id);
 
-            builder.Property(p => p.Name)
+            builder.Property(p => p.FullName)
                 .IsRequired()
                 .HasMaxLength(NameMaxLength)
                 .HasComment("Name of the user profile");
 
-			builder
+            builder.Property(p => p.Email)
+              .IsRequired()
+              .HasComment("Email of the user profile");
+
+            builder
 				.HasOne<AppUser>()
 				.WithOne()  
-				.HasForeignKey<UserProfile>(up => up.AppUserId); 
+				.HasForeignKey<UserProfile>(up => up.AppUserId);
+
+			builder.HasOne(up => up.Address)
+				 .WithOne(a => a.UserProfile)
+				.HasForeignKey<Address>(a => a.UserProfileId);
 
 
 

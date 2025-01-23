@@ -18,6 +18,7 @@ namespace OnlineShop.Web.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> Index()
 		{
 			return View();

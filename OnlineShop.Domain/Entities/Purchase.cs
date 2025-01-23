@@ -2,6 +2,13 @@
 {
     public class Purchase
     {
+        public Purchase()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
+
         public Guid UserProfileId { get; set; }
 
         public virtual UserProfile UserProfile { get; set; } = null!;
@@ -10,8 +17,10 @@
 
         public virtual Product Product { get; set; } = null!;
 
-		public int Quantity { get; set; }
+		public int QuantityBought { get; set; }
 
-		public DateTime DatePurchased { get; set; }
+		public decimal TotalPrice { get; set; }
+
+        public DateTime DatePurchased { get; set; }
 	}
 }

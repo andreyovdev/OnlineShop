@@ -6,7 +6,9 @@
 	using Identity;
 	using Domain.Entities;
 
-	public class UserConfiguration : IEntityTypeConfiguration<AppUser>
+    using static Domain.Common.EntityValidationConstants.AppUser;
+
+    public class UserConfiguration : IEntityTypeConfiguration<AppUser>
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
@@ -17,6 +19,11 @@
             builder
                 .HasKey(p => p.Id);
 
-		}
+            builder.Property(u => u.FullName)
+                    .HasMaxLength(FullNameMaxLength)  
+                    .IsRequired()
+                    .HasComment("Full name of the user");
+
+        }
     }
 }

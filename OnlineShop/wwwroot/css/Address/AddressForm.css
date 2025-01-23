@@ -1,0 +1,128 @@
+.address-form-container {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  margin-top: 100px;
+}
+
+
+    .address-form-container .address-input-container {
+        inset: 0;
+        background-color: rgb(255, 255, 255);
+        margin: auto;
+        width: 290px;
+        height: 580px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0px 0px 23px 0px rgb(222, 222, 222);
+        position: relative;
+        height: auto;
+        box-sizing: border-box;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+.address-input-container h1 {
+    margin-top: 25px;
+    color: rgb(33, 33, 33);
+    margin-bottom: 25px;
+    font-size: 1.5em;
+}
+
+.address-form-container .address-input-container input,
+.address-form-container .address-input-container button {
+    padding: 8px 16px;
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.address-form-container .address-input-container textarea {
+  padding: 8px 16px;
+  display: block;
+  width: 90%;
+  margin: 12px auto;
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+}
+
+.address-form-container .submit {
+
+    font-size: 16px;
+    color: white;
+    background-color: var(--primary-color);
+    font-weight: 600;
+    display: inline;
+}
+
+.address-form-container .submit:hover {
+  cursor: pointer;
+  background-color: black;
+}
+.address-form-container .btn-container {
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+    .address-form-container .btn-container a {
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        margin-bottom: 16px;
+        border: 1px solid rgb(226, 226, 226);
+    }
+
+.address-form-container .btn-container a:hover {
+  cursor: pointer;
+  background-color: black;
+  color:white;
+}
+
+.address-form-container .btn-container a:last-child {
+  flex-grow: 1;
+  margin-left: 0;
+  font-size:14px;
+  line-height:15px;
+}
+
+.address-form-container .btn-container .delete-btn {
+    background-color: rgb(139, 0, 0);
+    font-weight: 600;
+    color: white;
+}
+
+.address-form-container .btn-container .delete-btn:hover {
+    background-color: black;
+}
+
+.category-item {
+    display: inline-flex;
+    margin-left: 10px;
+    user-select: none;
+}
+
+.category-item label {
+  margin-top: 7px;
+  margin-left: 3px;
+}
+
+.warning {
+  color: rgb(221, 63, 63);
+}
+
+@media (min-width: 768px) {
+    .address-input-container h1 {
+        font-size: 2em;
+    }
+  .address-form-container .address-input-container{
+    width: 390px;
+  }
+
+}

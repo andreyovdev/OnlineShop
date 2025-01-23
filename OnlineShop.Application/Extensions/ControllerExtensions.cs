@@ -25,6 +25,7 @@
 			if (string.IsNullOrEmpty(session.GetString("UserProfileGuid")))
 			{
 				var userProfileGuid = await userProfileService.GetUserProfileId(userGuid);
+
 				session.SetString("UserProfileGuid", userProfileGuid.ToString());
 				return userProfileGuid;
 			}

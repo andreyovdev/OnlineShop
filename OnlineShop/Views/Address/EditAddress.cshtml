@@ -1,0 +1,42 @@
+﻿@using OnlineShop.Application.ViewModels.Address
+@model EditAddressViewModel
+
+@{
+    ViewData["HideLayoutParts"] = true;
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/Address/AddressForm.css" asp-append-version="true" />
+}
+
+@section PageScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<div class="address-form-container">
+    <div class="address-input-container">
+        <h1>Edit Address</h1>
+        <form asp-action="EditAddress" method="post" class="input-containter">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <span asp-validation-for="Country" class="warning"></span>
+            <textarea asp-for="Country" rows="1" placeholder="Enter Country" spellcheck="false"></textarea>
+
+            <span asp-validation-for="City" class="warning"></span>
+            <textarea asp-for="City" rows="1" placeholder="Enter City" spellcheck="false"></textarea>
+
+            <span asp-validation-for="Street" class="warning"></span>
+            <textarea asp-for="Street" rows="1" placeholder="Enter Street" spellcheck="false"></textarea>
+
+            <span asp-validation-for="PhoneNumber" class="warning"></span>
+            <textarea asp-for="PhoneNumber" rows="1" placeholder="Enter Phone Number" spellcheck="false"></textarea>
+
+            <button class="submit" type="submit">Save</button>
+        </form>
+        <div class="btn-container">
+            <a asp-action="Index">Cancel</a>
+        </div>
+    </div>
+</div>
+

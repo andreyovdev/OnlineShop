@@ -1,0 +1,18 @@
+[
+    {
+        "Id": "2B3ADF6C-839D-4EBA-8F65-B748DCE17C4F",
+        "UserProfileId": "0C0F1CB5-0C72-4BFC-98D4-A7A0CB1A049B",
+        "Country": "Bulgaria",
+        "City": "Plovdiv",
+        "Street": "Hristo Botev 12",
+        "PhoneNumber": "+359217555019"
+    },
+    {
+        "Id": "3D5CDF7A-749C-4FDC-9B87-C859EBF08D6E",
+        "UserProfileId": "FD8E3CE5-A531-4FBD-AFDC-60B35FFCBB83",
+        "Country": "Bulgaria",
+        "City": "Vidin",
+        "Street": "Samoilov 2",
+        "PhoneNumber": "+359206555013"
+    }
+]

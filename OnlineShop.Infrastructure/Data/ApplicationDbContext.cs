@@ -16,6 +16,7 @@
         }
 
         public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
 		public DbSet<UserProfile> UserProfiles { get; set; } = null!;
         public DbSet<Wishlist> Wishlists { get; set; } = null!;
         public DbSet<Cart> Carts { get; set; } = null!;

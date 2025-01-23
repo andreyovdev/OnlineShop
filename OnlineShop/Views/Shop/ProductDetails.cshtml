@@ -1,10 +1,20 @@
 ﻿@using OnlineShop.Application.ViewModels.Shop
 @model ProductDetailsViewModel
 
+<script>
+    var productId = "@Model.Id";
+</script>
+
 @section PageStyles {
 	<link rel="stylesheet" href="~/css/ProductDetails/ProductDescription.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ProductDetails/ProductDetails.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ProductDetails/ProductImage.css" asp-append-version="true" />
+}
+
+@section PageScripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
+    <script src="~/js/Validations.js" asp-append-version="true"></script>
+    <script src="~/js/Details/Details.js" asp-append-version="true"></script>
 }
 
 <div class="products-page-container">
@@ -32,6 +42,7 @@
         </div>
         <div class="product-card-buttons-container">
             <button class="add-to-cart-btn">Add to cart</button>
+            <button class="add-to-wishlist-btn">Add to wishlist</button>
              @if (User.IsInRole("Admin"))
             {
                 <a asp-action="EditProduct" asp-route-id="@Model.Id" class="action-btn">Edit</a>

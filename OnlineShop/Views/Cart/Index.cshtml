@@ -1,13 +1,12 @@
-﻿<script>
-	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
-</script>
+﻿@using OnlineShop.Application.ViewModels.Address
+@model AddressViewModel
 
 @section PageStyles {
 	<link rel="stylesheet" href="~/css/Cart/Cart.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Cart/CartAmountSummary.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Cart/CartListing.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Cart/Coupons.css" asp-append-version="true" />
-	@* <link rel="stylesheet" href="~/css/Checkout/Checkout.css" asp-append-version="true" /> *@
+	<link rel="stylesheet" href="~/css/Cart/Address.css" asp-append-version="true" />
 }
 @section PageScripts {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
@@ -32,6 +31,24 @@
 	 <div class="cart-products-container" >
 		</div>
 		<div>
+			<div class="cart-address-container" style="display: none;">
+				<h1>Delivering To</h1>
+				<div class="address-information">
+					<div class="name">
+						<span>Name: </span>
+						<span>@Model.FullName</span>
+					</div>
+					<div class="address">
+						<span>Address: </span>
+						<span>@Model.DeliveryAddress</span>
+					</div>
+					<div class="contact">
+						<span>Contact: </span>
+						<span>@Model.PhoneNumber</span>
+					</div>
+				</div>
+				<a href="/checkout">Change</a>
+			</div>
 			<div class="cart-price-container" style="display: none;">
 				<h1>Summary</h1>
 				<div class="subtotal-container">
@@ -46,9 +63,11 @@
 					<span class="total-container">Total: </span>
 					<span>$100</span>
 				</div>
-				<a href="/checkout">Place Order</a>
+				<a asp-controller="Purchase" asp-action="CreatePurchase">Place Order</a>
 			</div>
+			
 		</div>
+		
 	</div> 
 </div>
 

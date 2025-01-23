@@ -42,7 +42,7 @@
             profile
                 .CreateMap<Product, EditProductViewModel>();
 
-            profile
+			profile
                 .CreateMap<EditProductViewModel, Product>()
                     .ForMember(d => d.Category, x => x.Ignore())
                     .ForMember(d => d.Id, x => x.MapFrom(s => Guid.Parse(s.Id)));

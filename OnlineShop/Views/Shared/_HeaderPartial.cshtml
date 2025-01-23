@@ -16,8 +16,15 @@
             </a>
     </div>
     <div class="nav-link-container">
-        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-        <a asp-area="Identity" asp-page="/Account/Logout">LOGOUT</a> @* FOR TESTINING *@
+        @if (@User!.Identity!.IsAuthenticated)
+        {
+            <a asp-controller="Profile" asp-action="Index">Profile</a>
+        } 
+        else
+        {
+            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        }
+        @* <a asp-area="Identity" asp-page="/Account/Logout">LOGOUT</a> @* for test *@
         <a asp-controller="Shop" asp-action="Index">Shop</a>
         <a asp-controller="Wishlist" asp-action="Index">
             <span class="cart-text">Wishlist</span>

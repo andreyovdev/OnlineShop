@@ -1,0 +1,39 @@
+﻿@using OnlineShop.Application.ViewModels.Purchase;
+@model IEnumerable<PurchaseViewModel>
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/css/UserProfile/Purchases.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/UserProfile/UserProfile.css" asp-append-version="true" />
+}
+
+<div class="user-profile-container">
+	<div class="link-container">
+		<a asp-controller="Profile" asp-action="Index" style="color: grey;">Profile</a>
+		<a asp-controller="Purchase" asp-action="Index" style="color: black;">Purchases</a>
+		<a asp-controller="Address" asp-action="Index" style="color: grey;">Address</a>
+	</div>
+
+	<div class="purchases-container">
+		@if (Model.Count() == 0)
+		{
+			<span class="no-purchases-msg">No Purchases</span>
+		}
+		else
+		{
+			int productItemIndex = 0;
+			@foreach (var purchase in Model)
+			{
+				<div class="purchased-items-card @(productItemIndex == Model.Count()-1 ? "single-item-card" : "")">
+					<span class="date">@purchase.DatePurchased</span>
+					<img class="img" src="@purchase.ImgUrl" alt="Product Image">
+					<span class="name">@purchase.Name</span>
+					<span class="qty">@(purchase.QuantityBought)</span>
+					<span class="price">$@(purchase.TotalPrice)</span>
+				</div>
+
+				productItemIndex++;
+			}
+		}
+	</div>
+
+</div>

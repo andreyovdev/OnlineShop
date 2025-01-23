@@ -1,18 +1,20 @@
 [
     {
         "Id": "FD8E3CE5-A531-4FBD-AFDC-60B35FFCBB83",
-        "UserName": "admin",
+        "FullName": "Admin",
         "Email": "admin@mail.com",
         "AppUserId": "1C4FDF7C-929C-4DC6-9E76-A659EAE07D5B",
+        "AddressId": "3D5CDF7A-749C-4FDC-9B87-C859EBF08D6E",
         "Wishlist": [],
         "Cart": [],
         "Purchases": []
     },
     {
         "Id": "0C0F1CB5-0C72-4BFC-98D4-A7A0CB1A049B",
-        "UserName": "user",
+        "FullName": "User",
         "Email": "user@mail.com",
         "AppUserId": "70594104-4DF7-43B4-9981-5C15E845DCB5",
+        "AddressId": "2B3ADF6C-839D-4EBA-8F65-B748DCE17C4F",
         "Wishlist": [],
         "Cart": [],
         "Purchases": []

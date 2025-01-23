@@ -1,0 +1,74 @@
+.address-section-container {
+    padding: 40px;
+}
+
+.add-address-btn-container a {
+    padding: 10px 30px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.add-address-btn-container a:hover {
+  cursor: pointer;
+  background-color: black;
+}
+.add-address-btn-container .plus {
+  margin-right: 5px;
+}
+
+.address-card .name {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: larger;
+}
+.profile-address-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.address-card {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.address-card .address {
+  margin-bottom: 5px;
+}
+.add-address-btn-container {
+  text-align:center;
+}
+
+.address-card span {
+  font-weight: 600;
+}
+
+.address-card .phone {
+  margin-bottom: 10px;
+}
+.address-btn-container {
+    display:flex;
+}
+.address-btn-container > a,
+.address-btn-container form > button {
+    margin-right: 15px;
+    padding: 6px 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(236, 236, 236);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+    .address-btn-container > a:hover,
+    .address-btn-container form > button:hover {
+        cursor: pointer;
+        background-color: var(--secondary-background-color-onhover);
+    }
+
+.address-section-container .address-card:not(:first-child) {
+  margin-top: 20px;
+}

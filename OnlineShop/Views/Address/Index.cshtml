@@ -1,0 +1,51 @@
+﻿@using OnlineShop.Application.ViewModels.Address
+@model AddressViewModel
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/UserProfile/UserProfile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/UserProfile/Address.css" asp-append-version="true" />
+}
+
+<div class="user-profile-container">
+    <div class="link-container">
+        <a asp-controller="Profile" asp-action="Index" style="color: grey;">Profile</a>
+        <a asp-controller="Purchase" asp-action="Index" style="color: grey;">Purchases</a>
+        <a asp-controller="Address" asp-action="Index" style="color: black;">Address</a>
+    </div>
+    <div class="address-section-container">
+        @if(@Model == null){
+            <div class="add-address-btn-container">
+                <a asp-controller="Address" asp-action="AddAddress">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="plus" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+                        </g>
+                    </svg>New Address
+                </a>
+            </div>
+        } 
+        else 
+        {
+            <div class="profile-address-container">
+                <div class="address-card">
+                    <p class="name">@Model.FullName</p>
+                    <p class="address">
+                        <span>Address:</span> @Model.DeliveryAddress
+                    </p>
+                    <p class="phone">
+                        <span>Phone: </span>@Model.PhoneNumber
+                    </p>
+                    <div class="address-btn-container">
+                        <a asp-controller="Address" asp-action="EditAddress">Edit</a>
+                        <form action="@Url.Action("DeleteAddress", "Address")" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+
+</div>

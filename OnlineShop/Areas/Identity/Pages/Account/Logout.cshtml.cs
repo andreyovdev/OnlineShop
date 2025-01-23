@@ -12,30 +12,43 @@ namespace OnlineShop.Web.Areas.Identity.Pages.Account
 	using Microsoft.Extensions.Logging;
 
 	using Infrastructure.Identity;
+    using Microsoft.AspNetCore.Authorization;
 
-	public class LogoutModel : PageModel
+    public class LogoutModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<AppUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<AppUser> signInManager)
         {
             _signInManager = signInManager;
-            _logger = logger;
+        }
+
+        public async Task<IActionResult> OnGet()
+        {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Index");
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+			await _signInManager.SignOutAsync();
+
+			HttpContext.Session.Clear();
+
+            Response.Cookies.Delete(".AspNetCore.Identity.Application");
+            Response.Cookies.Delete(".AspNetCore.Application.Identity.Application");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
             }
             else
             {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
                 return RedirectToPage();
             }
         }

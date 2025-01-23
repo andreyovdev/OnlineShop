@@ -47,8 +47,8 @@
     }
   
   @media (min-width: 768px) {
-    .cart-container {
-      flex-direction: column;
+    .cart-container-dynamic {
+      flex-direction: row;
 
     }
   }

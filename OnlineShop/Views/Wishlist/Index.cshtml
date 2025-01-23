@@ -1,29 +1,27 @@
-﻿<script>
-	var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
-</script>
-
-@section PageStyles {
+﻿@section PageStyles {
 	<link rel="stylesheet" href="~/css/Checkout/Checkout.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Wishlist/Wishlist.css" asp-append-version="true" />
 }
 @section PageScripts {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
+	<script src="~/js/Validations.js" asp-append-version="true"></script>
 	<script src="~/js/Wishlist/Wishlist.js" asp-append-version="true"></script>
 }
 
 <div>
 	<h1 class="page-heading" style="display: none;">Wishlist</h1>
+	<div class="loading-message">
+		<h2>Loading...</h2>
+	</div>
+	<div class="no-product-message" style="display: none;">
+		<h2>Wishlist is empty.</h2>
+		<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
+			<circle cx="35" cy="40" r="5" fill="darkgray" />
+			<circle cx="65" cy="40" r="5" fill="darkgray" />
+			<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
+		</svg>
+	</div>
 	<div class="wishlist-products-container">
-			<div class="loading-message">
-				<h2>Loading...</h2>
-			</div>
-			<div class="no-product-message" style="display: none;">
-				<h2>Wishlist is empty.</h2>
-				<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
-					<circle cx="35" cy="40" r="5" fill="darkgray" />
-					<circle cx="65" cy="40" r="5" fill="darkgray" />
-					<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
-				</svg>
-			</div> 
+			
 	</div>

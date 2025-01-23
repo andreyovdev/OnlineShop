@@ -153,6 +153,51 @@ namespace OnlineShop.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OnlineShop.Domain.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("City of the user's address");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Country of the user's address");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasComment("User's phone number for contact")
+                        .HasAnnotation("PhoneRegex", "^\\+?\\d{7,15}$");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Street of the user's address");
+
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId")
+                        .IsUnique();
+
+                    b.ToTable("Addresses", null, t =>
+                        {
+                            t.HasComment("Table of products in users addresses");
+                        });
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Entities.Cart", b =>
                 {
                     b.Property<Guid>("UserProfileId")
@@ -231,13 +276,9 @@ namespace OnlineShop.Infrastructure.Migrations
 
             modelBuilder.Entity("OnlineShop.Domain.Entities.Purchase", b =>
                 {
-                    b.Property<Guid>("UserProfileId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id of the user");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id of the product");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DatePurchased")
                         .ValueGeneratedOnAdd()
@@ -245,13 +286,29 @@ namespace OnlineShop.Infrastructure.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP")
                         .HasComment("Date when the product was purchased");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int")
-                        .HasComment("Quantity of the product purchased");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Id of the product");
 
-                    b.HasKey("UserProfileId", "ProductId");
+                    b.Property<int>("QuantityBought")
+                        .HasColumnType("int")
+                        .HasComment("Quantity of the purchased product");
+
+                    b.Property<decimal>("TotalPrice")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m)
+                        .HasComment("Total price of the purchased product");
+
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Id of the user");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Purchases", null, t =>
                         {
@@ -265,11 +322,19 @@ namespace OnlineShop.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to AppUser");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Email of the user profile");
+
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -325,6 +390,12 @@ namespace OnlineShop.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Full name of the user");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -426,6 +497,17 @@ namespace OnlineShop.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OnlineShop.Domain.Entities.Address", b =>
+                {
+                    b.HasOne("OnlineShop.Domain.Entities.UserProfile", "UserProfile")
+                        .WithOne("Address")
+                        .HasForeignKey("OnlineShop.Domain.Entities.Address", "UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Entities.Cart", b =>
                 {
                     b.HasOne("OnlineShop.Domain.Entities.Product", "Product")
@@ -503,6 +585,9 @@ namespace OnlineShop.Infrastructure.Migrations
 
             modelBuilder.Entity("OnlineShop.Domain.Entities.UserProfile", b =>
                 {
+                    b.Navigation("Address")
+                        .IsRequired();
+
                     b.Navigation("Cart");
 
                     b.Navigation("Purchases");

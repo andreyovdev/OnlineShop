@@ -14,7 +14,7 @@
 			   .ToTable(t => t.HasComment("Table of products purchased by users"));
 
 			builder
-				.HasKey(c => new { c.UserProfileId, c.ProductId });
+				.HasKey(c => c.Id);
 
 			builder
 			 .HasOne(p => p.UserProfile)
@@ -27,11 +27,16 @@
 				.HasForeignKey(p => p.ProductId); 
 
 			builder
-				.Property(p => p.Quantity)
+				.Property(p => p.QuantityBought)
 				.IsRequired()
-				.HasComment("Quantity of the product purchased");
+				.HasComment("Quantity of the purchased product");
 
-			builder
+            builder
+                .Property(p => p.TotalPrice)
+                .HasDefaultValue(0)
+                .HasComment("Total price of the purchased product");
+
+            builder
 				.Property(p => p.DatePurchased)
 				.IsRequired()
 				.HasDefaultValueSql("CURRENT_TIMESTAMP")  

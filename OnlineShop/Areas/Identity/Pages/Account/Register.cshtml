@@ -20,14 +20,14 @@
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="input-containter">
 
             <div asp-validation-summary="ModelOnly" class="warning" role="alert"></div>
-            <span asp-validation-for="Input.Username" class="warning"></span>
+            <span asp-validation-for="Input.FullName" class="warning"></span>
             <span asp-validation-for="Input.Email" class="warning"></span>
             <span asp-validation-for="Input.Password" class="warning"></span>
             <span asp-validation-for="Input.ConfirmPassword" class="warning"></span>
 
-            <input asp-for="Input.Username" placeholder="Enter Username" spellcheck="false">
+            <input asp-for="Input.FullName" placeholder="Enter Full Name" spellcheck="false">
 
-            <input asp-for="Input.Email" placeholder="Enter Email" spellcheck="false" autocomplete="username">
+            <input asp-for="Input.Email" placeholder="Enter Email" spellcheck="false" autocomplete="email">
 
             <input asp-for="Input.Password" placeholder="Enter Password" spellcheck="false" autocomplete="current-password">
 

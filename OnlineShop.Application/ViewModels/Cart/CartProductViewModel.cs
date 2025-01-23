@@ -4,9 +4,11 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.Application.ViewModels.Cart
 {
-	public class CartProductViewModel : IMapFrom<Product>, IHaveCustomMappings
+	public class CartProductViewModel
 	{
-		public string Id { get; set; } = null!;
+		public string ProductId { get; set; } = null!;
+
+		public string UserProfileId { get; set; } = null!;
 
 		public string Name { get; set; } = null!;
 
@@ -16,10 +18,6 @@ namespace OnlineShop.Application.ViewModels.Cart
 
 		public string ImgUrl { get; set; } = null!;
 
-		public void CreateMappings(IProfileExpression profile)
-		{
-			profile.CreateMap<Product, CartProductViewModel>()
-				.ForMember(d => d.Category, x => x.MapFrom(s => s.Category.ToString()));
-		}
+		public int QuantitySelected { get; set; }
 	}
 }

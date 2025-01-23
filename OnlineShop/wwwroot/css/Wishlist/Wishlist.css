@@ -20,16 +20,15 @@
   margin-left: -1.5em;
   margin-bottom: -5px;
 }
-.no-product-message{
+.no-product-message {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: darkgray;
     text-align: center;
+    padding-top: 200px;
 }
-
-
 
      .no-product-message svg {
         padding-top: 20px;

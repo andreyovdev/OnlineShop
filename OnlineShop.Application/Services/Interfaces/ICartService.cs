@@ -9,5 +9,6 @@ namespace OnlineShop.Application.Services.Interfaces
 		Task<bool> RemoveProductFromCart(Guid userId, Guid productId);
 		Task<bool> IsProductInCart(Guid userId, Guid productId);
 		Task<IEnumerable<CartProductViewModel>> GetProductsInCart(Guid userId);
+		Task<int> UpdateCartProductCount(Guid userProfileId, Guid productId, int quantity);
 	}
 }

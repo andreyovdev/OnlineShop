@@ -1,10 +1,10 @@
 .cart-price-container {
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-flow: column nowrap;
-  margin: 10px 0 0 0;
-  background-color: rgb(242, 242, 242);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 10px 0 0 0;
+    background-color: rgb(242, 242, 242);
 }
 
 .cart-price-container a {
@@ -45,14 +45,14 @@ cursor: pointer;
 }
 
 @media (min-width: 768px) {
-  .cart-price-container {
-    width: 50vw;
-    flex-flow: column nowrap;
-    margin: 0 0 0 15px;
-    align-self: flex-start;
-    border-radius: 10px;
-    padding: 25px;
-    display: flex;
-    flex-flow: column nowrap;
-  }
+    .cart-price-container {
+        width: 50vw;
+        flex-flow: column nowrap;
+        margin: 0 0 0 15px;
+        align-self: flex-start;
+        border-radius: 10px;
+        padding: 25px;
+        display: flex;
+        flex-flow: column nowrap;
+    }
 }

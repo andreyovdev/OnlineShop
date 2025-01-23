@@ -1,0 +1,30 @@
+﻿@using OnlineShop.Application.ViewModels.Profile;
+@model UserProfileViewModel
+
+@section PageStyles {
+<link rel="stylesheet" href="~/css/UserProfile/Profile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/UserProfile/UserProfile.css" asp-append-version="true" />
+}
+
+<div class="user-profile-container">
+    <div class="link-container">
+        <a asp-controller="Profile" asp-action="Index" style="color: black;">Profile</a>
+        <a asp-controller="Purchase" asp-action="Index" style="color: grey;">Purchases</a>
+        <a asp-controller="Address" asp-action="Index" style="color: grey;">Address</a>
+    </div>
+    <div class="profile-container">
+        <div class="profile-details">
+            <div class="name">
+                <span>Name: </span>
+                <span>@Model.FullName</span>
+            </div>
+            <div class="email">
+                <span>Email: </span>
+                <span>@Model.Email</span>
+            </div>
+        </div>
+        <div class="logout-container">
+            <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+        </div>
+    </div>
+</div>

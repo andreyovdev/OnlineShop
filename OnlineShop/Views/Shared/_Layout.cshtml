@@ -18,6 +18,10 @@
 	}
 
 	@await RenderSectionAsync("PageStyles", required: false)
+
+	<script>
+		var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
+	</script>
 </head>
 <body>
 	<div id="root">

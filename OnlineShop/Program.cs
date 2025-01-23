@@ -27,18 +27,19 @@ builder.Services.AddConfiguredIdentity(builder.Configuration);
 builder.Services.ConfigureApplicationCookie(cfg =>
 {
     cfg.LoginPath = "/Identity/Account/Login";
-	cfg.ExpireTimeSpan = TimeSpan.FromDays(14); 
+	cfg.ExpireTimeSpan = TimeSpan.FromMinutes(60); 
 	cfg.SlidingExpiration = false;
 	cfg.Cookie.HttpOnly = true;
 	cfg.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
-	cfg.Cookie.SameSite = SameSiteMode.Lax; 
+	cfg.Cookie.SameSite = SameSiteMode.Lax;
+	cfg.Cookie.IsEssential = true;
 
 });
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-	options.IdleTimeout = TimeSpan.FromMinutes(30); 
+	options.IdleTimeout = TimeSpan.FromMinutes(60); 
 	options.Cookie.HttpOnly = true; 
 	options.Cookie.IsEssential = true;
 });

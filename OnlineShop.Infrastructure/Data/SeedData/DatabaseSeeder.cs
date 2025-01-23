@@ -7,6 +7,7 @@
 
 	using Domain.Entities;
 	using Identity;
+	using Microsoft.EntityFrameworkCore;
 
 	public class DatabaseSeeder : IDatabaseSeeder
 	{
@@ -27,11 +28,13 @@
 		{
 			await SeedProductsAsync();
 
+
 			await SeedUsersAsync();
 			await SeedRolesAsync();
 			await SeedUserRolesAsync();
 			await SeedUserProfiles();
 
+			await SeedAddressesAsync();
 		}
 
 		public async Task SeedProductsAsync()
@@ -47,6 +50,39 @@
 					await _context.Products.AddRangeAsync(products);
 					await _context.SaveChangesAsync();
 				}
+			}
+		}
+
+		public async Task SeedAddressesAsync()
+		{
+			if (!_context.Addresses.Any())
+			{
+				var jsonPath = Path.Combine(jsonsPath, "addresses.json");
+				var addressesJson = File.ReadAllText(jsonPath);
+				var addresses = JsonConvert.DeserializeObject<List<Address>>(addressesJson);
+
+				if (addresses == null) return;
+
+				foreach (var address in addresses)
+				{
+					var existingAddress = await _context.Addresses.FindAsync(address.Id);
+					if (existingAddress == null)
+					{
+						var ad = new Address
+						{
+							Id = address.Id,
+							UserProfileId = address.UserProfileId,
+							Country = address.Country,
+							City = address.City,
+							Street = address.Street,
+							PhoneNumber = address.PhoneNumber,
+						};
+
+						await _context.Addresses.AddAsync(ad);
+					}
+				}
+				await _context.SaveChangesAsync();
+
 			}
 		}
 
@@ -69,6 +105,7 @@
 						{
 							Id = user.Id,
 							UserName = user.UserName,
+							FullName = user.FullName,
 							Email = user.Email,
 						};
 
@@ -143,8 +180,10 @@
 						var newUserProfile = new UserProfile
 						{
 							Id = userProfile.Id,
-							Name = userProfile.Name ?? "Unknown User",
+							FullName = userProfile.FullName ?? "Unknown User",
+							Email = userProfile.Email ?? "Unknown Email",
 							AppUserId = userProfile.AppUserId,
+							AddressId = userProfile.AddressId,
 							Wishlist = userProfile.Wishlist ?? new List<Wishlist>(),
 							Cart = userProfile.Cart ?? new List<Cart>(),
 							Purchases = userProfile.Purchases ?? new List<Purchase>()
@@ -157,6 +196,5 @@
 				await _context.SaveChangesAsync();
 			}
 		}
-
 	}
 }

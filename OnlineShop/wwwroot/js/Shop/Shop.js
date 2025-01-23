@@ -61,38 +61,6 @@ $(document).ready(function () {
     `;
     }
 
-    function isProductInWishlist(productId) {
-        let isInWishlist = false;
-        $.ajax({
-            url: `/Wishlist/IsProductInWishlist?productId=${productId}`,
-            type: 'GET',
-            async: false,
-            success: function (response) {
-                isInWishlist = response;
-            },
-            error: function () {
-                isInWishlist = false;
-            }
-        });
-        return isInWishlist;
-    }
-
-    function isProductInCart(productId) {
-        let isInCart = false;
-        $.ajax({
-            url: `/Cart/IsProductInCart?productId=${productId}`,
-            type: 'GET',
-            async: false,
-            success: function (response) {
-                isInCart = response;
-            },
-            error: function () {
-                isInCart = false;
-            }
-        });
-        return isInCart;
-    }
-
     function fetchProducts(filters, page = 1) {
         filters.CurrentPage = page;
 
@@ -181,8 +149,11 @@ $(document).ready(function () {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(productId),
-                success: function () {
-
+                success: function (response) {
+                    if (response === false) {
+                        console.log("sorry you cant add this product to cart");
+                        return;
+                    }
                     if (cartAddText.css('display') === 'none') {
                         cartAddText.css('display', 'inline-block');
                         cartAddedText.css('display', 'none');

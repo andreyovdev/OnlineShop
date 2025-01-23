@@ -1,0 +1,34 @@
+﻿header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    min-height:100vh;
+    padding-top:220px;
+}
+
+    header > * {
+        margin-bottom: 15px;
+    }
+h1 {
+    font-size: 24px;
+    
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.smile-svg{
+
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}

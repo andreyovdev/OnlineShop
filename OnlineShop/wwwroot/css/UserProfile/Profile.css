@@ -28,3 +28,19 @@
   flex-flow: row nowrap;
   justify-content: space-between;
 }
+.logout-container{
+    text-align:center;
+}
+    .logout-container a {
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-weight: 600;
+        margin: 15px 0 0;
+        padding: 10px 30px;
+        border-radius: 10px;
+    }
+.logout-container a:hover{
+    background-color: black;
+}

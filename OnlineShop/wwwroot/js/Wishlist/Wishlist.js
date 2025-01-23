@@ -78,22 +78,6 @@
         });
     }
 
-    function isProductInCart(productId) {
-        let isInCart = false;
-        $.ajax({
-            url: `/Cart/IsProductInCart?productId=${productId}`,
-            type: 'GET',
-            async: false,
-            success: function (response) {
-                isInCart = response;
-            },
-            error: function () {
-                isInCart = false;
-            }
-        });
-        return isInCart;
-    }
-
     function setupWishlistButtons() {
         $('.remove-from-wishlist-btn').on('click', function () {
             const buttonElement = $(this);
