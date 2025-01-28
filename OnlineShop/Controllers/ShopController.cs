@@ -2,7 +2,9 @@
 {
 	using Application.Services.Interfaces;
 	using Application.ViewModels.Shop;
+	using DotNetEd.CoreAdmin.Controllers;
 	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Components.RenderTree;
 	using Microsoft.AspNetCore.Mvc;
 
 	using static Application.Extensions.ControllerExtensions;
@@ -57,6 +59,8 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct()
         {
+			HttpContext.Session.SetString("PreviousPage", Request.Headers["Referer"].ToString());
+
 			return View();
         }
 
@@ -64,27 +68,38 @@
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddNewProduct(AddNewProductViewModel model)
         {
-            if (!ModelState.IsValid)
+			string previousPage = HttpContext.Session.GetString("PreviousPage");
+
+			if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            bool result = await this.productService.AddNewProductAsync(model);
+			bool result = await this.productService.AddNewProductAsync(model);
 
             if (!result)
             {
                 return View();
             }
 
-            return RedirectToAction(nameof(Index));
+			if (previousPage.Contains("CoreAdmin"))
+			{
+				return Redirect(previousPage);
+			}
+            else
+            {
+				return RedirectToAction(nameof(Index));
+			}
+            
         }
 
         [HttpGet]
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> EditProduct(string id)
         {
+			HttpContext.Session.SetString("PreviousPage", Request.Headers["Referer"].ToString());
 
-            Guid productGuid = Guid.Empty;
+			Guid productGuid = Guid.Empty;
             bool isIdValid = this.IsGuidValid(id, ref productGuid);
             if (!isIdValid)
             {
@@ -101,7 +116,9 @@
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(EditProductViewModel model)
         {
-            if (!ModelState.IsValid)
+			string previousPage = HttpContext.Session.GetString("PreviousPage");
+
+			if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -113,14 +130,23 @@
 				return View();
 			}
 
-			return RedirectToAction(nameof(Index));
+			if (previousPage.Contains("CoreAdmin"))
+			{
+				return Redirect(previousPage);
+			}
+			else
+			{
+				return RedirectToAction(nameof(Index));
+			}
         }
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id)
         {
-            Guid productGuid = Guid.Empty;
+			HttpContext.Session.SetString("PreviousPage", Request.Headers["Referer"].ToString());
+
+			Guid productGuid = Guid.Empty;
             bool isIdValid = this.IsGuidValid(id, ref productGuid);
             if (!isIdValid)
             {
@@ -137,7 +163,9 @@
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id, RemoveProductViewModel model)
         {
-            Guid productGuid = Guid.Empty;
+			string previousPage = HttpContext.Session.GetString("PreviousPage");
+
+			Guid productGuid = Guid.Empty;
             bool isIdValid = this.IsGuidValid(id, ref productGuid);
 
             bool result = await productService.RemoveProductAsync(productGuid);
@@ -147,8 +175,15 @@
 				return View();
 			}
 
-			return RedirectToAction(nameof(Index));
-        }
+			if (previousPage.Contains("CoreAdmin"))
+			{
+				return Redirect(previousPage);
+			}
+			else
+			{
+				return RedirectToAction(nameof(Index));
+			}
+		}
 
         [HttpGet]
         public async Task<IActionResult> ProductDetails(string id)

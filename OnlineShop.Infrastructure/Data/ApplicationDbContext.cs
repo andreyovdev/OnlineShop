@@ -7,13 +7,14 @@
     using Domain.Entities;
     using Configuration;
     using Identity;
+	using System.Diagnostics;
 
     public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        }
+		}
 
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Address> Addresses { get; set; } = null!;

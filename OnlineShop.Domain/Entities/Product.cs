@@ -1,6 +1,8 @@
 ﻿namespace OnlineShop.Domain.Entities
 {
     using Enums;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
 
     public class Product
     {
@@ -9,7 +11,9 @@
             this.Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+		[Display(AutoGenerateField = false)]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Guid Id { get; set; }
 
         public string Name { get; set; } = null!;
 
@@ -25,12 +29,15 @@
 
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<Wishlist> WishlistedByUsers { get; set; } =
+		[Display(AutoGenerateField = false)]
+		public virtual ICollection<Wishlist> WishlistedByUsers { get; set; } =
             new List<Wishlist>();
 
+		[Display(AutoGenerateField = false)]
 		public virtual ICollection<Cart> InCartByUsers { get; set; } =
 			new List<Cart>();
 
+		[Display(AutoGenerateField = false)]
 		public virtual ICollection<Purchase> PurchasedByUsers { get; set; } =
 			new List<Purchase>();
 	}

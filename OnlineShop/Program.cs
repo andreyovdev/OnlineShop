@@ -6,6 +6,7 @@ using OnlineShop.Application.Mapping;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.ViewModels.Shop;
 using OnlineShop.Domain.Entities;
+using OnlineShop.Domain.Enums;
 using OnlineShop.Infrastructure.Data;
 using OnlineShop.Infrastructure.Data.SeedData;
 using OnlineShop.Infrastructure.Extensions;
@@ -19,6 +20,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddCustomCoreAdmin();
 
 builder.Services.AddScoped<DatabaseSeeder>();
 
