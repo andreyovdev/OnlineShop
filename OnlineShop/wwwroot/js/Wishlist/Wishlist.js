@@ -71,6 +71,7 @@
                 setupWishlistButtons();
                 productsInWishlistCount = response.products.length;
 
+
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
@@ -102,6 +103,14 @@
                         $pageHeading.css('display', 'none');
                     }
 
+                    //Update products in wishlist number on navigation bar
+                    wishlistCount--;
+                    wishlistCountElement.textContent = `${wishlistCount}`
+                    if (wishlistCount === 0) {
+                        wishlistCountElement.style.display = 'none';
+                    } else {
+                        wishlistCountElement.style.display = 'block';
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);

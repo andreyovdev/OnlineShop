@@ -1,18 +1,11 @@
 ﻿namespace OnlineShop.Infrastructure.Extensions
 {
-	using Microsoft.AspNetCore.Builder;
-	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
-	using Microsoft.AspNetCore.Identity;
-	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-	using Microsoft.Extensions.Configuration;
+
+	using DotNetEd.CoreAdmin;
 
 	using Infrastructure.Data;
-	using Infrastructure.Identity;
-	using DotNetEd.CoreAdmin;
-	using OnlineShop.Domain.Entities;
-	using Microsoft.Extensions.Options;
-	using System.Diagnostics;
+	using Domain.Entities;
 
 	public static class CustomCoreAdminExtension
 	{

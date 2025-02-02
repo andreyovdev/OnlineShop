@@ -1,7 +1,7 @@
-﻿using OnlineShop.Application.ViewModels.Purchase;
-
-namespace OnlineShop.Application.Services.Interfaces
+﻿namespace OnlineShop.Application.Services.Interfaces
 {
+    using ViewModels.Purchase;
+    
     public interface IPurchaseService
     {
         Task<IEnumerable<PurchaseViewModel>> GetAllPurchasesAsync(Guid userProfileId);

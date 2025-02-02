@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using AutoMapper;
-
     using Domain.Entities;
     using Mapping;
 

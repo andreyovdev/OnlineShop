@@ -8,8 +8,8 @@
         </a>
     </div>
     <div class="nav-input-search">
-            <input name="input" placeholder="Search" value="@(ViewData["SearchProductInput"])" spellcheck="false" />
-        <a asp-controller="Shop" asp-action="Index">
+        <input id="searchInput" name="input" placeholder="Search" spellcheck="false" />
+        <a id="searchLink" href="#" onclick="updateSearchLink()">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="13px" width="13px" xmlns="http://www.w3.org/2000/svg">
                     <path fill="none" stroke="#000" stroke-width="2" d="M15,15 L22,22 L15,15 Z M9.5,17 C13.6421356,17 17,13.6421356 17,9.5 C17,5.35786438 13.6421356,2 9.5,2 C5.35786438,2 2,5.35786438 2,9.5 C2,13.6421356 5.35786438,17 9.5,17 Z"></path>
                 </svg>
@@ -22,28 +22,28 @@
         }
         @if (@User!.Identity!.IsAuthenticated)
         {
-            <a asp-controller="Profile" asp-action="Index">Profile</a>
+            <a asp-controller="Profile" asp-action="Index" id="profile-link">Profile</a>
         } 
         else
         {
             <a asp-area="Identity" asp-page="/Account/Login">Login</a>
         }
-        <a asp-controller="Shop" asp-action="Index">Shop</a>
-        <a asp-controller="Wishlist" asp-action="Index">
+        <a asp-controller="Shop" asp-action="Index" id="shop-link">Shop</a>
+        <a asp-controller="Wishlist" asp-action="Index" id="wishlist-link">
             <span class="cart-text">Wishlist</span>
             <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="wishlist" height="25" width="25" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0122 5.57169L10.9252 4.48469C8.77734 2.33681 5.29493 2.33681 3.14705 4.48469C0.999162 6.63258 0.999162 10.115 3.14705 12.2629L11.9859 21.1017L11.9877 21.0999L12.014 21.1262L20.8528 12.2874C23.0007 10.1395 23.0007 6.65711 20.8528 4.50923C18.705 2.36134 15.2226 2.36134 13.0747 4.50923L12.0122 5.57169ZM11.9877 18.2715L16.9239 13.3352L18.3747 11.9342L18.3762 11.9356L19.4386 10.8732C20.8055 9.50635 20.8055 7.29028 19.4386 5.92344C18.0718 4.55661 15.8557 4.55661 14.4889 5.92344L12.0133 8.39904L12.006 8.3918L12.005 8.39287L9.51101 5.89891C8.14417 4.53207 5.92809 4.53207 4.56126 5.89891C3.19442 7.26574 3.19442 9.48182 4.56126 10.8487L7.10068 13.3881L7.10248 13.3863L11.9877 18.2715Z" fill="currentColor"></path>
             </svg>
-            <span class="cart-count cart-count-mobile"> 2 </span>
+            <span class="wishlist-count" style="display:none;"></span>
         </a>
-        <a asp-controller="Cart" asp-action="Index">
+        <a asp-controller="Cart" asp-action="Index" id="cart-link">
             <span class="cart-text">Cart</span>
             <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="cart" height="25" width="25" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.79166 2H1V4H4.2184L6.9872 16.6776H7V17H20V16.7519L22.1932 7.09095L22.5308 6H6.6552L6.08485 3.38852L5.79166 2ZM19.9869 8H7.092L8.62081 15H18.3978L19.9869 8Z" fill="currentColor"></path>
                 <path d="M10 22C11.1046 22 12 21.1046 12 20C12 18.8954 11.1046 18 10 18C8.89543 18 8 18.8954 8 20C8 21.1046 8.89543 22 10 22Z" fill="currentColor"></path>
                 <path d="M19 20C19 21.1046 18.1046 22 17 22C15.8954 22 15 21.1046 15 20C15 18.8954 15.8954 18 17 18C18.1046 18 19 18.8954 19 20Z" fill="currentColor"></path>
             </svg>
-            <span class="cart-count cart-count-mobile"> 2 </span>
+            <span class="cart-count" style="display:none;"></span>
         </a>
     </div>
     <div class="hamburger-icon">
@@ -51,7 +51,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 3C1.22386 3 1 3.22386 1 3.5C1 3.77614 1.22386 4 1.5 4H13.5C13.7761 4 14 3.77614 14 3.5C14 3.22386 13.7761 3 13.5 3H1.5ZM1 7.5C1 7.22386 1.22386 7 1.5 7H13.5C13.7761 7 14 7.22386 14 7.5C14 7.77614 13.7761 8 13.5 8H1.5C1.22386 8 1 7.77614 1 7.5ZM1 11.5C1 11.2239 1.22386 11 1.5 11H13.5C13.7761 11 14 11.2239 14 11.5C14 11.7761 13.7761 12 13.5 12H1.5C1.22386 12 1 11.7761 1 11.5Z" fill="currentColor"></path>
         </svg>
     </div>
-    <div class="cross-tab-icon cross-tab-icon-mobile">
+    <div class="cross-tab-icon cross-tab-icon-mobile" style="display: none;">
         <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" color="rgb(106, 106, 65)" height="25" width="25" xmlns="http://www.w3.org/2000/svg" style="color: rgb(106, 106, 65);">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor">
             </path>

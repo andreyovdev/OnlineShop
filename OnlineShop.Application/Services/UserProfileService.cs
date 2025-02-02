@@ -1,11 +1,12 @@
 ﻿namespace OnlineShop.Application.Services
 {
-	using Interfaces;
-	using Domain.Entities;
-	using Infrastructure.Data.Repository.Interfaces;
 	using Microsoft.EntityFrameworkCore;
-    using OnlineShop.Application.ViewModels.Profile;
-    using OnlineShop.Application.Mapping;
+
+	using Interfaces;
+    using Mapping;
+	using Domain.Entities;
+    using ViewModels.Profile;
+	using Infrastructure.Data.Repository.Interfaces;
 
     public class UserProfileService : BaseService, IUserProfileService
 	{
@@ -39,7 +40,7 @@
 			return true;
 		}
 
-        public async Task<UserProfileViewModel> GetUserProfileById(Guid userProfileId)
+		public async Task<UserProfileViewModel> GetUserProfileById(Guid userProfileId)
         {
             return await this.userProfileRepository
             .GetAllAttached()
@@ -60,5 +61,6 @@
 
 			return userProfile.Id;
 		}
+
 	}
 }

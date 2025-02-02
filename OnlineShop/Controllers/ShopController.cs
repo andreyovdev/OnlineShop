@@ -1,11 +1,10 @@
 ﻿namespace OnlineShop.Web.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+
 	using Application.Services.Interfaces;
 	using Application.ViewModels.Shop;
-	using DotNetEd.CoreAdmin.Controllers;
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Components.RenderTree;
-	using Microsoft.AspNetCore.Mvc;
 
 	using static Application.Extensions.ControllerExtensions;
 
@@ -15,13 +14,15 @@
 
 		private readonly IProductService productService;
 		private readonly IWishlistService wishlistService;
+		private readonly ICartService cartService;
 		private readonly IUserProfileService userProfileService;
 
-		public ShopController(IProductService productService, IWishlistService wishlistService, IUserProfileService userProfileService)
+		public ShopController(IProductService productService, IWishlistService wishlistService, ICartService cartService, IUserProfileService userProfileService)
         {
             this.productService = productService;
             this.wishlistService = wishlistService;
-            this.userProfileService = userProfileService;
+            this.cartService = cartService;
+			this.userProfileService = userProfileService;
 		}
 
 		[HttpGet]
@@ -144,6 +145,13 @@
 		[Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveProduct(string id)
         {
+			Guid userProfileGuid = await this.GetUserProfileGuid(userProfileService);
+
+			if (userProfileGuid == Guid.Empty)
+			{
+				return View();
+			}
+
 			HttpContext.Session.SetString("PreviousPage", Request.Headers["Referer"].ToString());
 
 			Guid productGuid = Guid.Empty;
@@ -156,7 +164,13 @@
             RemoveProductViewModel formModel = await productService
                 .GetRemoveProductByIdAsync(productGuid);
 
-            return View(formModel);
+			bool removingProductFromWishlists = await wishlistService
+				.RemoveProductFromWishlist(userProfileGuid, productGuid);
+
+			bool removingProductFromCarts = await cartService
+				.RemoveProductFromCart(userProfileGuid, productGuid);
+
+			return View(formModel);
         }
 
 		[HttpPost]

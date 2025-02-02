@@ -1,11 +1,12 @@
-﻿using AutoMapper;
-using OnlineShop.Application.Mapping;
-using OnlineShop.Application.ViewModels.Shop;
-using System.ComponentModel.DataAnnotations;
-using static OnlineShop.Application.ViewModels.Validation.ViewModelValidationMessages;
-
-namespace OnlineShop.Application.ViewModels.Address
+﻿namespace OnlineShop.Application.ViewModels.Address
 {
+	using System.ComponentModel.DataAnnotations;
+
+	using AutoMapper;
+	using Mapping;
+
+	using static OnlineShop.Application.ViewModels.Validation.ViewModelValidationMessages;
+
 	public class EditAddressViewModel : IHaveCustomMappings
 	{
 		[Required]

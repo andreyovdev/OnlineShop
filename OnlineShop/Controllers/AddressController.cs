@@ -1,13 +1,13 @@
 ﻿namespace OnlineShop.Web.Controllers
 {
+	using System.Diagnostics;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-	using OnlineShop.Application.Extensions;
-	using OnlineShop.Application.Services;
-	using OnlineShop.Application.Services.Interfaces;
-	using OnlineShop.Application.ViewModels.Address;
-	using OnlineShop.Application.ViewModels.Shop;
-	using System.Diagnostics;
+
+	using Application.Extensions;
+	using Application.Services.Interfaces;
+	using Application.ViewModels.Address;
 
 	public class AddressController : Controller
     {

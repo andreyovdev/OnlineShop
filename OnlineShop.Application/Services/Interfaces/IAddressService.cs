@@ -1,8 +1,7 @@
-﻿using OnlineShop.Application.ViewModels.Address;
-using OnlineShop.Application.ViewModels.Shop;
-
-namespace OnlineShop.Application.Services.Interfaces
+﻿namespace OnlineShop.Application.Services.Interfaces
 {
+	using ViewModels.Address;
+
 	public interface IAddressService
 	{
 		Task<AddressViewModel> GetAddressAsync(Guid userProfileId);

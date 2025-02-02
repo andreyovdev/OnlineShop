@@ -1,9 +1,9 @@
 ﻿namespace OnlineShop.Application.Filters
 {
-	using OnlineShop.Application.ViewModels.Shop;
-	using OnlineShop.Domain.Entities;
-	using OnlineShop.Domain.Enums;
 	using System.Linq.Expressions;
+
+	using ViewModels.Shop;
+	using Domain.Entities;
 
 	public class ProductSorter
 	{

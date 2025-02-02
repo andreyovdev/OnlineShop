@@ -121,7 +121,6 @@
 .product-card-buttons {
     position: relative;
     display: flex;
-    z-index: 5;
     gap: 10px;
 }
 

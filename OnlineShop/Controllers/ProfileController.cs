@@ -2,11 +2,10 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using OnlineShop.Application.Extensions;
-    using OnlineShop.Application.Services;
-    using OnlineShop.Application.Services.Interfaces;
-    using OnlineShop.Application.ViewModels.Profile;
-    using OnlineShop.Domain.Entities;
+
+    using Application.Extensions;
+    using Application.Services.Interfaces;
+    using Application.ViewModels.Profile;
 
     public class ProfileController : Controller
     {

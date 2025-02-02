@@ -1,8 +1,7 @@
 ﻿namespace OnlineShop.Application.ViewModels.Shop
 {
     using AutoMapper;
-
-    using Application.Mapping;
+    using Mapping;
     using Domain.Entities;
 
     public class ProductDetailsViewModel : IMapFrom<Product>, IHaveCustomMappings

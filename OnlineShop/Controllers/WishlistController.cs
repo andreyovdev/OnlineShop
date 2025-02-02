@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Application.Services.Interfaces;
-
-namespace OnlineShop.Web.Controllers
+﻿namespace OnlineShop.Web.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+
+	using Application.Services.Interfaces;
+
 	using static Application.Extensions.ControllerExtensions;
 	
 	public class WishlistController : Controller

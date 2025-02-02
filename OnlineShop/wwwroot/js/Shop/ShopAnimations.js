@@ -1,12 +1,12 @@
 $(document).ready(function () {
     const $document = $(document);
 
-    // Filter Button Toggle for Mobile
+    // Filter nutton toggle for mobile
     $document.on('click', '.close-tab', function () {
         const filterContainer = document.querySelector('.filter-container');
         const filterHeader = document.querySelector('.filter-header');
         const filterTypeContainer = document.querySelector('.filter-types-container');
-        const resetBtn = document.querySelector('.reset-btn-hide');
+        const resetBtn = document.querySelector('.rst-btn');
         const crossSvg = document.querySelector('.cross-svg');
         const listSvg = document.querySelector('.list-svg');
 
@@ -20,6 +20,7 @@ $(document).ready(function () {
 
             filterTypeContainer.classList.toggle('filter-types-container-mobile');
 
+
             resetBtn.classList.toggle('reset-btn');
             resetBtn.classList.toggle('reset-btn-hide');
 
@@ -30,11 +31,12 @@ $(document).ready(function () {
             } else {
                 crossSvg.style.display = 'none';
                 listSvg.style.display = 'inline';
+
             }
         }
     });
 
-    // Product Card Tilt and Image Hover Effects
+    // Product card tilt and image hover effects
     $document.on('mousemove', '.product-card', function (e) {
         const card = e.currentTarget;
         const { width, height, left, top } = card.getBoundingClientRect();

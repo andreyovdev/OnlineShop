@@ -6,7 +6,6 @@ using OnlineShop.Application.Mapping;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.ViewModels.Shop;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Domain.Enums;
 using OnlineShop.Infrastructure.Data;
 using OnlineShop.Infrastructure.Data.SeedData;
 using OnlineShop.Infrastructure.Extensions;

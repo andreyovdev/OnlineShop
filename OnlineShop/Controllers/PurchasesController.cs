@@ -2,16 +2,16 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using OnlineShop.Application.Extensions;
-    using OnlineShop.Application.Services;
-    using OnlineShop.Application.Services.Interfaces;
 
-	public class PurchaseController : Controller
+    using Application.Extensions;
+    using Application.Services.Interfaces;
+
+	public class PurchasesController : Controller
     {
         private readonly IPurchaseService purchaseService;
         private readonly IUserProfileService userProfileService;
 
-        public PurchaseController(IPurchaseService purchaseService, IUserProfileService userProfileService)
+        public PurchasesController(IPurchaseService purchaseService, IUserProfileService userProfileService)
         {
             this.purchaseService = purchaseService;
             this.userProfileService = userProfileService;

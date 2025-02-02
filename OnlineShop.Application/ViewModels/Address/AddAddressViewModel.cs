@@ -1,9 +1,11 @@
-﻿using OnlineShop.Application.Mapping;
-using System.ComponentModel.DataAnnotations;
-using static OnlineShop.Application.ViewModels.Validation.ViewModelValidationMessages;
-
-namespace OnlineShop.Application.ViewModels.Address
+﻿namespace OnlineShop.Application.ViewModels.Address
 {
+	using System.ComponentModel.DataAnnotations;
+
+	using Mapping;
+
+	using static OnlineShop.Application.ViewModels.Validation.ViewModelValidationMessages;
+
 	public class AddAddressViewModel : IMapTo<Domain.Entities.Address>
 	{
 		[Required(ErrorMessage = RequiredMessage)]

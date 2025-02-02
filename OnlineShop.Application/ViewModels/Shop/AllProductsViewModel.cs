@@ -1,7 +1,6 @@
 ﻿namespace OnlineShop.Application.ViewModels.Shop
 {
     using AutoMapper;
-
     using Application.Mapping;
     using Domain.Entities;
 

@@ -1,16 +1,12 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-
-using OnlineShop.Application.Mapping;
-using OnlineShop.Application.Services.Interfaces;
-using OnlineShop.Application.ViewModels.Cart;
-using OnlineShop.Application.ViewModels.Wishlist;
-using OnlineShop.Domain.Entities;
-using OnlineShop.Infrastructure.Data.Repository.Interfaces;
-using System.Diagnostics;
-
-namespace OnlineShop.Application.Services
+﻿namespace OnlineShop.Application.Services
 {
+	using Microsoft.EntityFrameworkCore;
+
+	using Interfaces;
+	using ViewModels.Cart;
+	using Domain.Entities;
+	using Infrastructure.Data.Repository.Interfaces;
+
 	public class CartService : BaseService, ICartService
 	{
 		private readonly IRepository<Cart> cartRepository;
@@ -58,6 +54,9 @@ namespace OnlineShop.Application.Services
 
 			cartRepository.Add(cartItem);
 			await cartRepository.SaveAsync();
+
+			//userProfileRepository.AddToCart(cartItem);
+			//userProfileRepository.SaveChanges();
 
 			return true;
 		}
@@ -151,6 +150,16 @@ namespace OnlineShop.Application.Services
 				await cartRepository.SaveAsync();
 
 			return selectedQuantity;
+		}
+
+		public async Task<int> GetProductsInCartCountAsync(Guid userProfileGuid)
+		{
+			var cartItemsCount = await cartRepository
+			.GetAllAttached()
+			.Where(w => w.UserProfileId == userProfileGuid)
+			.CountAsync();
+
+			return cartItemsCount;
 		}
 	}
 }

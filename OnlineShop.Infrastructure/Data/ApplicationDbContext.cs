@@ -7,7 +7,6 @@
     using Domain.Entities;
     using Configuration;
     using Identity;
-	using System.Diagnostics;
 
     public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {

@@ -1,16 +1,15 @@
 ﻿namespace OnlineShop.Application.Extensions
 {
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Http;
 
 	using Services.Interfaces;
 	using Infrastructure.Extensions;
-	using Microsoft.AspNetCore.Http;
 
 	public static class ControllerExtensions
 	{
 		public static async Task<Guid> GetUserProfileGuid(this Controller controller, IUserProfileService userProfileService)
 		{
-
 			string? userId = controller.User.GetUserId();
 
 			if (userId == null)

@@ -35,8 +35,7 @@
             const buttonElement = $(this);
 
             if (!isUserAuthenticated) {
-                console.log("unauthorized");
-                return;
+                window.location.href = "/Identity/Account/Login";
             }
 
             $.ajax({
@@ -47,8 +46,20 @@
                 success: function () {
                     if (buttonElement.text().trim() === 'Add to Wishlist') {
                         buttonElement.text('Remove from Wishlist');
+
+                        wishlistCount++;
                     } else {
                         buttonElement.text('Add to Wishlist');
+
+                        wishlistCount--;
+                    }
+
+                    //Update products in wishlist number on navigation bar
+                    wishlistCountElement.textContent = `${wishlistCount}`
+                    if (wishlistCount === 0) {
+                        wishlistCountElement.style.display = 'none';
+                    } else {
+                        wishlistCountElement.style.display = 'block';
                     }
                 },
                 error: function (xhr, status, error) {
@@ -63,8 +74,7 @@
             const buttonElement = $(this);
 
             if (!isUserAuthenticated) {
-                console.log("unauthorized");
-                return;
+                window.location.href = "/Identity/Account/Login";
             }
 
             $.ajax({
@@ -76,8 +86,20 @@
 
                     if (buttonElement.text().trim() === 'Add to Cart') {
                         buttonElement.text('Remove from Cart');
+
+                        cartCount++;
                     } else {
                         buttonElement.text('Add to Cart');
+
+                        cartCount--;
+                    }
+
+                    //Update products in cart number on navigation bar
+                    cartCountElement.textContent = `${cartCount}`
+                    if (cartCount === 0) {
+                        cartCountElement.style.display = 'none';
+                    } else {
+                        cartCountElement.style.display = 'block';
                     }
                 },
                 error: function (xhr, status, error) {

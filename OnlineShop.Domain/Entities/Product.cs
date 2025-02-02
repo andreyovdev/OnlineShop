@@ -1,8 +1,9 @@
 ﻿namespace OnlineShop.Domain.Entities
 {
-    using Enums;
 	using System.ComponentModel.DataAnnotations;
 	using System.ComponentModel.DataAnnotations.Schema;
+
+    using Enums;
 
     public class Product
     {

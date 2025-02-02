@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Application.Services.Interfaces;
-using OnlineShop.Application.ViewModels.Purchase;
-using OnlineShop.Domain.Entities;
-using OnlineShop.Infrastructure.Data.Repository.Interfaces;
-
-namespace OnlineShop.Application.Services
+﻿namespace OnlineShop.Application.Services
 {
-    public class PurchaseService : BaseService, IPurchaseService
+	using Microsoft.EntityFrameworkCore;
+
+	using Interfaces;
+	using ViewModels.Purchase;
+	using Domain.Entities;
+	using Infrastructure.Data.Repository.Interfaces;
+
+	public class PurchaseService : BaseService, IPurchaseService
     {
         private readonly IRepository<UserProfile> userProfileRepository;
         private readonly IRepository<Purchase> purchaseRepository;
@@ -45,7 +46,6 @@ namespace OnlineShop.Application.Services
 
             return purchases;
         }
-
 
         public async Task<bool> CreatePurchase(Guid userProfileId)
         {

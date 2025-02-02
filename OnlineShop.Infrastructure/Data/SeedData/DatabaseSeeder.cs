@@ -1,13 +1,11 @@
 ﻿namespace OnlineShop.Infrastructure.Data.SeedData
 {
-	using System.Diagnostics;
 	using Microsoft.AspNetCore.Identity;
 
 	using Newtonsoft.Json;
 
 	using Domain.Entities;
 	using Identity;
-	using Microsoft.EntityFrameworkCore;
 
 	public class DatabaseSeeder : IDatabaseSeeder
 	{
@@ -27,13 +25,10 @@
 		public async Task SeedAsync()
 		{
 			await SeedProductsAsync();
-
-
 			await SeedUsersAsync();
 			await SeedRolesAsync();
 			await SeedUserRolesAsync();
 			await SeedUserProfiles();
-
 			await SeedAddressesAsync();
 		}
 

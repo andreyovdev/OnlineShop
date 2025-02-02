@@ -1,143 +1,163 @@
 .auth-form-container {
-    position: absolute;
-    inset: 0;
-    z-index: 6;
-    margin-top: 100px;
+	position: absolute;
+	inset: 0;
+	z-index: 6;
+	margin-top: 100px;
 }
 
-    .auth-form-container .auth-input-container {
-        inset: 0;
-        background-color: rgb(255, 255, 255);
-        margin: auto;
-        width: 290px;
-        height: 580px;
-        text-align: center;
-        border-radius: 10px;
-        box-shadow: 0px 0px 23px 0px rgb(222, 222, 222);
-        position: relative;
-        height: auto;
-        box-sizing: border-box;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
+.auth-form-container .auth-input-container {
+	inset: 0;
+	background-color: rgb(255, 255, 255);
+	margin: auto;
+	width: 290px;
+	height: 580px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0px 0px 23px 0px rgb(222, 222, 222);
+	position: relative;
+	height: auto;
+	box-sizing: border-box;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
 
 .auth-input-container h1 {
-    margin-top: 25px;
-    color: rgb(33, 33, 33);
-    margin-bottom: 25px;
-    font-size: 1.5em;
+	margin-top: 25px;
+	color: rgb(33, 33, 33);
+	margin-bottom: 25px;
+	font-size: 1.5em;
 }
 
 .auth-form-container .auth-input-container input,
 .auth-form-container .auth-input-container button {
-    padding: 8px 16px;
-    display: block;
-    width: 90%;
-    margin: 12px auto;
-    border: 1px solid rgb(226, 226, 226);
-    border-radius: 5px;
-    font-size: 16px;
+	padding: 8px 16px;
+	display: block;
+	width: 90%;
+	margin: 12px auto;
+	border: 1px solid rgb(226, 226, 226);
+	border-radius: 5px;
+	font-size: 16px;
 }
 
 .auth-form-container .auth-input-container textarea {
-    padding: 8px 16px;
-    display: block;
-    width: 90%;
-    margin: 12px auto;
-    border: 1px solid rgb(226, 226, 226);
-    border-radius: 5px;
-    resize: none;
-    font-size: 16px;
+	padding: 8px 16px;
+	display: block;
+	width: 90%;
+	margin: 12px auto;
+	border: 1px solid rgb(226, 226, 226);
+	border-radius: 5px;
+	resize: none;
+	font-size: 16px;
 }
 
 .auth-form-container .auth-input-container span {
-    display: block;
+	display: block;
 }
 
 .auth-form-container .submit {
-    font-size: 16px;
-    color: white;
-    background-color: var(--primary-color);
-    font-weight: 600;
-    display: inline;
+	font-size: 16px;
+	color: white;
+	background-color: var(--primary-color);
+	font-weight: 600;
+	display: inline;
 }
 
-    .auth-form-container .submit:hover {
-        cursor: pointer;
-        background-color: black;
-    }
+.auth-form-container .submit:hover {
+	cursor: pointer;
+	background-color: black;
+}
 
 .auth-form-container .btn-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 0 20px;
 }
 
-    .auth-form-container .btn-container a {
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        margin-bottom: 16px;
-        border: 1px solid rgb(226, 226, 226);
-    }
+.auth-form-container .btn-container a {
+	border: none;
+	padding: 8px 16px;
+	border-radius: 5px;
+	margin-bottom: 16px;
+	border: 1px solid rgb(226, 226, 226);
+}
 
-        .auth-form-container .btn-container a:hover {
-            cursor: pointer;
-            background-color: black;
-            color: white;
-        }
+.auth-form-container .btn-container a:hover {
+	cursor: pointer;
+	background-color: black;
+	color: white;
+}
 
-        .auth-form-container .btn-container a:last-child {
-            flex-grow: 1;
-            margin-left: 0;
-            font-size: 14px;
-            line-height: 15px;
-        }
+.auth-form-container .btn-container a:last-child {
+	flex-grow: 1;
+	margin-left: 0;
+	font-size: 14px;
+	line-height: 15px;
+}
 
-    .auth-form-container .btn-container .sign-up-btn {
-        color: grey;
-        border: none;
-    }
+.auth-form-container .btn-container .sign-up-btn {
+	color: grey;
+	border: none;
+}
 
-        .auth-form-container .btn-container .sign-up-btn:hover {
-            color: black;
-            background-color: white;
-        }
+.auth-form-container .btn-container .sign-up-btn:hover {
+	color: black;
+	background-color: white;
+}
 
-    .auth-form-container .btn-container .delete-btn {
-        background-color: rgb(139, 0, 0);
-        font-weight: 600;
-        color: white;
-    }
+.auth-form-container .btn-container .delete-btn {
+	background-color: rgb(139, 0, 0);
+	font-weight: 600;
+	color: white;
+}
 
 .remember-me-item label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
 }
 
 .remember-me-item p {
-    min-width: 120px;
-    display: inline-block;
-    user-select: none;
+	min-width: 120px;
+	display: inline-block;
+	user-select: none;
 }
 
 .auth-form-container .btn-container .delete-btn:hover {
-    background-color: black;
+	background-color: black;
 }
 
 .warning {
-    color: rgb(221, 63, 63);
+	color: rgb(221, 63, 63);
+}
+
+.demo-tip {
+	inset: 0;
+	margin: auto;
+	width: 290px;
+	height: 580px;
+	text-align: center;
+	border-radius: 10px;
+	position: relative;
+	height: auto;
+	box-sizing: border-box;
+	overflow: hidden;
+	transition: all 0.3s ease;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.demo-tip * {
+	color: gray;
 }
 
 @media (min-width: 768px) {
-    .auth-input-container h1 {
-        font-size: 2em;
-    }
+	.auth-input-container h1 {
+		font-size: 2em;
+	}
 
-    .auth-form-container .auth-input-container {
-        width: 390px;
-    }
+	.auth-form-container .auth-input-container {
+		width: 390px;
+	}
 }

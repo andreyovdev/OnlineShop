@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     const cartContainer = document.querySelector('.cart-container');
     const $cartCardContainer = $('.cart-products-container');
     const $cartAddressContainer = $('.cart-address-container');
@@ -124,6 +124,15 @@
 
                     delete productPrices[productId];
                     updateSummary();
+
+                    //Update products in cart number on navigation bar
+                    cartCount--;
+                    cartCountElement.textContent = `${cartCount}`
+                    if (cartCount === 0) {
+                        cartCountElement.style.display = 'none';
+                    } else {
+                        cartCountElement.style.display = 'block';
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);
@@ -169,7 +178,6 @@
                 }
             });
         
-
     }
 
     function updateSummary() {

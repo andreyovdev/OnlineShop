@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using OnlineShop.Application.Mapping;
-using OnlineShop.Domain.Entities;
-
-namespace OnlineShop.Application.ViewModels.Cart
+﻿namespace OnlineShop.Application.ViewModels.Cart
 {
 	public class CartProductViewModel
 	{

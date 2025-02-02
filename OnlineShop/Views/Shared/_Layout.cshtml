@@ -21,6 +21,8 @@
 
 	<script>
 		var isUserAuthenticated = '@User.Identity.IsAuthenticated'.toLowerCase() === 'true';
+
+		var baseUrl = '@ViewData["BaseUrl"]';
 	</script>
 </head>
 <body>
@@ -30,7 +32,8 @@
 			@if (!hideLayoutParts)
 			{
 				@await Html.PartialAsync("_HeaderPartial.cshtml");
-				<script src="~/js/Header.js" asp-append-version="true"></script> 
+				<script src="~/js/HeaderAnimations.js" asp-append-version="true"></script>
+				<script src="~/js/Header.js" asp-append-version="true"></script>
 			}
 
 			@RenderBody()

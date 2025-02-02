@@ -9,6 +9,7 @@
         "IsDeleted": false
     },
     {
+        "Id": "18229F0C-42ED-45A1-ADD4-F625C97F676B",
         "Name": "Sky Factor",
         "Category": 0,
         "Price": 399.99,
@@ -27,6 +28,7 @@
         "IsDeleted": false
     },
     {
+        "Id": "7FAC8FDF-3076-40E7-965C-D35A86C35EDC",
         "Name": "Trail Blazer",
         "Category": 1,
         "Price": 1299.99,
@@ -41,7 +43,7 @@
         "Price": 3499.99,
         "ImgUrl": "/images/shop/mountain2.png",
         "Description": "A versatile bike designed for both climbing and descending, with a strong frame, mid-range suspension, and aggressive tires to handle a variety of mountain terrains.",
-        "Quantity": 10,
+        "Quantity": 0,
         "IsDeleted": false
     },
     {
@@ -54,6 +56,7 @@
         "IsDeleted": false
     },
     {
+        "Id": "A2180FFC-5FDA-46FA-AC5B-612E1BF2A4E0",
         "Name": "Cosmic 5000",
         "Category": 2,
         "Price": 2249.99,
@@ -63,6 +66,7 @@
         "IsDeleted": false
     },
     {
+        "Id": "92210C0E-91B7-4DD5-B4D5-03FE3EDF522C",
         "Name": "AeroVibe Elite",
         "Category": 2,
         "Price": 999.99,
@@ -80,13 +84,114 @@
         "Quantity": 10,
         "IsDeleted": false
     },
+
     {
-        "Name": "aaa",
+        "Name": "Shadow Vortex",
+        "Category": 0,
+        "Price": 289.99,
+        "ImgUrl": "/images/shop/bmx1.png",
+        "Description": "A lightweight yet sturdy BMX built for aerial tricks and smooth landings, featuring reinforced pegs and a responsive frame for ultimate control.",
+        "Quantity": 1,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Neon Apex",
+        "Category": 0,
+        "Price": 379.99,
+        "ImgUrl": "/images/shop/bmx2.png",
+        "Description": "A vibrant freestyle BMX designed for park and street riding, with a sleek frame, grippy tires, and a balanced geometry for seamless tricks.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Titan Stunt",
+        "Category": 0,
+        "Price": 459.99,
+        "ImgUrl": "/images/shop/bmx3.png",
+        "Description": "Built for aggressive riders, this BMX boasts a high-durability frame, low-profile tires, and a reinforced crankset to handle the toughest stunts.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Rockstorm XT",
+        "Category": 1,
+        "Price": 1199.99,
+        "ImgUrl": "/images/shop/mountain1.png",
+        "Description": "A rugged hardtail mountain bike equipped with front suspension, knobby tires, and an ultra-light frame, perfect for conquering rocky trails.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Thunder Ridge",
+        "Category": 1,
+        "Price": 3499.99,
+        "ImgUrl": "/images/shop/mountain2.png",
+        "Description": "A versatile all-mountain bike designed for both climbs and descents, featuring mid-travel suspension and precision gearing for optimal performance.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Summit Crusher",
+        "Category": 1,
+        "Price": 3299.99,
+        "ImgUrl": "/images/shop/mountain3.png",
+        "Description": "Engineered for extreme downhill runs, this bike has a full-suspension frame, hydraulic disc brakes, and a reinforced chassis for high-speed stability.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Stratos Glide ",
         "Category": 2,
-        "Price": 1899.99,
-        "ImgUrl": "/images/shop/road3.png",
-        "Description": "A lightweight, high-performance bike built for speed and efficiency on paved roads, featuring an aerodynamic frame, thin tires, and a smooth gearing system for competitive cycling.",
+        "Price": 1499.99,
+        "ImgUrl": "/images/shop/road1.png",
+        "Description": "A sleek endurance road bike with an aerodynamic frame, smooth gear transitions, and lightweight carbon components for effortless long-distance rides.",
         "Quantity": 0,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Velocity Pro",
+        "Category": 2,
+        "Price": 2199.99,
+        "ImgUrl": "/images/shop/road2.png",
+        "Description": "Built for competitive cycling, this road bike features a precision drivetrain, ultra-thin tires, and a lightweight yet stiff frame for maximum speed.",
+        "Quantity": 0,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Zenith Aero",
+        "Category": 2,
+        "Price": 3999.99,
+        "ImgUrl": "/images/shop/road3.png",
+        "Description": "A high-performance racing bike optimized for aerodynamics, equipped with deep-rim wheels, aggressive geometry, and wind-tunnel-tested design.",
+        "Quantity": 10,
+        "IsDeleted": false
+    },
+
+    {
+        "Name": "Storm Breaker ",
+        "Category": 0,
+        "Price": 329.99,
+        "ImgUrl": "/images/shop/bmx1.png",
+        "Description": "A tough and agile BMX designed for high-impact tricks, featuring a reinforced steel frame, responsive brakes, and grippy tires for ultimate control.",
+        "Quantity": 1,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Chrome Phantom",
+        "Category": 0,
+        "Price": 419.99,
+        "ImgUrl": "/images/shop/bmx2.png",
+        "Description": "A sleek, stylish BMX with a lightweight aluminum frame, smooth-rolling hubs, and a responsive crankset, perfect for street and park riding.",
+        "Quantity": 0,
+        "IsDeleted": false
+    },
+    {
+        "Name": "Blaze Edge",
+        "Category": 0,
+        "Price": 489.99,
+        "ImgUrl": "/images/shop/bmx3.png",
+        "Description": "Built for performance and style, this BMX features a durable chromoly frame, extra-wide handlebars, and a shock-absorbing saddle for maximum comfort during tricks.",
+        "Quantity": 10,
         "IsDeleted": false
     }
 ]

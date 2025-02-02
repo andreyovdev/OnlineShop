@@ -1,14 +1,13 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-
-using OnlineShop.Application.Mapping;
-using OnlineShop.Application.Services.Interfaces;
-using OnlineShop.Application.ViewModels.Wishlist;
-using OnlineShop.Domain.Entities;
-using OnlineShop.Infrastructure.Data.Repository.Interfaces;
-
-namespace OnlineShop.Application.Services
+﻿namespace OnlineShop.Application.Services
 {
+	using Microsoft.EntityFrameworkCore;
+
+	using Mapping;
+	using Interfaces;
+	using ViewModels.Wishlist;
+	using Domain.Entities;
+	using Infrastructure.Data.Repository.Interfaces;
+
 	public class WishlistService: BaseService, IWishlistService
 	{
 		private readonly IRepository<Wishlist> wishlistRepository;
@@ -84,6 +83,16 @@ namespace OnlineShop.Application.Services
 				.ToArrayAsync();
 
 			return products;
+		}
+
+		public async Task<int> GetProductsInWishlistCountAsync(Guid userProfileGuid)
+		{
+			var wishlistItemsCount = await wishlistRepository
+				.GetAllAttached() 
+				.Where(w => w.UserProfileId == userProfileGuid)
+				.CountAsync();
+
+			return wishlistItemsCount;
 		}
 	}
 }

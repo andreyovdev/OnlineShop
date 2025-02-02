@@ -4,14 +4,13 @@
 
     using Microsoft.EntityFrameworkCore;
     
+    using Filters;
     using Interfaces;
     using Mapping;
 	using Domain.Entities;
     using Domain.Enums;
 	using ViewModels.Shop;
 	using Infrastructure.Data.Repository.Interfaces;
-    using Filters;
-
 
 	public class ProductService : BaseService, IProductService
     {

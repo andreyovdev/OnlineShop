@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 	using Identity;
-	using Domain.Entities;
 
     using static Domain.Common.EntityValidationConstants.AppUser;
 

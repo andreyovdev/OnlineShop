@@ -2,14 +2,10 @@
 {
     using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.IdentityModel.Tokens;
     
     using Application.Services.Interfaces;
-    using Application.ViewModels.Shop;
-	using OnlineShop.Application.Extensions;
-	using Microsoft.AspNetCore.Cors.Infrastructure;
-	using OnlineShop.Application.Services;
-	using OnlineShop.Application.ViewModels.Cart;
+	using Application.Extensions;
+	using Application.ViewModels.Cart;
 
 	public class CartController : Controller
     {

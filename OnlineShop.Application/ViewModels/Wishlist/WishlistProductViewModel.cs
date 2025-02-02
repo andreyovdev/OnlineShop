@@ -1,7 +1,6 @@
 ﻿namespace OnlineShop.Application.ViewModels.Wishlist
 {
 	using AutoMapper;
-
 	using Mapping;
 	using Domain.Entities;
 

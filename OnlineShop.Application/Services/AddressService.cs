@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Application.Mapping;
-using OnlineShop.Application.Services.Interfaces;
-using OnlineShop.Application.ViewModels.Address;
-using OnlineShop.Application.ViewModels.Shop;
-using OnlineShop.Domain.Entities;
-using OnlineShop.Domain.Enums;
-using OnlineShop.Infrastructure.Data.Repository.Interfaces;
-
-namespace OnlineShop.Application.Services
+﻿namespace OnlineShop.Application.Services
 {
+	using Microsoft.EntityFrameworkCore;
+
+	using Mapping;
+	using Services.Interfaces;
+	using ViewModels.Address;
+	using Domain.Entities;
+	using Infrastructure.Data.Repository.Interfaces;
+
 	public class AddressService : IAddressService
 	{
 		private readonly IRepository<UserProfile> userProfileRepository;
@@ -20,7 +19,6 @@ namespace OnlineShop.Application.Services
 			this.addressRepository = addressRepository;
 		}
 
-		
 		public async Task<AddressViewModel> GetAddressAsync(Guid userProfileId)
 		{
 			var userProfile = await userProfileRepository.GetByIdAsync(userProfileId);
@@ -135,8 +133,6 @@ namespace OnlineShop.Application.Services
 				.Where(a => a.UserProfileId == userProfileId)
 				.To<EditAddressViewModel>()
 				.FirstOrDefaultAsync();
-
-			
 
 			if (address == null)
 			{

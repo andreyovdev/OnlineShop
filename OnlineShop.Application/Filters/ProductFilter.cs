@@ -4,7 +4,7 @@
 	
 	using ViewModels.Shop;
 	using Domain.Entities;
-	using OnlineShop.Domain.Enums;
+	using Domain.Enums;
 
 	public class ProductFilter
 	{
@@ -37,6 +37,11 @@
 				if (filter.PriceRanges.Contains("above-2000"))
 				{
 					priceRangeFilter = Or(priceRangeFilter, p => p.Price > 2000);
+				}
+
+				if (!filter.PriceRanges.Any(r => r == "below-200" || r == "201-999" || r == "1000-1999" || r == "above-2000"))
+				{
+					priceRangeFilter = p => true;
 				}
 
 				predicate = And(predicate, priceRangeFilter);
