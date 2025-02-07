@@ -40,9 +40,6 @@ Browse the newest & trending bikes and get yours today!
 - AntiForgeryToken
 - User secrets
 - Identity auth & roles
-  
-## Important Notes
-Set your connection string to "ApplicationDbContextConnection" in appsettings.json
 
 ## Credits
 UI design created by reference [ichiragtaluja/react-sneakers-app](https://github.com/ichiragtaluja/react-sneakers-app).  
