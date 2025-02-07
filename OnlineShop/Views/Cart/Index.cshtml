@@ -15,40 +15,50 @@
 
 <div>
 	<h1 class="page-heading" style="display: none;">Cart</h1>
-	 <div class="cart-container">
+	<div class="cart-container">
 		<div class="loading-message">
-		<h2>Loading...</h2>
+			<h2>Loading...</h2>
 		</div> 
-	<div class="no-product-message" style="display: none;">
-		<h2>Cart is empty.</h2>
-		<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-			<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
-			<circle cx="35" cy="40" r="5" fill="darkgray" />
-			<circle cx="65" cy="40" r="5" fill="darkgray" />
-			<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
-		</svg>
-	</div>
-	 <div class="cart-products-container" >
+		<div class="no-product-message" style="display: none;">
+			<h2>Cart is empty.</h2>
+			<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="50" cy="50" r="48" stroke="darkgray" stroke-width="2" fill="none" />
+				<circle cx="35" cy="40" r="5" fill="darkgray" />
+				<circle cx="65" cy="40" r="5" fill="darkgray" />
+				<path d="M40 65 Q50 60, 60 65" stroke="darkgray" stroke-width="2" fill="none" />
+			</svg>
+		</div>
+		<div class="cart-products-container" >
 		</div>
 		<div>
-			<div class="cart-address-container" style="display: none;">
-				<h1>Delivering To</h1>
-				<div class="address-information">
-					<div class="name">
-						<span>Name: </span>
-						<span>@Model.FullName</span>
+			@if(Model != null)
+			{
+					<div class="cart-address-container" style="display: none;">
+					<h1>Delivering To</h1>
+					<div class="address-information">
+						<div class="name">
+							<span>Name: </span>
+							<span>@Model.FullName</span>
+						</div>
+						<div class="address">
+							<span>Address: </span>
+							<span>@Model.DeliveryAddress</span>
+						</div>
+						<div class="contact">
+							<span>Contact: </span>
+							<span>@Model.PhoneNumber</span>
+						</div>
 					</div>
-					<div class="address">
-						<span>Address: </span>
-						<span>@Model.DeliveryAddress</span>
-					</div>
-					<div class="contact">
-						<span>Contact: </span>
-						<span>@Model.PhoneNumber</span>
-					</div>
+					<a asp-controller="Address" asp-action="EditAddress">Change</a>
 				</div>
-				<a href="/checkout">Change</a>
-			</div>
+			} 
+			else 
+			{
+					<div class="cart-address-container" style="display: none;">
+							<a asp-controller="Address" asp-action="AddAddress">Add Address</a>
+					</div>
+			}
+			
 			<div class="cart-price-container" style="display: none;">
 				<h1>Summary</h1>
 				<div class="subtotal-container">

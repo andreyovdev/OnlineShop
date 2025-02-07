@@ -6,7 +6,8 @@
 	using Application.Services.Interfaces;
 
 	using static Application.Extensions.ControllerExtensions;
-	
+	using System.Diagnostics;
+
 	public class WishlistController : Controller
 	{
 		private readonly IWishlistService wishlistService;

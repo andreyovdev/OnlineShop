@@ -7,8 +7,7 @@
         public AppUser()
         {
             this.Id = Guid.NewGuid();
-            this.UserName = Guid.NewGuid().ToString();
-        }
+		}
 
         public string FullName { get; set; }
     }

@@ -6,6 +6,7 @@
     using Application.Services.Interfaces;
 	using Application.Extensions;
 	using Application.ViewModels.Cart;
+	using OnlineShop.Application.ViewModels.Address;
 
 	public class CartController : Controller
     {
@@ -35,7 +36,7 @@
 
 			if (model == null)
 			{
-				return NotFound();
+				return View(model);
 			}
 
 			return View(model);

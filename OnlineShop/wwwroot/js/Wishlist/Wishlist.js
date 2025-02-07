@@ -32,7 +32,7 @@
                 <div class="wishlist-btn-container">
                     <button class="cart-wishlist-btn">
                         <a class="cart-add" style="display: ${isInCart ? 'none' : 'inline-block'};">Add To Cart</a>
-                        <a class="cart-added" href="/Cart/" style="display: ${isInCart ? 'inline-block' : 'none'};">View In Cart</a>
+                        <a class="cart-added" href="/Cart" style="display: ${isInCart ? 'inline-block' : 'none'};">View In Cart</a>
                      </button>
                     <button class="remove-from-wishlist-btn">Remove from Wishlist</button>
                 </div>
@@ -69,6 +69,8 @@
                     $wishlistCardContainer.append(renderWishlistCard(product));
                 });
                 setupWishlistButtons();
+                setupCartButtons();
+
                 productsInWishlistCount = response.products.length;
 
 
@@ -110,6 +112,56 @@
                         wishlistCountElement.style.display = 'none';
                     } else {
                         wishlistCountElement.style.display = 'block';
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    }
+
+    function setupCartButtons() {
+        $('.cart-wishlist-btn').on('click', function () {
+            const buttonElement = $(this).closest(".wishlist-card");
+            const productId = buttonElement.data('id');
+            const cartAddText = buttonElement.find('.cart-add');
+            const cartAddedText = buttonElement.find('.cart-added');
+
+            if (!isUserAuthenticated) {
+                window.location.href = "/Identity/Account/Login";
+            }
+
+            if (isProductInCart(productId)) {
+                console.log("already added")
+                return;
+            }
+
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(productId),
+                success: function (response) {
+                    if (response === false) {
+                        console.log("sorry you cant add this product to cart");
+                        return;
+                    }
+                    if (cartAddText.css('display') === 'none') {
+                        cartAddText.css('display', 'inline-block');
+                        cartAddedText.css('display', 'none');
+                    } else {
+                        cartAddText.css('display', 'none');
+                        cartAddedText.css('display', 'inline-block');
+                    }
+
+                    //Update products in cart number on navigation bar
+                    cartCount++;
+                    cartCountElement.textContent = `${cartCount}`
+                    if (cartCount === 0) {
+                        cartCountElement.style.display = 'none';
+                    } else {
+                        cartCountElement.style.display = 'block';
                     }
                 },
                 error: function (xhr, status, error) {
