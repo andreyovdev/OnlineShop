@@ -4,12 +4,11 @@
 
 Browse the newest & trending bikes and get yours today!
 
-!DEMO COMING SOON!  
-<a href="https://www.youtube.com/watch?v=a">
-  <img src="https://img.youtube.com/vi/a/maxresdefault.jpg" width="480" height="250" alt="YouTube Video">
+<a href="https://www.youtube.com/watch?v=utgvTQlJojo">
+  <img src="https://img.youtube.com/vi/utgvTQlJojo/maxresdefault.jpg" width="480" height="270" alt="YouTube Video">
 </a>
 
-[Watch Demo](https://www.youtube.com/watch?v=KZp7NGHTZ2Y)
+[Watch Demo](https://www.youtube.com/watch?v=utgvTQlJojo)
 
 # Pages & Features
 \- Home (Banner, Products & Categories)  
@@ -46,5 +45,5 @@ Browse the newest & trending bikes and get yours today!
 Set your connection string to "ApplicationDbContextConnection" in appsettings.json
 
 ## Credits
-UI design modified and adapted from [ichiragtaluja/react-sneakers-app](https://github.com/ichiragtaluja/react-sneakers-app).  
-Admin panel modified and adapted from [edandersen/core-admin](https://github.com/edandersen/core-admin).
+UI design created by reference [ichiragtaluja/react-sneakers-app](https://github.com/ichiragtaluja/react-sneakers-app).  
+Admin panel modified and adapted [edandersen/core-admin](https://github.com/edandersen/core-admin).
